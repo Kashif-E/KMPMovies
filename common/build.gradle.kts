@@ -50,6 +50,7 @@ kotlin {
                 implementation(libs.ktor.serialization.json)
                 implementation(libs.kotlin.serialization)
 
+
             }
         }
         val commonTest by getting {
@@ -61,8 +62,8 @@ kotlin {
             dependencies {
                 api(libs.androidx.appcompat)
                 api(libs.androidx.coreKtx)
-                implementation(libs.koin.compose)
                 implementation(libs.ktor.android)
+                implementation(libs.koin.compose)
             }
         }
         val androidUnitTest by getting {
@@ -75,6 +76,7 @@ kotlin {
                 api(compose.preview)
                 implementation(libs.koin.core)
                 implementation(libs.ktor.java)
+                implementation(libs.koin.compose)
             }
         }
         val desktopTest by getting
