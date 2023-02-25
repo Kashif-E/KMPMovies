@@ -16,7 +16,7 @@ koin-version = "3.3.3"
 koin-compose-version = "3.4.2"
 
 ktor_version = "2.2.3"
-kotlin-serialization = "1.5.30"
+kotlin-serialization = "1.5.0-RC"
 
 
 [libraries]
@@ -40,6 +40,6 @@ ktor-client-logging = {module = "io.ktor:ktor-client-logging", version.ref = "kt
 ktor-json = {module = "io.ktor:ktor-client-json", version.ref = "ktor_version"}
 ktor-serialization-json = {module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor_version"}
 ktor-contentnegotiation = {module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor_version"}
-kotlin-seriazation = {module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization"}
+kotlin-serialization = {module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlin-serialization"}
 
 junit = "junit:junit:4.13.2"

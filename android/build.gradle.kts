@@ -2,11 +2,14 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.application")
     kotlin("android")
+    kotlin("plugin.serialization")
+
 }
 
 dependencies {
     implementation(project(":common"))
     implementation(libs.androidx.activity.compose)
+    implementation(libs.koin.compose)
 }
 
 android {

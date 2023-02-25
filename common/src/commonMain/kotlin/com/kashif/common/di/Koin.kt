@@ -1,11 +1,16 @@
 package com.kashif.common.di
 
+import com.kashif.common.data.remote.AbstractKtorService
+import com.kashif.common.data.remote.KtorService
+import com.kashif.common.data.repository.AbstractRepository
+import com.kashif.common.data.repository.Repository
 import com.kashif.common.platformModule
 import io.ktor.client.*
 import io.ktor.client.engine.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
+import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
@@ -28,21 +33,25 @@ fun initKoin(baseUrl: String) = initKoin(enableNetworkLogs = true, baseUrl = bas
 fun commonModule(
     enableNetworkLogs: Boolean,
     baseUrl: String,
-) =   platformModule() + getDataModule(enableNetworkLogs, baseUrl)
+) = platformModule() + getDataModule(enableNetworkLogs, baseUrl)
 
 fun getDataModule(
     enableNetworkLogs: Boolean,
     baseUrl: String,
 ) = module {
+    single<AbstractRepository> { Repository(get()) }
+
+    single<AbstractKtorService> { KtorService(get(), baseUrl = baseUrl) }
 
     single { createJson() }
 
     single { createHttpClient(get(), get(), enableNetworkLogs = enableNetworkLogs) }
-
 }
 
 fun createHttpClient(httpClientEngine: HttpClientEngine, json: Json, enableNetworkLogs: Boolean) =
     HttpClient(httpClientEngine) {
+        defaultRequest { header("api_key", "9da3e04402ffad9e5a100c5569dc26b1") }
+
         // exception handling
         install(HttpTimeout) {
             requestTimeoutMillis = 10000
@@ -58,7 +67,7 @@ fun createHttpClient(httpClientEngine: HttpClientEngine, json: Json, enableNetwo
         }
 
         install(HttpCallValidator) {
-            handleResponseException { cause -> println("exception $cause") }
+            handleResponseExceptionWithRequest { cause, _ -> println("exception $cause") }
         }
 
         install(ContentNegotiation) { json(json) }

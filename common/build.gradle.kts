@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.compose")
     id("com.android.library")
     kotlin("native.cocoapods")
+    kotlin("plugin.serialization")
 }
 
 group = "com.kashif"
@@ -42,11 +43,12 @@ kotlin {
                 api(compose.foundation)
                 api(compose.material)
                 implementation(libs.koin.core)
-                implementation(libs.ktor.contentnegotiation)
                 implementation(libs.ktor.json)
-                implementation(libs.ktor.serialization)
                 implementation(libs.ktor.client.logging)
+                implementation(libs.ktor.serialization)
+                implementation(libs.ktor.contentnegotiation)
                 implementation(libs.ktor.serialization.json)
+                implementation(libs.kotlin.serialization)
 
             }
         }
