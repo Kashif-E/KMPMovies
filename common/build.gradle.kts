@@ -49,8 +49,10 @@ kotlin {
                 implementation(libs.ktor.contentnegotiation)
                 implementation(libs.ktor.serialization.json)
                 implementation(libs.kotlin.serialization)
-
-
+                implementation("org.jetbrains.compose.material:material-icons-extended:1.3.0")
+                implementation("org.jetbrains.compose.components:components-resources:1.3.0-beta04-dev879")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+                api("io.github.qdsfdhvh:image-loader:1.2.8")
             }
         }
         val commonTest by getting {
@@ -106,4 +108,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+}
+dependencies {
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.3.3")
 }

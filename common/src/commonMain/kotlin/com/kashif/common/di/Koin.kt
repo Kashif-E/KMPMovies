@@ -1,6 +1,6 @@
 package com.kashif.common.di
 
-import com.kashif.common.MoviesScreenModel
+import com.kashif.common.presentation.MoviesScreenModel
 import com.kashif.common.data.remote.AbstractKtorService
 import com.kashif.common.data.remote.KtorService
 import com.kashif.common.data.repository.AbstractRepository

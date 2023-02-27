@@ -1,4 +1,4 @@
-package com.kashif.common.domain
+package com.kashif.common.domain.util
 
 import io.ktor.client.plugins.*
 import kotlinx.coroutines.flow.Flow

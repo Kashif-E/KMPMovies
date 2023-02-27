@@ -1,6 +1,7 @@
 package com.kashif.common.data.dto
 
 import com.kashif.common.domain.model.MoviesDomainModel
+import com.kashif.common.domain.util.Constants.TMDB_IMAGE_URL
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -27,16 +28,16 @@ data class Result(
 
 fun Result.asDomainModel() =
     MoviesDomainModel(
-        backdropPath = "https://image.tmdb.org/t/p/" + this.backdropPath.replace(".jpg", ".svg"),
+        backdropPath = TMDB_IMAGE_URL + this.backdropPath,
         id = this.id,
         originalTitle = this.originalTitle,
         overview = this.overview,
         popularity = this.popularity.toString(),
-        posterPath = "https://image.tmdb.org/t/p/" + this.posterPath.replace(".jpg", ".svg"),
+        posterPath = TMDB_IMAGE_URL + this.posterPath,
         releaseDate = this.releaseDate,
         title = this.title,
         video = this.video,
-        voteAverage = this.voteAverage.toString(),
+        voteAverage = this.voteAverage.toFloat(),
         voteCount = this.voteCount.toString())
 
 fun List<Result>.asDomainModel() = map { it.asDomainModel() }

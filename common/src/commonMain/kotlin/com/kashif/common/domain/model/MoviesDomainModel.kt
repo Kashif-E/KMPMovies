@@ -10,6 +10,6 @@ data class MoviesDomainModel(
     val releaseDate: String,
     val title: String,
     val video: Boolean,
-    val voteAverage: String,
+    val voteAverage: Float,
     val voteCount: String,
 )

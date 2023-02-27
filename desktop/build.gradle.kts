@@ -24,6 +24,7 @@ kotlin {
                 implementation(project(":common"))
                 implementation(compose.desktop.currentOs)
                 implementation(libs.koin.compose)
+
             }
         }
         val jvmTest by getting
