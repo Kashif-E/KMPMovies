@@ -8,3 +8,5 @@ object ServiceProvider : KoinComponent {
     val screenModel = get<MoviesScreenModel>()
 
 }
+
+

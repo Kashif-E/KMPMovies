@@ -6,5 +6,10 @@ import com.kashif.common.di.initKoin
 fun main() = application {
     initKoin("https://api.themoviedb.org/3/")
 
-    Window(title = "Compose Movies", onCloseRequest = ::exitApplication) { Application() }
+    Window(
+        title = "Compose Movies",
+        onCloseRequest = { exitApplication() },
+    ) {
+        Application()
+    }
 }

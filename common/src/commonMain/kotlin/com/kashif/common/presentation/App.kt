@@ -3,9 +3,9 @@ package com.kashif.common.presentation
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,9 +21,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.onFocusEvent
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight.Companion.W500
 import androidx.compose.ui.text.style.TextOverflow
@@ -37,6 +37,7 @@ import com.kashif.common.presentation.theme.AppShapes
 import com.kashif.common.presentation.theme.DarkColorPallete
 import com.kashif.common.presentation.theme.SunnySideUp
 import com.kashif.common.presentation.theme.Typography
+import kotlinx.coroutines.delay
 
 @Composable
 internal fun App(screenModel: MoviesScreenModel) {
@@ -92,9 +93,8 @@ internal fun MoviesScreen(moviesState: MoviesState) {
 internal fun Header() {
 
     var query by remember { mutableStateOf("") }
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val focusManager = LocalFocusManager.current
-    val interactionSource = remember { MutableInteractionSource() }
+
+
     Column(
         modifier =
             Modifier.fillMaxWidth()
@@ -113,8 +113,7 @@ internal fun Header() {
                     Text(
                         text = "Composable",
                         style = MaterialTheme.typography.h1.copy(fontWeight = W500),
-                        color = SunnySideUp
-                    )
+                        color = SunnySideUp)
                 }
             Spacer(Modifier.height(32.dp))
             OutlinedTextField(
@@ -134,14 +133,10 @@ internal fun Header() {
                         tint = MaterialTheme.colors.onSurface)
                 },
                 singleLine = true,
-                modifier = Modifier.fillMaxWidth().onFocusEvent {
-                    if (it.isFocused){
-                        keyboardController?.show()
-                    }else{
-                        keyboardController?.hide()
-                    }
-                })
+                modifier = Modifier.fillMaxWidth(),
+            )
         }
+
 }
 
 @Composable
@@ -234,9 +229,6 @@ internal fun RatingRow(movie: MoviesDomainModel) {
             color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f))
     }
 }
-
-
-
 
 @Composable
 internal fun getRatingColor(rating: Float): Color {

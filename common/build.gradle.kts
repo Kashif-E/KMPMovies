@@ -49,15 +49,15 @@ kotlin {
                 implementation(libs.ktor.contentnegotiation)
                 implementation(libs.ktor.serialization.json)
                 implementation(libs.kotlin.serialization)
-                implementation("org.jetbrains.compose.material:material-icons-extended:1.3.0")
-                implementation("org.jetbrains.compose.components:components-resources:1.3.0-beta04-dev879")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-                api("io.github.qdsfdhvh:image-loader:1.2.8")
+                implementation(libs.material.icon.extended)
+                api(libs.image.loader)
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+
+
             }
         }
         val androidMain by getting {
@@ -79,9 +79,13 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.ktor.java)
                 implementation(libs.koin.compose)
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.4")
+
             }
         }
-        val desktopTest by getting
+        val desktopTest by getting{
+
+        }
 
         val iosMain by getting {
             dependsOn(commonMain)

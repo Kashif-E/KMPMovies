@@ -1,8 +1,8 @@
 package com.kashif.common
 
-import androidx.compose.ui.graphics.ImageBitmap
-import com.kashif.common.presentation.components.AsyncImage
 import io.ktor.client.engine.darwin.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
 
@@ -11,3 +11,5 @@ actual fun platformModule() = module {
         Darwin.create()
     }
 }
+
+internal actual val ioDispatcher: CoroutineDispatcher get() = Dispatchers.Default

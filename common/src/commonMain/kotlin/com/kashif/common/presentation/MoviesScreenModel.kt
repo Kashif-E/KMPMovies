@@ -1,13 +1,13 @@
 package com.kashif.common.presentation
 
+import com.kashif.common.domain.model.MoviesDomainModel
+import com.kashif.common.domain.usecase.GetPopularMoviesUseCase
 import com.kashif.common.domain.util.CustomMessage
 import com.kashif.common.domain.util.Result
 import com.kashif.common.domain.util.asResult
-import com.kashif.common.domain.model.MoviesDomainModel
-import com.kashif.common.domain.usecase.GetPopularMoviesUseCase
+import com.kashif.common.ioDispatcher
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +20,7 @@ class MoviesScreenModel(private val popularMoviesUseCase: GetPopularMoviesUseCas
     private val _popularMovies = MutableStateFlow<MoviesState>(MoviesState.Idle)
     val popularMovies = _popularMovies.asStateFlow()
     private val job = Job()
-    private val coroutineContext: CoroutineContext = job + Dispatchers.Default
+    private val coroutineContext: CoroutineContext = job + ioDispatcher
 
     fun onLaunch() {
         getPopularMovies()
