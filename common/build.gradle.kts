@@ -51,6 +51,7 @@ kotlin {
                 implementation(libs.kotlin.serialization)
                 implementation(libs.material.icon.extended)
                 api(libs.image.loader)
+
             }
         }
         val commonTest by getting {
@@ -80,12 +81,9 @@ kotlin {
                 implementation(libs.ktor.java)
                 implementation(libs.koin.compose)
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.4")
-
             }
         }
-        val desktopTest by getting{
-
-        }
+        val desktopTest by getting
 
         val iosMain by getting {
             dependsOn(commonMain)
