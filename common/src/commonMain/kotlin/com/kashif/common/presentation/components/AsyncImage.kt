@@ -1,9 +1,11 @@
 package com.kashif.common.presentation.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import com.seiko.imageloader.ImageRequestState
@@ -22,7 +24,10 @@ internal fun AsyncImage(url: String, modifier: Modifier) {
     )
     when (val requestState = painter.requestState) {
         ImageRequestState.Loading -> {
-            CircularProgressIndicator()
+            Box(modifier= modifier, contentAlignment = Alignment.Center){
+                CircularProgressIndicator()
+            }
+
         }
         is ImageRequestState.Failure -> {
             Text(requestState.error.message ?: "Error")

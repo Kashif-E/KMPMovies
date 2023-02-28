@@ -10,7 +10,6 @@ version = "1.0-SNAPSHOT"
 
 
 kotlin {
-
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "11"
@@ -23,7 +22,10 @@ kotlin {
                 implementation(project(":common"))
                 implementation(compose.desktop.currentOs)
                 implementation(libs.koin.compose)
-
+            }
+            configurations.all {
+                // some dependencies contains it, this causes an exception to initialize the Main dispatcher in desktop for image loader
+                exclude("org.jetbrains.kotlinx", "kotlinx-coroutines-android")
             }
         }
         val jvmTest by getting
@@ -33,7 +35,7 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "desktop/src/jvmMain/kotlin/Main.kt"
+        mainClass = "MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "KMPTemplate"

@@ -80,7 +80,7 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.ktor.java)
                 implementation(libs.koin.compose)
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.4")
+
             }
         }
         val desktopTest by getting
