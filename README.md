@@ -7,11 +7,10 @@ This template can be used to develop for three targets
 2. Ios
 3. Desktop
 
-This is built to reduce the effort of configuring all the targets together such as Compose for Ios which currently does not have an ios target when creating a new compose multiplatform project using intellij idea.
+This app is under construction. Things can break and change
 
-This is a bear minimum without networking or other things such as db. This will only provide you a basic hello world app setup.
+<img width="877" alt="Screenshot 2023-02-27 at 9 50 39 PM" src="https://user-images.githubusercontent.com/61690178/221807488-5a201e7b-271f-4e68-b3e4-30c7802f1b10.png">
 
-![Screenshot 2023-02-14 at 8 06 39 PM](https://user-images.githubusercontent.com/61690178/218813583-2c7a2ef9-4b42-4095-b5a6-7a6d5417bbf9.png)
 
 # How it works?
 <ul>
@@ -22,6 +21,7 @@ This is a bear minimum without networking or other things such as db. This will 
 
 # Template Features
 <ul>
+<li> Version Catalogs </li>'
 <li>Compose Multiplatform already setup </li>
 <li>Koin already setup </li>
 <li>Ktor already setup </li>
