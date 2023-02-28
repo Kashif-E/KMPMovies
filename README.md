@@ -9,7 +9,8 @@ This template can be used to develop for three targets
 
 This app is under construction. Things can break and change
 
-![Screenshot 2023-02-14 at 8 06 39 PM](https://user-images.githubusercontent.com/61690178/218813583-2c7a2ef9-4b42-4095-b5a6-7a6d5417bbf9.png)
+<img width="877" alt="Screenshot 2023-02-27 at 9 50 39 PM" src="https://user-images.githubusercontent.com/61690178/221807488-5a201e7b-271f-4e68-b3e4-30c7802f1b10.png">
+
 
 # How it works?
 <ul>
