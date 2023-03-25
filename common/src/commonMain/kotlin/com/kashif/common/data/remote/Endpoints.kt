@@ -6,8 +6,11 @@ object Endpoints {
     const val POPULAR_MOVIES = "movie/popular?api_key={apiKey}&page={pageNo}"
     const val MOVIE_DETAILS = "movie/{movieId}"
     const val SIMILAR_MOVIES = "movie/{movieId}/similar"
-    const val TOP_RATED = "movie/top_rated?page={pageNo}"
-    const val LATEST = "movie/latest"
+    const val TOP_RATED_MOVIES = "movie/top_rated?api_key={apiKey}&page={pageNo}"
+    const val LATEST_MOVIES = "movie/trending?api_key={apiKey}&page={pageNo}"
+    const val UPCOMING_MOVIES = "movie/upcoming?api_key={apiKey}&page={pageNo}"
+    const val NOW_PLAYING_MOVIES = "movie/now_playing?api_key={apiKey}&page={pageNo}"
+    const val SEARCH_MOVIES = "search/movie?query={query}&page={pageNo}"
 }
 
 inline fun <reified T : Any> String.getUrl(vararg params: T): String {

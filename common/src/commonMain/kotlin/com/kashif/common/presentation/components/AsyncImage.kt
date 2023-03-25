@@ -12,14 +12,14 @@ import com.seiko.imageloader.ImageRequestState
 import com.seiko.imageloader.rememberAsyncImagePainter
 
 @Composable
-internal fun AsyncImage(url: String, modifier: Modifier) {
+internal fun AsyncImage(url: String,contentScale: ContentScale = ContentScale.Crop, modifier: Modifier) {
 
 
     val painter = rememberAsyncImagePainter(url = url)
     Image(
         painter = painter,
         contentDescription = null,
-        contentScale = ContentScale.Crop,
+        contentScale = contentScale,
         modifier = modifier,
     )
     when (val requestState = painter.requestState) {

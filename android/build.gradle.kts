@@ -30,4 +30,5 @@ android {
             isMinifyEnabled = false
         }
     }
+
 }

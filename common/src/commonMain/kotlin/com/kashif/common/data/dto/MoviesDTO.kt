@@ -1,6 +1,7 @@
 package com.kashif.common.data.dto
 
 import com.kashif.common.domain.model.MoviesDomainModel
+import com.kashif.common.domain.util.Constants
 import com.kashif.common.domain.util.Constants.TMDB_IMAGE_URL
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -28,12 +29,12 @@ data class Result(
 
 fun Result.asDomainModel() =
     MoviesDomainModel(
-        backdropPath = TMDB_IMAGE_URL + this.backdropPath,
+        backdropPath =  Constants.TMBD_BACKDROP_URL + this.backdropPath,
         id = this.id,
         originalTitle = this.originalTitle,
         overview = this.overview,
         popularity = this.popularity.toString(),
-        posterPath = TMDB_IMAGE_URL + this.posterPath,
+        posterPath =TMDB_IMAGE_URL +  this.posterPath,
         releaseDate = this.releaseDate,
         title = this.title,
         video = this.video,

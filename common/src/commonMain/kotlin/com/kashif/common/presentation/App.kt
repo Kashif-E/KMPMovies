@@ -2,14 +2,12 @@ package com.kashif.common.presentation
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -18,19 +16,22 @@ import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material.icons.rounded.PlayCircleFilled
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.FocusRequester
-import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight.Companion.W500
+import androidx.compose.ui.text.font.FontWeight.Companion.W700
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
 import com.kashif.common.domain.model.MoviesDomainModel
-import com.kashif.common.presentation.components.AnimatedHeartIcon
+import com.kashif.common.paging.Result
 import com.kashif.common.presentation.components.AsyncImage
 import com.kashif.common.presentation.components.ShimmerStar
 import com.kashif.common.presentation.theme.AppShapes
@@ -40,60 +41,198 @@ import com.kashif.common.presentation.theme.Typography
 import kotlinx.coroutines.delay
 
 @Composable
-internal fun App(screenModel: MoviesScreenModel) {
+internal fun App(screenModel: HomeScreenViewModel) {
 
     LaunchedEffect(Unit) { screenModel.onLaunch() }
 
     DisposableEffect(Unit) { onDispose { screenModel.onDispose() } }
 
-    val moviesState by screenModel.popularMovies.collectAsState()
     MaterialTheme(
         colors = DarkColorPallete,
         typography = Typography,
         shapes = AppShapes,
-        content = { MoviesScreen(moviesState) })
+        content = { MoviesScreen(screenModel) })
 }
 
 @Composable
-internal fun MoviesScreen(moviesState: MoviesState) {
+internal fun HorizontalScroll(
+    movies: List<MoviesDomainModel>,
+    heading: String,
+    onMovieClick: (MoviesDomainModel) -> Unit
+) {
+    Column(
+        verticalArrangement = Arrangement.spacedBy(8.dp), horizontalAlignment = Alignment.Start) {
+            Text(text = heading, style = MaterialTheme.typography.h3.copy(fontWeight = W700))
+            LazyRow(
+                contentPadding = PaddingValues(horizontal = 8.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically) {
+                    items(movies) { movie ->
+                        MovieCardSmall(movie = movie, onClick = { onMovieClick(movie) })
+                    }
+                }
+        }
+}
+
+@Composable
+internal fun MoviesScreen(screenModel: HomeScreenViewModel) {
+    val pagerList by screenModel.popularMovies.collectAsState()
+    val latestMovies by screenModel.latestMovies.first.collectAsState()
+    val popularMovies by screenModel.popularMoviesPaging.first.collectAsState()
+    val topRatedMovies by screenModel.topRatedMovies.first.collectAsState()
+    val upcomingMovies by screenModel.upcomingMovies.first.collectAsState()
+    val nowPlayingMovies by screenModel.nowPlayingMoviesPaging.first.collectAsState()
 
     Column(
         modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top) {
             Spacer(Modifier.height(32.dp))
             Header()
+            Spacer(Modifier.height(8.dp))
+            // HorizontalScroll()
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 state = rememberLazyListState(),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceAround,
-                contentPadding = PaddingValues(16.dp),
+                contentPadding = PaddingValues(horizontal = 8.dp),
             ) {
-                when (moviesState) {
-                    is MoviesState.Idle -> {
-                        item { Text("idle") }
-                    }
-                    is MoviesState.Error -> {
-                        item { Text(moviesState.error.message) }
-                    }
-                    is MoviesState.Loading -> {
-                        item { Text("Loading") }
-                    }
-                    is MoviesState.Success -> {
-                        items(moviesState.movies) { item -> MovieCard(item) {} }
-                    }
-                }
+                pager(pagerList)
+                // latestMovies(latestMovies)
+                popularMovies(popularMovies)
+                topRatedMovies(topRatedMovies)
+                upComingMovies(upcomingMovies)
+                nowPlayingMovies(nowPlayingMovies, screenModel.nowPlayingMoviesPaging.second)
             }
         }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
+internal fun LazyListScope.pager(pagerList: MoviesState) {
+    item {
+        when (pagerList) {
+            is MoviesState.Error -> {}
+            MoviesState.Idle -> {
+                Text(text = "idle")
+            }
+            MoviesState.Loading -> {
+                Text(text = "loading")
+            }
+            is MoviesState.Success -> {
+                AutoScrollingHorizontalSlider(pagerList.movies) {}
+            }
+        }
+    }
+}
+
+internal fun LazyListScope.latestMovies(latestMovies: Result<List<MoviesDomainModel>>) {
+    when (latestMovies) {
+        is Result.Loading -> {
+            item { Text("idle") }
+        }
+        is Result.Error -> {
+            item { Text(latestMovies.exception) }
+        }
+        is Result.Success -> {
+            item {
+                HorizontalScroll(
+                    movies = latestMovies.data,
+                    heading = "Latest Movies",
+                    onMovieClick = { movie -> })
+            }
+        }
+    }
+}
+
+internal fun LazyListScope.popularMovies(popularMovies: Result<List<MoviesDomainModel>>) {
+    when (popularMovies) {
+        is Result.Loading -> {
+            item { Text("idle") }
+        }
+        is Result.Error -> {
+            item { Text(popularMovies.exception) }
+        }
+        is Result.Success -> {
+            item {
+                HorizontalScroll(
+                    movies = popularMovies.data,
+                    heading = "Popular Movies",
+                    onMovieClick = { movie -> })
+            }
+        }
+    }
+}
+
+internal fun LazyListScope.topRatedMovies(popularMovies: Result<List<MoviesDomainModel>>) {
+    when (popularMovies) {
+        is Result.Loading -> {
+            item { Text("idle") }
+        }
+        is Result.Error -> {
+            item { Text(popularMovies.exception) }
+        }
+        is Result.Success -> {
+            item {
+                HorizontalScroll(
+                    movies = popularMovies.data,
+                    heading = "Top Rated Movies",
+                    onMovieClick = { movie -> })
+            }
+        }
+    }
+}
+
+internal fun LazyListScope.upComingMovies(popularMovies: Result<List<MoviesDomainModel>>) {
+    when (popularMovies) {
+        is Result.Loading -> {
+            item { Text("idle") }
+        }
+        is Result.Error -> {
+            item { Text(popularMovies.exception) }
+        }
+        is Result.Success -> {
+            item {
+                HorizontalScroll(
+                    movies = popularMovies.data,
+                    heading = "Up Coming Movies",
+                    onMovieClick = { movie -> })
+            }
+        }
+    }
+}
+
+internal fun LazyListScope.nowPlayingMovies(
+    popularMovies: Result<List<MoviesDomainModel>>,
+    loadMovies: () -> Unit
+) {
+    when (popularMovies) {
+        is Result.Loading -> {
+            item { Text("idle") }
+        }
+        is Result.Error -> {
+            item { Text(popularMovies.exception) }
+        }
+        is Result.Success -> {
+            item {
+                Text(
+                    text = "Now Playing Movies",
+                    style = MaterialTheme.typography.h3.copy(fontWeight = W700),
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Start
+                )
+            }
+            items(popularMovies.data) {movie->
+                if (popularMovies.data.last() == movie) {
+                    loadMovies()
+                }
+                MovieCard(movie = movie, onClick = {}) }
+        }
+    }
+}
+
 @Composable
 internal fun Header() {
 
     var query by remember { mutableStateOf("") }
-
 
     Column(
         modifier =
@@ -136,7 +275,6 @@ internal fun Header() {
                 modifier = Modifier.fillMaxWidth(),
             )
         }
-
 }
 
 @Composable
@@ -176,10 +314,9 @@ internal fun MovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
                             text = movie.overview,
                             style = MaterialTheme.typography.body2,
                             fontSize = 14.sp,
-                            maxLines = 3,
+                            maxLines = 1,
                             overflow = TextOverflow.Ellipsis)
                     }
-                    AnimatedHeartIcon(Modifier.align(Alignment.TopEnd).padding(8.dp)) {}
                 }
             }
         }
@@ -241,4 +378,83 @@ internal fun getRatingColor(rating: Float): Color {
         in 5.0..7.0 -> yellow
         else -> green
     }
+}
+
+@Composable
+internal fun MovieCardSmall(movie: MoviesDomainModel, onClick: () -> Unit) {
+    Card(
+        modifier =
+            Modifier.height(200.dp).width(150.dp).clickable { onClick() }.animateContentSize(),
+        shape = RoundedCornerShape(8.dp),
+        elevation = 8.dp) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                AsyncImage(url = movie.posterPath, modifier = Modifier.fillMaxSize())
+            }
+        }
+}
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+internal fun AutoScrollingHorizontalSlider(
+    movies: List<MoviesDomainModel>,
+    onMovieClick: (MoviesDomainModel) -> Unit
+) {
+    val pagerState = rememberPagerState(1)
+
+    LaunchedEffect(key1 = pagerState) {
+        while (true) {
+            val nextPage = (pagerState.currentPage + 1) % movies.size
+            tween<Float>(durationMillis = 1000, easing = LinearEasing)
+            pagerState.animateScrollToPage(page = nextPage, pageOffset = 0f)
+            delay(2000) // Adjust this value to control the time between auto-scrolls
+        }
+    }
+
+    Box(
+        modifier =
+            Modifier.background(MaterialTheme.colors.background).fillMaxWidth().height(360.dp)) {
+            HorizontalPager(
+                state = pagerState,
+                modifier = Modifier.align(Alignment.Center),
+                count = movies.size) { page ->
+                    AutoScrollingMovieCard(
+                        movie = movies[page], onClick = { onMovieClick(movies[page]) })
+                }
+        }
+}
+
+@Composable
+internal fun AutoScrollingMovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
+    Card(
+        modifier = Modifier.fillMaxWidth().height(280.dp).clickable { onClick() },
+        shape = RoundedCornerShape(12.dp),
+        elevation = 4.dp) {
+            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
+                Box {
+                    AsyncImage(
+                        url = movie.backdropPath,
+                        modifier = Modifier.fillMaxWidth().height(280.dp),
+                        contentScale = ContentScale.Crop)
+
+                    Box(
+                        modifier =
+                            Modifier.fillMaxWidth()
+                                .height(280.dp)
+                                .background(
+                                    brush =
+                                        Brush.verticalGradient(
+                                            colors = listOf(Color.Transparent, Color.Black),
+                                            startY = 0.4f * 280.dp.value)),
+                        contentAlignment = Alignment.BottomStart) {
+                            Text(
+                                text = movie.title,
+                                style = MaterialTheme.typography.h3,
+                                overflow = TextOverflow.Ellipsis,
+                                modifier = Modifier.padding(8.dp))
+                        }
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+        }
 }

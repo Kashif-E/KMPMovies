@@ -51,6 +51,10 @@ kotlin {
                 implementation(libs.kotlin.serialization)
                 implementation(libs.material.icon.extended)
                 api(libs.image.loader)
+                implementation(libs.accompanist.pager)
+                implementation(libs.compose.util)
+              //  implementation("com.kashif:simple-paging:0.0.2")
+
 
             }
         }

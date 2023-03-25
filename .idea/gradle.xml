@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/android" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/desktop" />
+            <option value="$PROJECT_DIR$/lib" />
           </set>
         </option>
       </GradleProjectSettings>

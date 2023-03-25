@@ -1,12 +1,12 @@
 package com.kashif.common.di
 
-import com.kashif.common.presentation.MoviesScreenModel
 import com.kashif.common.data.remote.AbstractKtorService
 import com.kashif.common.data.remote.KtorService
 import com.kashif.common.data.repository.AbstractRepository
 import com.kashif.common.data.repository.Repository
-import com.kashif.common.domain.usecase.GetPopularMoviesUseCase
+import com.kashif.common.domain.usecase.*
 import com.kashif.common.platformModule
+import com.kashif.common.presentation.HomeScreenViewModel
 import io.ktor.client.*
 import io.ktor.client.engine.*
 import io.ktor.client.plugins.*
@@ -19,7 +19,6 @@ import kotlinx.serialization.json.Json
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 import org.koin.dsl.module
-
 
 fun initKoin(
     enableNetworkLogs: Boolean = false,
@@ -42,7 +41,7 @@ fun commonModule(
         getUseCaseModule() +
         getScreenModelModule()
 
-fun getScreenModelModule() = module { single { MoviesScreenModel(get()) } }
+fun getScreenModelModule() = module { single { HomeScreenViewModel(get(), get(), get(), get(), get(), get()) } }
 
 fun getDataModule(
     enableNetworkLogs: Boolean,
@@ -57,7 +56,14 @@ fun getDataModule(
     single { createHttpClient(get(), get(), enableNetworkLogs = enableNetworkLogs) }
 }
 
-fun getUseCaseModule() = module { single { GetPopularMoviesUseCase(get()) } }
+fun getUseCaseModule() = module {
+    single { GetPopularMoviesUseCase(get()) }
+    single { GetLatestMoviesPagingSource(get()) }
+    single { GetPopularMoviesPagingSource(get()) }
+    single { GetNowPlayingMoviesPagingSource(get()) }
+    single { GetTopRatedMoviesPagingSource(get()) }
+    single { GetUpcomingMoviesPagingSource(get()) }
+}
 
 fun createHttpClient(httpClientEngine: HttpClientEngine, json: Json, enableNetworkLogs: Boolean) =
     HttpClient(httpClientEngine) {
