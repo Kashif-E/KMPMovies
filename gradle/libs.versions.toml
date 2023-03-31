@@ -26,6 +26,8 @@ image-loader-version = "1.2.9"
 
 accompanist-version = "0.25.2"
 
+voyager = "1.0.0-rc04"
+
 [libraries]
 androidGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
 composeGradle = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
@@ -55,5 +57,15 @@ material-icon-extended = {module = "org.jetbrains.compose.material:material-icon
 image-loader = {module= "io.github.qdsfdhvh:image-loader", version.ref = "image-loader-version"}
 
 accompanist-pager = {module = "ca.gosyer:accompanist-pager", version.ref = "accompanist-version"}
+
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+
+voyager-bottomSheetNavigator = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
+
+voyager-tabNavigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager" }
+
+voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
+
+voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 
 junit = "junit:junit:4.13.2"

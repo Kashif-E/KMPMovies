@@ -53,7 +53,9 @@ kotlin {
                 api(libs.image.loader)
                 implementation(libs.accompanist.pager)
                 implementation(libs.compose.util)
-              //  implementation("com.kashif:simple-paging:0.0.2")
+                implementation(libs.voyager.navigator)
+                implementation(libs.voyager.transitions)
+                implementation(libs.voyager.bottomSheetNavigator)
 
 
             }
