@@ -1,21 +1,22 @@
 package com.kashif.common.presentation
 
-import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
+
 import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.domain.usecase.*
 import com.kashif.common.domain.util.CustomMessage
 import com.kashif.common.domain.util.Result
 import com.kashif.common.domain.util.asResult
 import com.kashif.common.ioDispatcher
-import com.kashif.paging.PagingConfig
 import com.kashif.common.paging.paginate
-import kotlin.coroutines.CoroutineContext
+import com.kashif.paging.PagingConfig
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 class HomeScreenViewModel(
     private val popularMoviesUseCase: GetPopularMoviesUseCase,
@@ -24,30 +25,33 @@ class HomeScreenViewModel(
     private val topRatedMoviesUseCase: GetTopRatedMoviesPagingSource,
     private val popularMoviesPagingSource: GetPopularMoviesPagingSource,
     private val nowPlayingMoviesPagingSource: GetNowPlayingMoviesPagingSource,
-): ScreenModel {
+) {
+    private val job = SupervisorJob()
+    private val coroutineContextX: CoroutineContext = job + ioDispatcher
+    private val viewModelScope = CoroutineScope(coroutineContextX)
 
     private val _popularMovies = MutableStateFlow<MoviesState>(MoviesState.Idle)
     val popularMovies = _popularMovies.asStateFlow()
 
 
     val latestMovies =
-       coroutineScope.paginate(
+        viewModelScope.paginate(
             useCase = latestMoviesUseCase::invoke, pagingConfig = PagingConfig(20, 5))
 
     val upcomingMovies =
-       coroutineScope.paginate(
+        viewModelScope.paginate(
             useCase = upcomingMoviesUseCase::invoke, pagingConfig = PagingConfig(20, 5))
 
     val topRatedMovies =
-       coroutineScope.paginate(
+        viewModelScope.paginate(
             useCase = topRatedMoviesUseCase::invoke, pagingConfig = PagingConfig(20, 5))
 
     val popularMoviesPaging =
-       coroutineScope.paginate(
+        viewModelScope.paginate(
             useCase = popularMoviesPagingSource::invoke, pagingConfig = PagingConfig(20, 5))
 
     val nowPlayingMoviesPaging =
-       coroutineScope.paginate(
+        viewModelScope.paginate(
             useCase = nowPlayingMoviesPagingSource::invoke,
             pagingConfig = PagingConfig(20, Int.MAX_VALUE))
 
@@ -56,7 +60,7 @@ class HomeScreenViewModel(
     }
 
     private fun getPopularMovies() {
-       coroutineScope.launch(ioDispatcher) {
+        CoroutineScope(coroutineContextX).launch {
             popularMoviesUseCase().asResult().collectLatest { result ->
                 when (result) {
                     is Result.Idle -> {
@@ -76,7 +80,9 @@ class HomeScreenViewModel(
         }
     }
 
-
+    fun onDispose() {
+        job.cancel()
+    }
 }
 
 sealed interface MoviesState {

@@ -53,9 +53,9 @@ kotlin {
                 api(libs.image.loader)
                 implementation(libs.accompanist.pager)
                 implementation(libs.compose.util)
-                implementation(libs.voyager.navigator)
+             /*   implementation(libs.voyager.navigator)
                 implementation(libs.voyager.transitions)
-                implementation(libs.voyager.bottomSheetNavigator)
+                implementation(libs.voyager.bottomSheetNavigator)*/
 
 
             }
@@ -73,6 +73,9 @@ kotlin {
                 api(libs.androidx.coreKtx)
                 implementation(libs.ktor.android)
                 implementation(libs.koin.compose)
+                implementation ("androidx.media3:media3-exoplayer:1.0.0")
+                implementation ("androidx.media3:media3-exoplayer-dash:1.0.0")
+                implementation ("androidx.media3:media3-ui:1.0.0")
             }
         }
         val androidUnitTest by getting {
