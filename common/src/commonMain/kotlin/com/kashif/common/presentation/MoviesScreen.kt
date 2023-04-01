@@ -38,7 +38,6 @@ import com.google.accompanist.pager.rememberPagerState
 import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.paging.Result
 import com.kashif.common.presentation.components.AsyncImage
-import com.kashif.common.presentation.components.PlatformVideoPlayer
 import com.kashif.common.presentation.components.ShimmerStar
 import com.kashif.common.presentation.theme.SunnySideUp
 import kotlinx.coroutines.delay
@@ -52,7 +51,7 @@ import kotlinx.coroutines.delay
 }*/
 
 @Composable
-internal fun MoviesScreen(screenModel: HomeScreenViewModel, player: PlatformVideoPlayer) {
+internal fun MoviesScreen(screenModel: HomeScreenViewModel, player: VideoPlayerRenderer) {
     val pagerList by screenModel.popularMovies.collectAsState()
     val latestMovies by screenModel.latestMovies.first.collectAsState()
     val popularMovies by screenModel.popularMoviesPaging.first.collectAsState()
@@ -64,7 +63,7 @@ internal fun MoviesScreen(screenModel: HomeScreenViewModel, player: PlatformVide
         modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top) {
-            player.renderVideoPlayerView("https://ik.imagekit.io/ikmedia/videos/woman-walking.mp4")
+            player("https://ik.imagekit.io/ikmedia/videos/woman-walking.mp4")
             Spacer(Modifier.height(32.dp))
             Header()
             Spacer(Modifier.height(8.dp))

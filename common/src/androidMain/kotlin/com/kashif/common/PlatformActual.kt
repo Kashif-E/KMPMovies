@@ -20,12 +20,12 @@ internal actual val ioDispatcher: CoroutineDispatcher
     get() = Dispatchers.IO
 
 
-class AndroidAppVideoPlayer : PlatformVideoPlayer {
+/*class AndroidAppVideoPlayer : PlatformVideoPlayer {
     @Composable
     override fun renderVideoPlayerView(url: String) {
         VideoPlayer(url)
     }
-}
+}*/
 
 @Composable
 fun VideoPlayer(url: String) {
