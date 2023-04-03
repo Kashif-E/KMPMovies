@@ -7,17 +7,16 @@ import com.kashif.common.presentation.theme.DarkColorPallete
 import com.kashif.common.presentation.theme.Typography
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
-typealias VideoPlayerRenderer = @Composable (String) -> Unit
+
 @Composable
-internal fun App(androidAppVideoPlayer: VideoPlayerRenderer) {
+internal fun App(videoPlayerRenderer : @Composable (String) -> Unit) {
 
     MaterialTheme(
         colors = DarkColorPallete,
         typography = Typography,
         shapes = AppShapes,
-        content = { MoviesScreen(provide.screenModel, androidAppVideoPlayer) })
+        content = { MoviesScreen(provide.screenModel,videoPlayerRenderer) })
 }
-
 object provide : KoinComponent {
     val screenModel = get<HomeScreenViewModel>()
 }

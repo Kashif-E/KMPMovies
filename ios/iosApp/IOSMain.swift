@@ -13,24 +13,20 @@ struct MainSwiftUIView: View {
     let videoPlayer: IOSAppVideoPlayer
 
     var body: some View {
-        Text("body")
-      MainViewControllerWrapper(videoPlayer: videoPlayer)
+       
+            MainViewControllerWrapper(videoPlayer: videoPlayer)
     }
 }
 
 struct MainViewControllerWrapper: UIViewControllerRepresentable {
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-
-    }
-
     let videoPlayer: IOSAppVideoPlayer
 
     func makeUIViewController(context: Context) -> UIViewController {
-        return Main_iosKt.MainViewController(videoplayer:{url in
-            videoPlayer.renderVideoPlayerView(url: url)
-        })
-        func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        }
+        Main_iosKt.MainViewController(videoplayer: videoPlayer)
     }
 
+    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+        // Implement this function if needed
+    }
 }
+

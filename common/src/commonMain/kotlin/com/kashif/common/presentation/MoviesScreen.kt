@@ -42,16 +42,9 @@ import com.kashif.common.presentation.components.ShimmerStar
 import com.kashif.common.presentation.theme.SunnySideUp
 import kotlinx.coroutines.delay
 
-/*class MoviesScreen(private val player: PlatformVideoPlayer) : Screen, KoinComponent {
-    private val screenModel: HomeScreenViewModel by inject()
-    @Composable
-    override fun Content() {
-        LifecycleEffect(onStarted = { screenModel.onLaunch() })
-    }
-}*/
 
 @Composable
-internal fun MoviesScreen(screenModel: HomeScreenViewModel, player: VideoPlayerRenderer) {
+internal fun MoviesScreen(screenModel: HomeScreenViewModel, player:@Composable (String) -> Unit) {
     val pagerList by screenModel.popularMovies.collectAsState()
     val latestMovies by screenModel.latestMovies.first.collectAsState()
     val popularMovies by screenModel.popularMoviesPaging.first.collectAsState()
@@ -63,7 +56,7 @@ internal fun MoviesScreen(screenModel: HomeScreenViewModel, player: VideoPlayerR
         modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top) {
-            player("https://ik.imagekit.io/ikmedia/videos/woman-walking.mp4")
+            player( "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
             Spacer(Modifier.height(32.dp))
             Header()
             Spacer(Modifier.height(8.dp))
