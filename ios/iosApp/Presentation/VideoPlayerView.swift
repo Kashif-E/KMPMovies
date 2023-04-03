@@ -36,7 +36,6 @@ class VideoPlayerView: UIView {
 }
 
 class IOSAppVideoPlayer: NSObject, PlatformVideoPlayer {
-    @objc
     func renderVideoPlayerView(url: String) {
         DispatchQueue.main.async {
             let videoPlayerView = VideoPlayerView(url: URL(string: url)!)
@@ -45,7 +44,14 @@ class IOSAppVideoPlayer: NSObject, PlatformVideoPlayer {
             UIApplication.shared.keyWindow?.rootViewController?.present(viewController, animated: true, completion: nil)
         }
     }
+    
+    func returnVideoPlayerView(url: String) -> UIView {
+        return  VideoPlayerView(url: URL(string: url)!)
+    }
+    
+   
 }
+
 
 
 
