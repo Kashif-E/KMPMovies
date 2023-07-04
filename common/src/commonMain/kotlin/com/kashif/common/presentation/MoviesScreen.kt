@@ -44,7 +44,7 @@ import kotlinx.coroutines.delay
 
 
 @Composable
-internal fun MoviesScreen(screenModel: HomeScreenViewModel, player:@Composable (String) -> Unit) {
+internal fun HomeScreen(screenModel: HomeScreenViewModel) {
     val pagerList by screenModel.popularMovies.collectAsState()
     val latestMovies by screenModel.latestMovies.first.collectAsState()
     val popularMovies by screenModel.popularMoviesPaging.first.collectAsState()
@@ -52,11 +52,15 @@ internal fun MoviesScreen(screenModel: HomeScreenViewModel, player:@Composable (
     val upcomingMovies by screenModel.upcomingMovies.first.collectAsState()
     val nowPlayingMovies by screenModel.nowPlayingMoviesPaging.first.collectAsState()
 
+    LaunchedEffect(Unit){
+        screenModel.onLaunch()
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top) {
-            player( "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+           // player( "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
             Spacer(Modifier.height(32.dp))
             Header()
             Spacer(Modifier.height(8.dp))

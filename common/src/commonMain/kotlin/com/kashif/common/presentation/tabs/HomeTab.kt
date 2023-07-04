@@ -7,7 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import com.kashif.common.presentation.MoviesScreen
+import com.kashif.common.presentation.HomeScreen
 import com.kashif.common.presentation.provide
 
 object HomeTab : Tab {
@@ -21,6 +21,6 @@ object HomeTab : Tab {
 
     @Composable
     override fun Content() {
-        MoviesScreen(provide.screenModel) {}
+        HomeScreen(provide.screenModel)
     }
 }
