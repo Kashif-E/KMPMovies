@@ -12,8 +12,11 @@ import com.seiko.imageloader.ImageRequestState
 import com.seiko.imageloader.rememberAsyncImagePainter
 
 @Composable
-internal fun AsyncImage(url: String,contentScale: ContentScale = ContentScale.Crop, modifier: Modifier) {
-
+internal fun AsyncImage(
+    url: String,
+    contentScale: ContentScale = ContentScale.Crop,
+    modifier: Modifier
+) {
 
     val painter = rememberAsyncImagePainter(url = url)
     Image(
@@ -23,15 +26,14 @@ internal fun AsyncImage(url: String,contentScale: ContentScale = ContentScale.Cr
         modifier = modifier,
     )
     when (val requestState = painter.requestState) {
-        ImageRequestState.Loading -> {
-            Box(modifier= modifier, contentAlignment = Alignment.Center){
-                CircularProgressIndicator()
-            }
-
-        }
         is ImageRequestState.Failure -> {
             Text(requestState.error.message ?: "Error")
         }
         ImageRequestState.Success -> Unit
+        is ImageRequestState.Loading -> {
+            Box(modifier = modifier, contentAlignment = Alignment.Center) {
+                CircularProgressIndicator()
+            }
+        }
     }
 }

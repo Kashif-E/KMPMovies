@@ -7,6 +7,6 @@ import com.kashif.common.presentation.App
 
 @Composable
 fun Application() {
-    App { url -> VideoPlayer(url) }
+    App()
 }
 

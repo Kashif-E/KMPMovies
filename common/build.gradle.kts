@@ -53,9 +53,10 @@ kotlin {
                 api(libs.image.loader)
                 implementation(libs.accompanist.pager)
                 implementation(libs.compose.util)
-             /*   implementation(libs.voyager.navigator)
+                implementation(libs.voyager.navigator)
                 implementation(libs.voyager.transitions)
-                implementation(libs.voyager.bottomSheetNavigator)*/
+                implementation(libs.voyager.bottomSheetNavigator)
+                implementation(libs.voyager.tabNavigator)
 
 
             }
