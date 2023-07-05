@@ -79,7 +79,7 @@ private fun RowScope.TabNavigationItem(tab: Tab) {
         alwaysShowLabel = true,
         label = {
             Text(
-                text = tab.options.title,
+                text = title,
             )
         },
         selected = tabNavigator.current.key == tab.key,

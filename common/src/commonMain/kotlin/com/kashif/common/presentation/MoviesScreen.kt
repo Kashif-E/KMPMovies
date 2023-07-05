@@ -17,6 +17,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +32,8 @@ import com.kashif.common.paging.Result
 import com.kashif.common.presentation.components.MovieCard
 import com.kashif.common.presentation.components.MovieCardSmall
 import com.kashif.common.presentation.components.PagerMovieCard
+import com.kashif.common.presentation.components.PlaceHolderRow
+import com.kashif.common.presentation.theme.Grey
 import com.kashif.common.presentation.theme.SunnySideUp
 import kotlinx.coroutines.delay
 
@@ -86,14 +89,34 @@ fun Movies(
 fun HorizontalScroll(
     movies: List<MoviesDomainModel>,
     heading: String,
-    onMovieClick: (MoviesDomainModel) -> Unit
+    onMovieClick: (MoviesDomainModel) -> Unit,
+    seeAllClick: () -> Unit
 ) {
 
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp), horizontalAlignment = Alignment.Start) {
-            Text(
-                text = heading,
-                style = MaterialTheme.typography.h3.copy(fontWeight = FontWeight.W700))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        modifier = Modifier.padding(12.dp),
+                        text = heading,
+                        style =
+                            MaterialTheme.typography.h3.copy(
+                                fontWeight = FontWeight.W400, color = Color.White))
+
+                    Text(
+                        modifier =
+                            Modifier.padding(12.dp).clip(MaterialTheme.shapes.large).clickable {
+                                seeAllClick()
+                            },
+                        text = "See all",
+                        style =
+                            MaterialTheme.typography.h4.copy(
+                                fontWeight = FontWeight.W700, color = Grey))
+                }
+
             LazyRow(
                 contentPadding = PaddingValues(horizontal = 8.dp, vertical = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -110,7 +133,7 @@ fun LazyListScope.pager(pagerList: MoviesState) {
         when (pagerList) {
             is MoviesState.Error -> {}
             MoviesState.Idle -> {
-                Text(text = "idle")
+                // Text(text = "idle")
             }
             MoviesState.Loading -> {
                 Text(text = "loading")
@@ -127,7 +150,7 @@ fun LazyListScope.pager(pagerList: MoviesState) {
 fun LazyListScope.latestMovies(latestMovies: Result<List<MoviesDomainModel>>) {
     when (latestMovies) {
         is Result.Loading -> {
-            item { Text("idle") }
+            PlaceHolderRow()
         }
         is Result.Error -> {
             item { Text(latestMovies.exception) }
@@ -137,7 +160,8 @@ fun LazyListScope.latestMovies(latestMovies: Result<List<MoviesDomainModel>>) {
                 HorizontalScroll(
                     movies = latestMovies.data,
                     heading = "Latest Movies",
-                    onMovieClick = { movie -> println(movie.title) })
+                    onMovieClick = { movie -> println(movie.title) },
+                    seeAllClick = {})
             }
         }
     }
@@ -146,7 +170,7 @@ fun LazyListScope.latestMovies(latestMovies: Result<List<MoviesDomainModel>>) {
 fun LazyListScope.popularMovies(popularMovies: Result<List<MoviesDomainModel>>) {
     when (popularMovies) {
         is Result.Loading -> {
-            item { Text("idle") }
+            PlaceHolderRow()
         }
         is Result.Error -> {
             item { Text(popularMovies.exception) }
@@ -156,7 +180,8 @@ fun LazyListScope.popularMovies(popularMovies: Result<List<MoviesDomainModel>>) 
                 HorizontalScroll(
                     movies = popularMovies.data,
                     heading = "Popular Movies",
-                    onMovieClick = { movie -> println(movie.title) })
+                    onMovieClick = { movie -> println(movie.title) },
+                    seeAllClick = {})
             }
         }
     }
@@ -165,7 +190,7 @@ fun LazyListScope.popularMovies(popularMovies: Result<List<MoviesDomainModel>>) 
 fun LazyListScope.topRatedMovies(popularMovies: Result<List<MoviesDomainModel>>) {
     when (popularMovies) {
         is Result.Loading -> {
-            item { Text("idle") }
+            PlaceHolderRow()
         }
         is Result.Error -> {
             item { Text(popularMovies.exception) }
@@ -175,7 +200,8 @@ fun LazyListScope.topRatedMovies(popularMovies: Result<List<MoviesDomainModel>>)
                 HorizontalScroll(
                     movies = popularMovies.data,
                     heading = "Top Rated Movies",
-                    onMovieClick = { movie -> println(movie.title) })
+                    onMovieClick = { movie -> println(movie.title) },
+                    seeAllClick = {})
             }
         }
     }
@@ -184,7 +210,7 @@ fun LazyListScope.topRatedMovies(popularMovies: Result<List<MoviesDomainModel>>)
 fun LazyListScope.upComingMovies(popularMovies: Result<List<MoviesDomainModel>>) {
     when (popularMovies) {
         is Result.Loading -> {
-            item { Text("idle") }
+            PlaceHolderRow()
         }
         is Result.Error -> {
             item { Text(popularMovies.exception) }
@@ -194,7 +220,8 @@ fun LazyListScope.upComingMovies(popularMovies: Result<List<MoviesDomainModel>>)
                 HorizontalScroll(
                     movies = popularMovies.data,
                     heading = "Up Coming Movies",
-                    onMovieClick = { movie -> println(movie.title) })
+                    onMovieClick = { movie -> println(movie.title) },
+                    seeAllClick = {})
             }
         }
     }
@@ -206,7 +233,7 @@ fun LazyListScope.nowPlayingMovies(
 ) {
     when (popularMovies) {
         is Result.Loading -> {
-            item { Text("idle") }
+            PlaceHolderRow()
         }
         is Result.Error -> {
             item { Text(popularMovies.exception) }
