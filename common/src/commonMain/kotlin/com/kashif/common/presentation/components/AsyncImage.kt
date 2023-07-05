@@ -1,10 +1,15 @@
 package com.kashif.common.presentation.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -17,19 +22,22 @@ internal fun AsyncImage(
     contentScale: ContentScale = ContentScale.Crop,
     modifier: Modifier
 ) {
-
+    var showShimmer by remember { mutableStateOf(true) }
     val painter = rememberAsyncImagePainter(url = url)
     Image(
         painter = painter,
         contentDescription = null,
         contentScale = contentScale,
-        modifier = modifier,
+        modifier =
+            modifier.background(ShimmerBrush(targetValue = 1300f, showShimmer = showShimmer)),
     )
     when (val requestState = painter.requestState) {
         is ImageRequestState.Failure -> {
             Text(requestState.error.message ?: "Error")
         }
-        ImageRequestState.Success -> Unit
+        ImageRequestState.Success -> {
+            showShimmer = false
+        }
         is ImageRequestState.Loading -> {
             Box(modifier = modifier, contentAlignment = Alignment.Center) {
                 CircularProgressIndicator()

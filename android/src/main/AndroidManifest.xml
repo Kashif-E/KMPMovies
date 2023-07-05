@@ -5,6 +5,7 @@
             android:name=".App"
             android:allowBackup="false"
             android:supportsRtl="true"
+        android:label="Movies"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>

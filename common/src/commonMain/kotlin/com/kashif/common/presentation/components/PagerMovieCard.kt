@@ -6,15 +6,19 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
@@ -30,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.presentation.theme.Grey
@@ -41,7 +46,7 @@ fun PagerMovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
             Box {
                 AsyncImage(
                     url = movie.hdPosterPath,
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier.fillMaxSize().padding(bottom = 16.dp),
                     contentScale = ContentScale.FillBounds)
 
                 Box(
@@ -64,17 +69,21 @@ fun PagerMovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
                                     contentColor = Color.LightGray,
                                     onClick = {},
                                     content = {
-                                        Icon(
-                                            imageVector = Icons.Rounded.PlayArrow,
-                                            "Play",
-                                            tint = Color.LightGray,
-                                            modifier = Modifier)
-                                        Text(
-                                            modifier = Modifier.padding(horizontal = 2.dp),
-                                            text = "Play",
-                                            style =
-                                                MaterialTheme.typography.h6.copy(
-                                                    color = Color.LightGray))
+                                            Icon(
+                                                modifier = Modifier.align(Alignment.CenterVertically),
+                                                imageVector = Icons.Rounded.PlayArrow,
+                                                contentDescription = "Play",
+                                                tint = Color.LightGray,
+                                            )
+                                            Text(
+                                                text = "Play",
+                                                style = MaterialTheme.typography.h6.copy(color = Color.LightGray),
+                                                textAlign = TextAlign.Center,
+                                                modifier = Modifier
+                                                    .align(Alignment.CenterVertically)
+                                            )
+
+
                                     },
                                 )
                                 Spacer(modifier = Modifier.width(8.dp))
@@ -86,11 +95,15 @@ fun PagerMovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
                                     onClick = {},
                                     content = {
                                         Text(
-                                            modifier = Modifier.padding(horizontal = 2.dp),
+                                            modifier = Modifier
+                                                .padding(horizontal = 2.dp)
+                                                .fillMaxSize()
+                                                .wrapContentSize(Alignment.Center),
                                             text = "Details",
-                                            style =
-                                                MaterialTheme.typography.h6.copy(
-                                                    color = Color.LightGray))
+                                            style = MaterialTheme.typography.h6.copy(color = Color.LightGray),
+                                            textAlign = TextAlign.Center
+                                        )
+
                                     },
                                 )
                             }
@@ -118,7 +131,17 @@ private fun CapsuleButton(
         content = content,
         onClick = onClick,
         border = borderStroke,
+        contentPadding = PaddingValues(0.dp),
         colors =
             ButtonDefaults.buttonColors(
                 backgroundColor = backgroundColor, contentColor = contentColor))
+}
+
+@Composable
+fun Center(modifier: Modifier = Modifier, content: @Composable ColumnScope.() -> Unit) {
+    Column(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        content = content)
 }
