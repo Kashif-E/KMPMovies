@@ -32,7 +32,7 @@ val MarqueeBackground = Color(0xFF62E788)
 
 val Black = Color(0xFF0E1036)
 
-val Grey = Color(0xFFF2F2F2)
+val Grey = Color(0xFF666666)
 
 val DividerColor = Color(0xFFF1F1F1)
 

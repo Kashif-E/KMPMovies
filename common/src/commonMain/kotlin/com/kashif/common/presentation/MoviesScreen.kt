@@ -1,15 +1,11 @@
 package com.kashif.common.presentation
 
-import androidx.compose.animation.animateContentSize
-import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
@@ -21,30 +17,25 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.paging.Result
-import com.kashif.common.presentation.components.AsyncImage
-import com.kashif.common.presentation.components.ShimmerStar
+import com.kashif.common.presentation.components.MovieCard
+import com.kashif.common.presentation.components.MovieCardSmall
+import com.kashif.common.presentation.components.PagerMovieCard
 import com.kashif.common.presentation.theme.SunnySideUp
 import kotlinx.coroutines.delay
 
-
 @Composable
-internal fun HomeScreen(screenModel: HomeScreenViewModel) {
+fun HomeScreen(screenModel: HomeScreenViewModel) {
     val pagerList by screenModel.popularMovies.collectAsState()
     val latestMovies by screenModel.latestMovies.first.collectAsState()
     val popularMovies by screenModel.popularMoviesPaging.first.collectAsState()
@@ -52,37 +43,47 @@ internal fun HomeScreen(screenModel: HomeScreenViewModel) {
     val upcomingMovies by screenModel.upcomingMovies.first.collectAsState()
     val nowPlayingMovies by screenModel.nowPlayingMoviesPaging.first.collectAsState()
 
-    LaunchedEffect(Unit){
-        screenModel.onLaunch()
-    }
+    LaunchedEffect(Unit) { screenModel.onLaunch() }
 
     Column(
         modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top) {
-           // player( "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
-            Spacer(Modifier.height(32.dp))
-            Header()
-            Spacer(Modifier.height(8.dp))
-            // HorizontalScroll()
-            LazyColumn(
-                modifier = Modifier.fillMaxSize(),
-                state = rememberLazyListState(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                contentPadding = PaddingValues(horizontal = 8.dp),
-            ) {
-                pager(pagerList)
-                // latestMovies(latestMovies)
-                popularMovies(popularMovies)
-                topRatedMovies(topRatedMovies)
-                upComingMovies(upcomingMovies)
-                nowPlayingMovies(nowPlayingMovies, screenModel.nowPlayingMoviesPaging.second)
-            }
+            Movies(
+                pagerList,
+                popularMovies,
+                topRatedMovies,
+                upcomingMovies,
+                nowPlayingMovies,
+                screenModel)
         }
 }
 
 @Composable
-internal fun HorizontalScroll(
+fun Movies(
+    pagerList: MoviesState,
+    popularMovies: Result<List<MoviesDomainModel>>,
+    topRatedMovies: Result<List<MoviesDomainModel>>,
+    upcomingMovies: Result<List<MoviesDomainModel>>,
+    nowPlayingMovies: Result<List<MoviesDomainModel>>,
+    screenModel: HomeScreenViewModel
+) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+        state = rememberLazyListState(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        pager(pagerList)
+        // latestMovies(latestMovies)
+        popularMovies(popularMovies)
+        topRatedMovies(topRatedMovies)
+        upComingMovies(upcomingMovies)
+        nowPlayingMovies(nowPlayingMovies, screenModel.nowPlayingMoviesPaging.second)
+    }
+}
+
+@Composable
+fun HorizontalScroll(
     movies: List<MoviesDomainModel>,
     heading: String,
     onMovieClick: (MoviesDomainModel) -> Unit
@@ -104,7 +105,7 @@ internal fun HorizontalScroll(
         }
 }
 
-internal fun LazyListScope.pager(pagerList: MoviesState) {
+fun LazyListScope.pager(pagerList: MoviesState) {
     item {
         when (pagerList) {
             is MoviesState.Error -> {}
@@ -115,13 +116,15 @@ internal fun LazyListScope.pager(pagerList: MoviesState) {
                 Text(text = "loading")
             }
             is MoviesState.Success -> {
-                AutoScrollingHorizontalSlider(pagerList.movies) {}
+                AutoScrollingHorizontalSlider(pagerList.movies.size) { page ->
+                    PagerMovieCard(movie = pagerList.movies[page], onClick = {})
+                }
             }
         }
     }
 }
 
-internal fun LazyListScope.latestMovies(latestMovies: Result<List<MoviesDomainModel>>) {
+fun LazyListScope.latestMovies(latestMovies: Result<List<MoviesDomainModel>>) {
     when (latestMovies) {
         is Result.Loading -> {
             item { Text("idle") }
@@ -140,7 +143,7 @@ internal fun LazyListScope.latestMovies(latestMovies: Result<List<MoviesDomainMo
     }
 }
 
-internal fun LazyListScope.popularMovies(popularMovies: Result<List<MoviesDomainModel>>) {
+fun LazyListScope.popularMovies(popularMovies: Result<List<MoviesDomainModel>>) {
     when (popularMovies) {
         is Result.Loading -> {
             item { Text("idle") }
@@ -159,7 +162,7 @@ internal fun LazyListScope.popularMovies(popularMovies: Result<List<MoviesDomain
     }
 }
 
-internal fun LazyListScope.topRatedMovies(popularMovies: Result<List<MoviesDomainModel>>) {
+fun LazyListScope.topRatedMovies(popularMovies: Result<List<MoviesDomainModel>>) {
     when (popularMovies) {
         is Result.Loading -> {
             item { Text("idle") }
@@ -178,7 +181,7 @@ internal fun LazyListScope.topRatedMovies(popularMovies: Result<List<MoviesDomai
     }
 }
 
-internal fun LazyListScope.upComingMovies(popularMovies: Result<List<MoviesDomainModel>>) {
+fun LazyListScope.upComingMovies(popularMovies: Result<List<MoviesDomainModel>>) {
     when (popularMovies) {
         is Result.Loading -> {
             item { Text("idle") }
@@ -197,7 +200,7 @@ internal fun LazyListScope.upComingMovies(popularMovies: Result<List<MoviesDomai
     }
 }
 
-internal fun LazyListScope.nowPlayingMovies(
+fun LazyListScope.nowPlayingMovies(
     popularMovies: Result<List<MoviesDomainModel>>,
     loadMovies: () -> Unit
 ) {
@@ -228,7 +231,7 @@ internal fun LazyListScope.nowPlayingMovies(
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-internal fun Header() {
+fun Header() {
 
     var query by remember { mutableStateOf("") }
 
@@ -296,184 +299,32 @@ internal fun Header() {
         }
 }
 
-@Composable
-internal fun MovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
-
-    Card(
-        modifier =
-            Modifier.fillMaxWidth().padding(8.dp).clickable { onClick() }.animateContentSize(),
-        shape = RoundedCornerShape(16.dp),
-        elevation = 8.dp) {
-            Row(modifier = Modifier.fillMaxSize()) {
-                Box(modifier = Modifier.width(130.dp).fillMaxHeight()) {
-                    AsyncImage(
-                        url = movie.posterPath,
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                }
-                Box {
-                    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-                        Text(
-                            text = movie.title,
-                            style = MaterialTheme.typography.h6,
-                            fontSize = 18.sp,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis)
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = movie.releaseDate,
-                            style = MaterialTheme.typography.caption,
-                            fontSize = 14.sp,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis)
-                        Spacer(modifier = Modifier.height(16.dp))
-                        RatingRow(movie = movie)
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = movie.overview,
-                            style = MaterialTheme.typography.body2,
-                            fontSize = 14.sp,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis)
-                    }
-                }
-            }
-        }
-}
-
-@Composable
-internal fun RatingRow(movie: MoviesDomainModel) {
-
-    val ratingColor = getRatingColor(movie.voteAverage)
-
-    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
-        Box(
-            modifier =
-                Modifier.size(28.dp).clip(CircleShape).background(ratingColor).padding(2.dp)) {
-                Text(
-                    text = movie.voteAverage.toString(),
-                    style = MaterialTheme.typography.caption,
-                    fontSize = 12.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    modifier = Modifier.align(Alignment.Center))
-            }
-        Spacer(modifier = Modifier.width(8.dp))
-        val animatedProgress = remember { Animatable(0f) }
-        LaunchedEffect(animatedProgress) {
-            animatedProgress.animateTo(
-                movie.voteAverage / 10f, animationSpec = tween(durationMillis = 1000))
-        }
-        CircularProgressIndicator(
-            progress = animatedProgress.value,
-            color = ratingColor,
-            strokeWidth = 4.dp,
-            modifier = Modifier.size(24.dp))
-
-        Spacer(modifier = Modifier.width(8.dp))
-        ShimmerStar(
-            isShimmering = true,
-            modifier = Modifier.size(24.dp),
-        )
-        Spacer(modifier = Modifier.width(4.dp))
-        Text(
-            text = movie.voteCount,
-            style = MaterialTheme.typography.caption,
-            fontSize = 12.sp,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f))
-    }
-}
-
-@Composable
-internal fun getRatingColor(rating: Float): Color {
-    val green = Color(0xFF00C853)
-    val yellow = Color(0xFFFFD600)
-    val red = Color(0xFFFF1744)
-
-    return when (rating) {
-        in 0.0..5.0 -> red
-        in 5.0..7.0 -> yellow
-        else -> green
-    }
-}
-
-@Composable
-internal fun MovieCardSmall(movie: MoviesDomainModel, onClick: () -> Unit) {
-    Card(
-        modifier =
-            Modifier.height(200.dp).width(150.dp).clickable { onClick() }.animateContentSize(),
-        shape = RoundedCornerShape(8.dp),
-        elevation = 8.dp) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                AsyncImage(url = movie.posterPath, modifier = Modifier.fillMaxSize())
-            }
-        }
-}
-
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-internal fun AutoScrollingHorizontalSlider(
-    movies: List<MoviesDomainModel>,
-    onMovieClick: (MoviesDomainModel) -> Unit
+fun AutoScrollingHorizontalSlider(
+    size: Int,
+    delay: Long = 2000,
+    animationDuration: Int = 1000,
+    content: @Composable (page: Int) -> Unit
 ) {
     val pagerState = rememberPagerState(1)
 
     LaunchedEffect(key1 = pagerState) {
         while (true) {
-            val nextPage = (pagerState.currentPage + 1) % movies.size
-            tween<Float>(durationMillis = 1000, easing = LinearEasing)
+            val nextPage = (pagerState.currentPage + 1) % size
+            tween<Float>(durationMillis = animationDuration, easing = LinearEasing)
             pagerState.animateScrollToPage(page = nextPage, pageOffset = 0f)
-            delay(2000) // Adjust this value to control the time between auto-scrolls
+            delay(delay) // Adjust this value to control the time between auto-scrolls
         }
     }
 
     Box(
         modifier =
-            Modifier.background(MaterialTheme.colors.background).fillMaxWidth().height(360.dp)) {
+            Modifier.background(MaterialTheme.colors.background).fillMaxWidth().height(500.dp)) {
             HorizontalPager(
-                state = pagerState,
-                modifier = Modifier.align(Alignment.Center),
-                count = movies.size) { page ->
-                    AutoScrollingMovieCard(
-                        movie = movies[page], onClick = { onMovieClick(movies[page]) })
+                state = pagerState, modifier = Modifier.align(Alignment.Center), count = size) {
+                    page ->
+                    content(page)
                 }
-        }
-}
-
-@Composable
-internal fun AutoScrollingMovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
-    Card(
-        modifier = Modifier.fillMaxWidth().height(280.dp).clickable { onClick() },
-        shape = RoundedCornerShape(12.dp),
-        elevation = 4.dp) {
-            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
-                Box {
-                    AsyncImage(
-                        url = movie.backdropPath,
-                        modifier = Modifier.fillMaxWidth().height(280.dp),
-                        contentScale = ContentScale.Crop)
-
-                    Box(
-                        modifier =
-                            Modifier.fillMaxWidth()
-                                .height(280.dp)
-                                .background(
-                                    brush =
-                                        Brush.verticalGradient(
-                                            colors = listOf(Color.Transparent, Color.Black),
-                                            startY = 0.4f * 280.dp.value)),
-                        contentAlignment = Alignment.BottomStart) {
-                            Text(
-                                text = movie.title,
-                                style = MaterialTheme.typography.h3,
-                                overflow = TextOverflow.Ellipsis,
-                                modifier = Modifier.padding(8.dp))
-                        }
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-            }
         }
 }

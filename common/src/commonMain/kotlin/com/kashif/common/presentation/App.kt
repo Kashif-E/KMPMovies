@@ -22,10 +22,8 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.kashif.common.presentation.components.SlideTransition
 import com.kashif.common.presentation.tabs.HomeTab
-import com.kashif.common.presentation.theme.AppShapes
-import com.kashif.common.presentation.theme.DarkColorPallete
 import com.kashif.common.presentation.theme.GreenSecondary
-import com.kashif.common.presentation.theme.Typography
+import com.kashif.common.presentation.theme.MoviesAppTheme
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
@@ -33,17 +31,13 @@ import org.koin.core.component.inject
 @Composable
 internal fun App() {
 
-    MaterialTheme(
-        colors = DarkColorPallete,
-        typography = Typography,
-        shapes = AppShapes,
-        content = {
-            TabNavigator(HomeTab) {
-                BottomSheetNavigator {
-                    Navigator(Application()) { navigator -> SlideTransition(navigator) }
-                }
+    MoviesAppTheme {
+        TabNavigator(HomeTab) {
+            BottomSheetNavigator {
+                Navigator(Application()) { navigator -> SlideTransition(navigator) }
             }
-        })
+        }
+    }
 }
 
 class Application : Screen {

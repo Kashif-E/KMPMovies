@@ -12,4 +12,5 @@ data class MoviesDomainModel(
     val video: Boolean,
     val voteAverage: Float,
     val voteCount: String,
+    val hdPosterPath: String,
 )
