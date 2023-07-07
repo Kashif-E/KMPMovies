@@ -7,7 +7,7 @@ import AVKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-    let platformVideoPlayer = IOSAppVideoPlayer()
+
 
     override init() {
         KoinKt.doInitKoin(baseUrl: "https://api.themoviedb.org/3/")
@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let rootView = MainSwiftUIView(videoPlayer: platformVideoPlayer)
+        let rootView = MainSwiftUIView()
         let hostingController = UIHostingController(rootView: rootView)
         window?.rootViewController = hostingController
         window?.makeKeyAndVisible()

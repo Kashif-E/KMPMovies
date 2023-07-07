@@ -1,15 +1,13 @@
 package com.kashif.common
 
-import androidx.compose.ui.window.Application
+import androidx.compose.ui.window.ComposeUIViewController
 import com.kashif.common.presentation.App
-import platform.UIKit.*
+import platform.UIKit.UIView
+import platform.UIKit.UIViewController
 
-fun MainViewController(videoplayer: PlatformVideoPlayer): UIViewController {
+fun MainViewController(): UIViewController {
     val viewController =
-        Application("Composables") { App(videoPlayerRenderer = { url ->
-            //starts playing video and visible but in front of other views
-            videoplayer.renderVideoPlayerView(url)
-        }) }
+        ComposeUIViewController { App() }
             .also {
                 //starts playing video but not visible
              /*   it.view.insertSubview(

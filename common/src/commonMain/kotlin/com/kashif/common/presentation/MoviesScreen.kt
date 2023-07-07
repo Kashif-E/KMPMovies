@@ -38,7 +38,7 @@ import com.kashif.common.presentation.theme.SunnySideUp
 import kotlinx.coroutines.delay
 
 @Composable
-fun HomeScreen(screenModel: HomeScreenViewModel) {
+fun HomeScreen(screenModel: HomeScreenViewModel = provide.screenModel) {
     val pagerList by screenModel.popularMovies.collectAsState()
     val latestMovies by screenModel.latestMovies.first.collectAsState()
     val popularMovies by screenModel.popularMoviesPaging.first.collectAsState()
@@ -53,6 +53,7 @@ fun HomeScreen(screenModel: HomeScreenViewModel) {
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top) {
             Movies(
+                latestMovies,
                 pagerList,
                 popularMovies,
                 topRatedMovies,
@@ -64,6 +65,7 @@ fun HomeScreen(screenModel: HomeScreenViewModel) {
 
 @Composable
 fun Movies(
+    latestMovies: Result<List<MoviesDomainModel>>,
     pagerList: MoviesState,
     popularMovies: Result<List<MoviesDomainModel>>,
     topRatedMovies: Result<List<MoviesDomainModel>>,
@@ -77,7 +79,7 @@ fun Movies(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         pager(pagerList)
-        // latestMovies(latestMovies)
+     //   latestMovies(latestMovies)
         popularMovies(popularMovies)
         topRatedMovies(topRatedMovies)
         upComingMovies(upcomingMovies)
@@ -239,20 +241,24 @@ fun LazyListScope.nowPlayingMovies(
             item { Text(popularMovies.exception) }
         }
         is Result.Success -> {
-            item {
-                Text(
-                    text = "Now Playing Movies",
-                    style = MaterialTheme.typography.h3.copy(fontWeight = FontWeight.W700),
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Start)
-            }
-            items(popularMovies.data) { movie ->
-                if (popularMovies.data.last() == movie) {
-                    loadMovies()
-                }
-                MovieCard(movie = movie, onClick = {})
-            }
+            NowPlayingMovies(popularMovies.data, loadMovies::invoke)
         }
+    }
+}
+
+fun LazyListScope.NowPlayingMovies(data: List<MoviesDomainModel>, loadMovies: () -> Unit) {
+    item {
+        Text(
+            text = "Now Playing Movies",
+            style = MaterialTheme.typography.h3.copy(fontWeight = FontWeight.W700),
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Start)
+    }
+    items(data) { movie ->
+        if (data.last() == movie) {
+            loadMovies()
+        }
+        MovieCard(movie = movie, onClick = {})
     }
 }
 

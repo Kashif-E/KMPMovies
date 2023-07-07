@@ -21,22 +21,22 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.kashif.common.presentation.components.SlideTransition
-import com.kashif.common.presentation.tabs.HomeTab
 import com.kashif.common.presentation.theme.GreenSecondary
 import com.kashif.common.presentation.theme.MoviesAppTheme
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
+//val homeTab =HomeTab()
 @OptIn(ExperimentalMaterialApi::class, ExperimentalAnimationApi::class)
 @Composable
 internal fun App() {
 
     MoviesAppTheme {
-        TabNavigator(HomeTab) {
+       // TabNavigator(homeTab) {
             BottomSheetNavigator {
                 Navigator(Application()) { navigator -> SlideTransition(navigator) }
             }
-        }
+       // }
     }
 }
 
@@ -55,7 +55,7 @@ class Application : Screen {
                     contentColor = GreenSecondary,
                     elevation = 4.dp,
                 ) {
-                    TabNavigationItem(tab = HomeTab)
+                   // TabNavigationItem(tab = homeTab)
                     //                        TabNavigationItem(tab = CategoryTab)
                     //                        TabNavigationItem(tab = SearchTab)
                     //                        TabNavigationItem(tab = OrdersTab)
@@ -63,7 +63,7 @@ class Application : Screen {
                 }
             },
         ) {
-            CurrentTab()
+           HomeScreen()
         }
     }
 }

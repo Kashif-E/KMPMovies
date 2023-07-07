@@ -6,12 +6,6 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Green
-import cafe.adriel.voyager.navigator.Navigator
-import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
-import cafe.adriel.voyager.navigator.tab.TabNavigator
-import com.kashif.common.presentation.Application
-import com.kashif.common.presentation.components.SlideTransition
-import com.kashif.common.presentation.tabs.HomeTab
 
 val LightColorPalette =
     lightColors(

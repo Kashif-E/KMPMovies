@@ -10,19 +10,19 @@ import AVKit
 
 
 struct MainSwiftUIView: View {
-    let videoPlayer: IOSAppVideoPlayer
+ 
 
     var body: some View {
        
-            MainViewControllerWrapper(videoPlayer: videoPlayer)
+            MainViewControllerWrapper()
     }
 }
 
 struct MainViewControllerWrapper: UIViewControllerRepresentable {
-    let videoPlayer: IOSAppVideoPlayer
+   
 
     func makeUIViewController(context: Context) -> UIViewController {
-        Main_iosKt.MainViewController(videoplayer: videoPlayer)
+        Main_iosKt.MainViewController()
     }
 
     func updateUIViewController(_ uiViewController: UIViewController, context: Context) {

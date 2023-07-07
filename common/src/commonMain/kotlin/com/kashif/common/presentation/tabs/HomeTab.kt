@@ -10,7 +10,14 @@ import cafe.adriel.voyager.navigator.tab.TabOptions
 import com.kashif.common.presentation.HomeScreen
 import com.kashif.common.presentation.provide
 
-object HomeTab : Tab {
+/*class HomeTab : Tab {
+
+
+    @Composable
+    override fun Content() {
+        HomeScreen(provide.screenModel)
+    }
+
     override val options: TabOptions
         @Composable
         get() {
@@ -19,8 +26,4 @@ object HomeTab : Tab {
             return remember { TabOptions(index = 0u, title = "Home", icon = icon) }
         }
 
-    @Composable
-    override fun Content() {
-        HomeScreen(provide.screenModel)
-    }
-}
+}*/
