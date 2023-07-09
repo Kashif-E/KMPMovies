@@ -2,35 +2,18 @@ package com.kashif.common.presentation.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Green
 
-val LightColorPalette =
-    lightColors(
-        primary = GreenSecondary,
-        primaryVariant = DarkBlue,
-        secondary = Green,
-        secondaryVariant = YellowGreenSecondary,
-        background = Color.Black,
-        surface = Color.Black,
-        onPrimary = Color.White,
-        onSecondary = OnPrimary,
-        onBackground = DarkBlue,
-        onSurface = DarkBlue,
-        error = Danger,
-        onError = OnPrimary
-    )
-
- val DarkColorPallete =
+val colorPallete =
     darkColors(
         primary = GreenSecondary,
         primaryVariant = YellowGreen,
         secondary = Green,
         secondaryVariant = YellowGreenSecondary,
-        background = Color.Black,
-        surface = Color.Black,
+        background = Black,
+        surface = Black,
         onPrimary = Color.White,
         onSecondary = DarkGrey,
         onBackground = DarkGrey,
@@ -42,7 +25,7 @@ val LightColorPalette =
 @Composable
 fun MoviesAppTheme( content : @Composable () -> Unit){
     MaterialTheme(
-        colors = DarkColorPallete,
+        colors = colorPallete,
         typography = Typography,
         shapes = AppShapes,
         content = {

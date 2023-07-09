@@ -24,6 +24,7 @@ fun MovieCardSmall(movie: MoviesDomainModel, onClick: () -> Unit) {
                 .clickable { onClick() }.border(0.2.dp, Color.LightGray, RoundedCornerShape(8.dp))
                 .animateContentSize(),
         shape = RoundedCornerShape(8.dp),
+        backgroundColor = Color.Transparent,
         elevation = 8.dp) {
             Box(modifier = Modifier.fillMaxSize()) {
                 AsyncImage(url = movie.posterPath, modifier = Modifier.fillMaxSize())

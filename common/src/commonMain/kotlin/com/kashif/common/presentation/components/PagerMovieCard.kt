@@ -2,7 +2,6 @@ package com.kashif.common.presentation.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +18,6 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
@@ -35,81 +33,80 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.kashif.common.domain.model.MoviesDomainModel
+import com.kashif.common.presentation.theme.Black
 import com.kashif.common.presentation.theme.Grey
 
 @Composable
 fun PagerMovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
-    Card(modifier = Modifier.fillMaxSize().clickable { onClick() }, elevation = 0.dp) {
-        Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
-            Box {
-                AsyncImage(
-                    url = movie.hdPosterPath,
-                    modifier = Modifier.fillMaxSize().padding(bottom = 16.dp),
-                    contentScale = ContentScale.FillBounds)
 
-                Box(
-                    modifier =
-                        Modifier.fillMaxSize()
-                            .background(
-                                brush =
-                                    Brush.verticalGradient(
-                                        colors = listOf(Color.Transparent, Color.Black),
-                                        startY = 0.4f * 300.dp.value)),
-                    contentAlignment = Alignment.BottomStart) {
-                        Row(
-                            modifier =
-                                Modifier.fillMaxWidth().wrapContentHeight().padding(bottom = 16.dp),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically) {
-                                CapsuleButton(
-                                    modifier = Modifier.height(30.dp).width(80.dp),
-                                    backgroundColor = Grey,
-                                    contentColor = Color.LightGray,
-                                    onClick = {},
-                                    content = {
-                                            Icon(
-                                                modifier = Modifier.align(Alignment.CenterVertically),
-                                                imageVector = Icons.Rounded.PlayArrow,
-                                                contentDescription = "Play",
-                                                tint = Color.LightGray,
-                                            )
-                                            Text(
-                                                text = "Play",
-                                                style = MaterialTheme.typography.h6.copy(color = Color.LightGray),
-                                                textAlign = TextAlign.Center,
-                                                modifier = Modifier
-                                                    .align(Alignment.CenterVertically)
-                                            )
+    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
+        Box {
+            AsyncImage(
+                url = movie.hdPosterPath,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillBounds)
 
-
-                                    },
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                CapsuleButton(
-                                    modifier = Modifier.height(30.dp).width(80.dp),
-                                    backgroundColor = Color.Black,
-                                    contentColor = Color.LightGray,
-                                    borderStroke = BorderStroke(1.dp, Color.LightGray),
-                                    onClick = {},
-                                    content = {
-                                        Text(
-                                            modifier = Modifier
-                                                .padding(horizontal = 2.dp)
+            Box(
+                modifier =
+                    Modifier.fillMaxSize()
+                        .background(
+                            brush =
+                                Brush.verticalGradient(
+                                    colors = listOf(Color.Transparent, MaterialTheme.colors.background),
+                                    startY = 0.4f * 280.dp.value),
+                        ),
+                contentAlignment = Alignment.BottomStart) {
+                    Row(
+                        modifier =
+                            Modifier.fillMaxWidth().wrapContentHeight().padding(bottom = 16.dp),
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically) {
+                            CapsuleButton(
+                                modifier = Modifier.height(30.dp).width(80.dp),
+                                backgroundColor = Grey,
+                                contentColor = Color.LightGray,
+                                onClick = {},
+                                content = {
+                                    Icon(
+                                        modifier = Modifier.align(Alignment.CenterVertically),
+                                        imageVector = Icons.Rounded.PlayArrow,
+                                        contentDescription = "Play",
+                                        tint = Color.LightGray,
+                                    )
+                                    Text(
+                                        text = "Play",
+                                        style =
+                                            MaterialTheme.typography.h6.copy(
+                                                color = Color.LightGray),
+                                        textAlign = TextAlign.Center,
+                                        modifier = Modifier.align(Alignment.CenterVertically))
+                                },
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            CapsuleButton(
+                                modifier = Modifier.height(30.dp).width(80.dp),
+                                backgroundColor = MaterialTheme.colors.background,
+                                contentColor = Color.LightGray,
+                                borderStroke = BorderStroke(1.dp, Color.LightGray),
+                                onClick = {},
+                                content = {
+                                    Text(
+                                        modifier =
+                                            Modifier.padding(horizontal = 2.dp)
                                                 .fillMaxSize()
                                                 .wrapContentSize(Alignment.Center),
-                                            text = "Details",
-                                            style = MaterialTheme.typography.h6.copy(color = Color.LightGray),
-                                            textAlign = TextAlign.Center
-                                        )
-
-                                    },
-                                )
-                            }
-                    }
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
+                                        text = "Details",
+                                        style =
+                                            MaterialTheme.typography.h6.copy(
+                                                color = Color.LightGray),
+                                        textAlign = TextAlign.Center)
+                                },
+                            )
+                        }
+                }
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
@@ -134,5 +131,3 @@ private fun CapsuleButton(
             ButtonDefaults.buttonColors(
                 backgroundColor = backgroundColor, contentColor = contentColor))
 }
-
-

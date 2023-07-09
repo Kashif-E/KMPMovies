@@ -30,7 +30,7 @@ val GreenSecondary = Color(0xFF02BC87)
 
 val MarqueeBackground = Color(0xFF62E788)
 
-val Black = Color(0xFF0E1036)
+val Black = Color(0xFF020202)
 
 val Grey = Color(0xFF666666)
 

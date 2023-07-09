@@ -39,6 +39,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(kotlin("stdlib-common"))
+                implementation("co.touchlab:kermit:2.0.0-RC4")
                 api(compose.runtime)
                 api(compose.foundation)
                 api(compose.material)

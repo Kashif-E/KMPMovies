@@ -39,10 +39,14 @@ import com.kashif.common.domain.model.MoviesDomainModel
 fun MovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
 
     Card(
-        modifier = Modifier.fillMaxWidth().clickable { onClick() }.animateContentSize().padding(12.dp),
+        modifier =
+            Modifier.fillMaxWidth()
+                .clickable { onClick() }
+                .animateContentSize()
+                .padding(bottom = 8.dp),
         shape = RoundedCornerShape(16.dp),
         elevation = 8.dp,
-        backgroundColor = Color.Black,
+        backgroundColor = MaterialTheme.colors.background,
         border = BorderStroke(width = 0.2.dp, color = Color.White)) {
             Row(modifier = Modifier.fillMaxSize()) {
                 Box(modifier = Modifier.width(130.dp).fillMaxHeight()) {
@@ -92,10 +96,7 @@ fun RatingRow(movie: MoviesDomainModel) {
                 Modifier.size(28.dp).clip(CircleShape).background(ratingColor).padding(2.dp)) {
                 Text(
                     text = movie.voteAverage.toString(),
-                    style = MaterialTheme.typography.caption,
-                    fontSize = 12.sp,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.caption.copy(color = MaterialTheme.colors.background),
                     modifier = Modifier.align(Alignment.Center))
             }
         Spacer(modifier = Modifier.width(8.dp))
@@ -119,10 +120,7 @@ fun RatingRow(movie: MoviesDomainModel) {
         Text(
             text = movie.voteCount,
             style = MaterialTheme.typography.caption,
-            fontSize = 12.sp,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            color = MaterialTheme.colors.onSurface.copy(alpha = 0.7f))
+            color = Color.LightGray)
     }
 }
 
