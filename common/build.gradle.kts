@@ -1,3 +1,4 @@
+@file:Suppress("OPT_IN_IS_NOT_ENABLED")
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
@@ -7,17 +8,12 @@ plugins {
 }
 
 group = "com.kashif"
-version = "1.0-SNAPSHOT"
 
-fun composeDependency(groupWithArtifact: String) = "$groupWithArtifact:${libs.versions.compose}"
+version = "1.0-SNAPSHOT"
 
 kotlin {
     android()
-    jvm("desktop") {
-        compilations.all {
-            kotlinOptions.jvmTarget = "11"
-        }
-    }
+    jvm("desktop") { compilations.all { kotlinOptions.jvmTarget = "11" } }
 
     ios()
     iosSimulatorArm64()
@@ -32,9 +28,9 @@ kotlin {
             baseName = "common"
             isStatic = true
         }
+        extraSpecAttributes["resources"] =
+            "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
-
-
 
     sourceSets {
         val commonMain by getting {
@@ -59,62 +55,47 @@ kotlin {
                 implementation(libs.voyager.transitions)
                 implementation(libs.voyager.bottomSheetNavigator)
                 implementation(libs.voyager.tabNavigator)
-
-
-
+                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+                implementation(compose.components.resources)
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
+        val commonTest by getting { dependencies { implementation(kotlin("test")) } }
 
-
-            }
-        }
         val androidMain by getting {
             dependencies {
                 api(libs.androidx.appcompat)
                 api(libs.androidx.coreKtx)
                 implementation(libs.ktor.android)
                 implementation(libs.koin.compose)
-                implementation ("androidx.media3:media3-exoplayer:1.0.0")
-                implementation ("androidx.media3:media3-exoplayer-dash:1.0.0")
-                implementation ("androidx.media3:media3-ui:1.0.0")
+                implementation("androidx.media3:media3-exoplayer:1.1.0")
+                implementation("androidx.media3:media3-exoplayer-dash:1.1.0")
+                implementation("androidx.media3:media3-ui:1.1.0")
             }
         }
-        val androidUnitTest by getting {
-            dependencies {
-                implementation(libs.junit)
-            }
-        }
+        val androidUnitTest by getting { dependencies { implementation(libs.junit) } }
         val desktopMain by getting {
             dependencies {
                 api(compose.preview)
                 implementation(libs.koin.core)
                 implementation(libs.ktor.java)
                 implementation(libs.koin.compose)
-
             }
         }
         val desktopTest by getting
 
         val iosMain by getting {
             dependsOn(commonMain)
-            dependencies {
-                implementation(libs.ktor.ios)
-            }
+            dependencies { implementation(libs.ktor.ios) }
         }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
-        }
-
+        val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
     }
 }
-
 
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
     defaultConfig {
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
@@ -123,7 +104,4 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-}
-dependencies {
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.3.3")
 }

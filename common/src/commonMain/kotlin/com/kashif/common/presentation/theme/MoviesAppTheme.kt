@@ -26,7 +26,7 @@ val colorPallete =
 fun MoviesAppTheme( content : @Composable () -> Unit){
     MaterialTheme(
         colors = colorPallete,
-        typography = Typography,
+        typography = getTypography(),
         shapes = AppShapes,
         content = {
            content()

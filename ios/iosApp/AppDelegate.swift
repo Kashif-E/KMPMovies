@@ -7,8 +7,6 @@ import AVKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
-
-
     override init() {
         KoinKt.doInitKoin(baseUrl: "https://api.themoviedb.org/3/")
     }

@@ -9,7 +9,5 @@ import org.koin.core.context.GlobalContext.get
 @Preview
 @Composable
 fun Application() {
-    App(androidAppVideoPlayer = { url ->
-        println("VideoPlayer: $url")
-    })
+    App()
 }
