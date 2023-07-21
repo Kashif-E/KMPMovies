@@ -1,6 +1,7 @@
 package com.kashif.common
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -14,3 +15,5 @@ internal expect val ioDispatcher: CoroutineDispatcher
 @Composable
 expect fun font(name: String, res: String, weight: FontWeight, style: FontStyle): Font
 
+@Composable
+expect fun VideoPlayer(modifier: Modifier, url: String)

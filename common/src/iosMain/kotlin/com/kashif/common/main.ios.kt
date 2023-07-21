@@ -19,23 +19,17 @@ fun MainViewController(): UIViewController {
                 //starts playing video but not visible
              /*   it.view.insertSubview(
                     videoplayer.returnVideoPlayerView(
-                        "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"),
+                    ),
                     atIndex = 0)*/
             }
 
     return viewController
 }
 
-interface PlatformVideoPlayer {
 
-    fun renderVideoPlayerView(url: String)
 
-    fun returnVideoPlayerView(url: String): UIView
-}
 
 private val cache: MutableMap<String, Font> = mutableMapOf()
-
-
 @OptIn(ExperimentalResourceApi::class)
 @Composable
 actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle): Font {
@@ -46,3 +40,4 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
         androidx.compose.ui.text.platform.Font(res, byteArray, weight, style)
     }
 }
+

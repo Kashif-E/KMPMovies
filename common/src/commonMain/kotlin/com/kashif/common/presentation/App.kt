@@ -14,29 +14,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.navigator.Navigator
-import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
-import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
-import cafe.adriel.voyager.navigator.tab.TabNavigator
-import com.kashif.common.presentation.components.SlideTransition
+import com.kashif.common.VideoPlayer
 import com.kashif.common.presentation.theme.GreenSecondary
 import com.kashif.common.presentation.theme.MoviesAppTheme
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-//val homeTab =HomeTab()
+// val homeTab =HomeTab()
 @OptIn(ExperimentalMaterialApi::class, ExperimentalAnimationApi::class)
 @Composable
 internal fun App() {
 
     MoviesAppTheme {
-       // TabNavigator(homeTab) {
-            BottomSheetNavigator {
-                Navigator(Application()) { navigator -> SlideTransition(navigator) }
-            }
-       // }
+        VideoPlayer(
+            modifier = Modifier,
+            url =
+                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+        // TabNavigator(homeTab) {
+        /*  BottomSheetNavigator {
+            Navigator(Application()) { navigator -> SlideTransition(navigator) }
+        }*/
+        // }
     }
 }
 
@@ -55,7 +55,7 @@ class Application : Screen {
                     contentColor = GreenSecondary,
                     elevation = 4.dp,
                 ) {
-                   // TabNavigationItem(tab = homeTab)
+                    // TabNavigationItem(tab = homeTab)
                     //                        TabNavigationItem(tab = CategoryTab)
                     //                        TabNavigationItem(tab = SearchTab)
                     //                        TabNavigationItem(tab = OrdersTab)
@@ -63,7 +63,7 @@ class Application : Screen {
                 }
             },
         ) {
-           HomeScreen()
+            HomeScreen()
         }
     }
 }

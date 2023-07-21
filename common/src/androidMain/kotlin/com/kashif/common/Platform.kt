@@ -24,18 +24,10 @@ internal actual val ioDispatcher: CoroutineDispatcher
     get() = Dispatchers.IO
 
 
-/*class AndroidAppVideoPlayer : PlatformVideoPlayer {
-    @Composable
-    override fun renderVideoPlayerView(url: String) {
-        VideoPlayer(url)
-    }
-}*/
-
 @Composable
-fun VideoPlayer(url: String) {
-
+actual fun VideoPlayer(modifier: Modifier, url: String){
     AndroidView(
-        modifier = Modifier.height(200.dp).fillMaxWidth(),
+        modifier = modifier.height(200.dp).fillMaxWidth(),
         factory = { context ->
             VideoView(context).apply {
                 setVideoPath(url)
@@ -55,3 +47,4 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
     val id = context.resources.getIdentifier(res, "font", context.packageName)
     return Font(id, weight, style)
 }
+
