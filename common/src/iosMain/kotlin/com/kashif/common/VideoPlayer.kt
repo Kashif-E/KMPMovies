@@ -1,43 +1,21 @@
 package com.kashif.common
 
-import androidx.compose.ui.graphics.Color
-import platform.AVFoundation.AVPlayer
-import platform.AVFoundation.AVPlayerLayer
-import platform.AVFoundation.play
-import platform.CoreGraphics.CGRectMake
-import platform.Foundation.NSURL
-import platform.UIKit.UIColor
-import platform.UIKit.UIEdgeInsetsMake
-import platform.UIKit.UILayoutConstraintAxisVertical
-import platform.UIKit.UIStackView
-import platform.UIKit.UIViewController
-import platform.darwin.NSObject
-
-class VideoPlayerViewController(
+/*class VideoPlayerViewController(
     private val url: String,
-    private val backgroundColor: Color
+    private val backgroundColor: Color,
+    private val videoFrame: CValue<CGRect> // Use CGRect from platform.CoreGraphics
 ) : UIViewController(nibName = null, bundle = null) {
 
     var onViewDisappeared: () -> Unit = {}
-
-    val stack = UIStackView().apply {
-        axis = UILayoutConstraintAxisVertical
-        spacing = 16.0
-        layoutMarginsRelativeArrangement = true
-        layoutMargins = UIEdgeInsetsMake(24.0, 24.0, 24.0, 24.0)
-        translatesAutoresizingMaskIntoConstraints = false
-    }
 
     private inner class NSVideoPlayer : NSObject() {
         val playerLayer = AVPlayerLayer()
 
         fun renderVideoPlayerView(url: String) {
-            val player = AVPlayer(uRL= NSURL.URLWithString(url)!!)
+            val player = AVPlayer(uRL = NSURL.URLWithString(url)!!)
             playerLayer.player = player
 
-            val rect = CGRectMake(100.0, 100.0, 200.0, 200.0)
-            val frame = rect
-            playerLayer.frame = frame
+            playerLayer.frame = videoFrame // Set the video player layer's frame
 
             player.play()
         }
@@ -60,5 +38,9 @@ class VideoPlayerViewController(
         super.viewDidDisappear(animated)
         onViewDisappeared()
     }
-}
+}*/
+
+
+
+
 

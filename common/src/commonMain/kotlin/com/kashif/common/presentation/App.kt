@@ -1,10 +1,11 @@
 package com.kashif.common.presentation
 
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
@@ -12,6 +13,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
@@ -23,15 +25,19 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
 // val homeTab =HomeTab()
-@OptIn(ExperimentalMaterialApi::class, ExperimentalAnimationApi::class)
 @Composable
 internal fun App() {
 
     MoviesAppTheme {
-        VideoPlayer(
-            modifier = Modifier,
-            url =
-                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+        Column {
+            Text("well known ", color = Color.Green)
+            VideoPlayer(
+                modifier = Modifier.fillMaxWidth().height(400.dp),
+                url =
+                    "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+            )
+        }
+
         // TabNavigator(homeTab) {
         /*  BottomSheetNavigator {
             Navigator(Application()) { navigator -> SlideTransition(navigator) }

@@ -27,7 +27,7 @@ internal actual val ioDispatcher: CoroutineDispatcher
 @Composable
 actual fun VideoPlayer(modifier: Modifier, url: String){
     AndroidView(
-        modifier = modifier.height(200.dp).fillMaxWidth(),
+        modifier = modifier,
         factory = { context ->
             VideoView(context).apply {
                 setVideoPath(url)
