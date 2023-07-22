@@ -10,19 +10,16 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
-actual fun platformModule() = module {
-    single {
-        Java.create()
-    }
-}
+actual fun platformModule() = module { single { Java.create() } }
 
-internal actual val ioDispatcher: CoroutineDispatcher get() = Dispatchers.IO
+internal actual val ioDispatcher: CoroutineDispatcher
+    get() = Dispatchers.IO
 
 @Composable
 actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle): Font =
     androidx.compose.ui.text.platform.Font("font/$res.ttf", weight, style)
 
 @Composable
-actual fun VideoPlayer(modifier: Modifier, url: String){
-
+actual fun VideoPlayer(modifier: Modifier, url: String) {
+    VideoPlayerImpl(url, modifier)
 }

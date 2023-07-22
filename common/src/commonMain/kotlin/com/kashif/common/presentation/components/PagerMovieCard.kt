@@ -33,11 +33,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.kashif.common.domain.model.MoviesDomainModel
-import com.kashif.common.presentation.theme.Black
 import com.kashif.common.presentation.theme.Grey
 
 @Composable
-fun PagerMovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
+fun PagerMovieCard(movie: MoviesDomainModel, onPlayClick: () -> Unit, onDetailsClick : () -> Unit) {
 
     Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
         Box {
@@ -65,7 +64,7 @@ fun PagerMovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
                                 modifier = Modifier.height(30.dp).width(80.dp),
                                 backgroundColor = Grey,
                                 contentColor = Color.LightGray,
-                                onClick = {},
+                                onClick = onPlayClick,
                                 content = {
                                     Icon(
                                         modifier = Modifier.align(Alignment.CenterVertically),
@@ -88,7 +87,7 @@ fun PagerMovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
                                 backgroundColor = MaterialTheme.colors.background,
                                 contentColor = Color.LightGray,
                                 borderStroke = BorderStroke(1.dp, Color.LightGray),
-                                onClick = {},
+                                onClick = onDetailsClick,
                                 content = {
                                     Text(
                                         modifier =

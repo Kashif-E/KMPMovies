@@ -1,4 +1,4 @@
-package com.kashif.common.paging
+package com.kashif.common.data.paging
 
 import com.kashif.paging.PagingConfig
 import kotlin.reflect.KFunction0
@@ -34,7 +34,8 @@ fun <T : Any> CoroutineScope.paginate(
                     pagedData.update {
                         Result.Error(
                             (loadResult.throwable.cause?.message ?: loadResult.throwable.message)
-                                ?: "Something went wrong, please try again.")
+                                ?: "Something went wrong, please try again."
+                        )
                     }
                 }
             } catch (exception: Exception) {

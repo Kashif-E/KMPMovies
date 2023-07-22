@@ -79,6 +79,7 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.ktor.java)
                 implementation(libs.koin.compose)
+                implementation("uk.co.caprica:vlcj:4.7.0")
             }
         }
         val desktopTest by getting

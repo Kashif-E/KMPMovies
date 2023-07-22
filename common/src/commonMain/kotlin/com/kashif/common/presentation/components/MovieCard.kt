@@ -43,7 +43,7 @@ fun MovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
             Modifier.fillMaxWidth()
                 .clickable { onClick() }
                 .animateContentSize()
-                .padding(bottom = 8.dp),
+                .padding(12.dp),
         shape = RoundedCornerShape(16.dp),
         elevation = 8.dp,
         backgroundColor = MaterialTheme.colors.background,
@@ -86,11 +86,11 @@ fun MovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
 }
 
 @Composable
-fun RatingRow(movie: MoviesDomainModel) {
+fun RatingRow(modifier: Modifier = Modifier,movie: MoviesDomainModel) {
 
     val ratingColor = getRatingColor(movie.voteAverage)
 
-    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+    Row(verticalAlignment = Alignment.CenterVertically, modifier =modifier.fillMaxWidth()) {
         Box(
             modifier =
                 Modifier.size(28.dp).clip(CircleShape).background(ratingColor).padding(2.dp)) {

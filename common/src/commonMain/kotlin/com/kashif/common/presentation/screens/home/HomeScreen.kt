@@ -1,4 +1,4 @@
-package com.kashif.common.presentation
+package com.kashif.common.presentation.screens.home
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
@@ -15,16 +15,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
+import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.kashif.common.domain.model.MoviesDomainModel
-import com.kashif.common.paging.Result
+import com.kashif.common.data.paging.Result
 import com.kashif.common.presentation.components.MovieCard
 import com.kashif.common.presentation.components.MovieCardSmall
 import com.kashif.common.presentation.components.PagerMovieCard
 import com.kashif.common.presentation.components.SearchAppBar
 import com.kashif.common.presentation.components.placeHolderRow
+import com.kashif.common.presentation.provide
+import com.kashif.common.presentation.screens.videoPlayerScreen.VideoPlayerScreen
 import com.kashif.common.presentation.theme.Grey
 import kotlinx.coroutines.delay
 
@@ -64,7 +68,8 @@ fun Movies(
     topRatedMovies: Result<List<MoviesDomainModel>>,
     upcomingMovies: Result<List<MoviesDomainModel>>,
     nowPlayingMovies: Result<List<MoviesDomainModel>>,
-    screenModel: HomeScreenViewModel
+    screenModel: HomeScreenViewModel,
+    bottomSheetNavigator : BottomSheetNavigator = LocalBottomSheetNavigator.current
 ) {
 
     LazyColumn(
@@ -72,7 +77,7 @@ fun Movies(
         state = rememberLazyListState(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        pager(pagerList)
+        pager(pagerList, bottomSheetNavigator)
         moviesList(
             movies = popularMovies, title = "Popular Movies", onMovieClick = {}, seeAllClick = {})
         moviesList(
@@ -128,7 +133,7 @@ fun HorizontalScroll(
     }
 }
 
-fun LazyListScope.pager(pagerList: MoviesState) {
+fun LazyListScope.pager(pagerList: MoviesState, bottomSheetNavigator: BottomSheetNavigator) {
     item {
         when (pagerList) {
             is MoviesState.Error -> {}
@@ -140,7 +145,10 @@ fun LazyListScope.pager(pagerList: MoviesState) {
             }
             is MoviesState.Success -> {
                 AutoScrollingHorizontalSlider(pagerList.movies.size) { page ->
-                    PagerMovieCard(movie = pagerList.movies[page], onClick = {})
+                    val movie = pagerList.movies[page]
+                    PagerMovieCard(movie =movie , onPlayClick = {
+                        bottomSheetNavigator.show(VideoPlayerScreen(movie))
+                    }, onDetailsClick = {})
                 }
             }
         }

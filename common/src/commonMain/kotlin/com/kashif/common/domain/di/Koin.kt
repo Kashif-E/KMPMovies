@@ -1,4 +1,4 @@
-package com.kashif.common.di
+package com.kashif.common.domain.di
 
 import com.kashif.common.data.remote.AbstractKtorService
 import com.kashif.common.data.remote.KtorService
@@ -6,7 +6,8 @@ import com.kashif.common.data.repository.AbstractRepository
 import com.kashif.common.data.repository.Repository
 import com.kashif.common.domain.usecase.*
 import com.kashif.common.platformModule
-import com.kashif.common.presentation.HomeScreenViewModel
+import com.kashif.common.presentation.screens.home.HomeScreenViewModel
+import com.kashif.common.presentation.screens.videoPlayerScreen.VideoPlayerScreenViewModel
 import io.ktor.client.*
 import io.ktor.client.engine.*
 import io.ktor.client.plugins.*
@@ -41,7 +42,9 @@ fun commonModule(
         getUseCaseModule() +
         getScreenModelModule()
 
-fun getScreenModelModule() = module { single { HomeScreenViewModel(get(), get(), get(), get(), get(), get()) } }
+fun getScreenModelModule() = module {
+    single { HomeScreenViewModel(get(), get(), get(), get(), get(), get()) }
+}
 
 fun getDataModule(
     enableNetworkLogs: Boolean,
@@ -63,6 +66,8 @@ fun getUseCaseModule() = module {
     single { GetNowPlayingMoviesPagingSource(get()) }
     single { GetTopRatedMoviesPagingSource(get()) }
     single { GetUpcomingMoviesPagingSource(get()) }
+    single { GetMovieTrailerUseCase(get()) }
+    single {  VideoPlayerScreenViewModel(get())}
 }
 
 fun createHttpClient(httpClientEngine: HttpClientEngine, json: Json, enableNetworkLogs: Boolean) =
