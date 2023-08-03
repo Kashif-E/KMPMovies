@@ -16,4 +16,4 @@ internal expect val ioDispatcher: CoroutineDispatcher
 expect fun font(name: String, res: String, weight: FontWeight, style: FontStyle): Font
 
 @Composable
-expect fun VideoPlayer(modifier: Modifier, url: String)
+expect fun VideoPlayer(modifier: Modifier, videoId: String)

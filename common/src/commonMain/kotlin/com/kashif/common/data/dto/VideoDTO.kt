@@ -13,8 +13,8 @@ data class TrailerResult(
     val official: Boolean,
 )
 
-suspend fun VideoDTO.asDomainModel(): VideoDomainModel {
-    val officialTrailer = this.results.first { trailerResult -> trailerResult.official }
+fun VideoDTO.asDomainModel(): VideoDomainModel {
+    val officialTrailer = this.results.first { trailerResult -> trailerResult.site.equals("youtube", true) }
 
     return VideoDomainModel(
         name = officialTrailer.name,

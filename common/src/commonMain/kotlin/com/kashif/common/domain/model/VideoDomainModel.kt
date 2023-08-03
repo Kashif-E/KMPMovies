@@ -5,4 +5,5 @@ data class VideoDomainModel(
     val name: String,
     val key: String,
     val site: String,
+
 )

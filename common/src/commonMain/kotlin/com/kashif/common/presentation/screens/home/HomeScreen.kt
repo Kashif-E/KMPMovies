@@ -2,10 +2,13 @@ package com.kashif.common.presentation.screens.home
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -17,11 +20,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
-import com.google.accompanist.pager.ExperimentalPagerApi
-import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.rememberPagerState
-import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.data.paging.Result
+import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.presentation.components.MovieCard
 import com.kashif.common.presentation.components.MovieCardSmall
 import com.kashif.common.presentation.components.PagerMovieCard
@@ -69,7 +69,7 @@ fun Movies(
     upcomingMovies: Result<List<MoviesDomainModel>>,
     nowPlayingMovies: Result<List<MoviesDomainModel>>,
     screenModel: HomeScreenViewModel,
-    bottomSheetNavigator : BottomSheetNavigator = LocalBottomSheetNavigator.current
+    bottomSheetNavigator: BottomSheetNavigator = LocalBottomSheetNavigator.current
 ) {
 
     LazyColumn(
@@ -146,9 +146,10 @@ fun LazyListScope.pager(pagerList: MoviesState, bottomSheetNavigator: BottomShee
             is MoviesState.Success -> {
                 AutoScrollingHorizontalSlider(pagerList.movies.size) { page ->
                     val movie = pagerList.movies[page]
-                    PagerMovieCard(movie =movie , onPlayClick = {
-                        bottomSheetNavigator.show(VideoPlayerScreen(movie))
-                    }, onDetailsClick = {})
+                    PagerMovieCard(
+                        movie = movie,
+                        onPlayClick = { bottomSheetNavigator.show(VideoPlayerScreen(movie)) },
+                        onDetailsClick = {})
                 }
             }
         }
@@ -219,7 +220,7 @@ fun LazyListScope.verticalMovieList(
     }
 }
 
-@OptIn(ExperimentalPagerApi::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AutoScrollingHorizontalSlider(
     size: Int,
@@ -233,7 +234,7 @@ fun AutoScrollingHorizontalSlider(
         while (true) {
             val nextPage = (pagerState.currentPage + 1) % size
             tween<Float>(durationMillis = animationDuration, easing = FastOutSlowInEasing)
-            pagerState.animateScrollToPage(page = nextPage, pageOffset = 0f)
+            pagerState.animateScrollToPage(page = nextPage, pageOffsetFraction = 0f)
             delay(delay) // Adjust this value to control the time between auto-scrolls
         }
     }
@@ -242,8 +243,9 @@ fun AutoScrollingHorizontalSlider(
         modifier =
             Modifier.background(MaterialTheme.colors.background).fillMaxWidth().height(516.dp)) {
             HorizontalPager(
-                state = pagerState, modifier = Modifier.align(Alignment.Center), count = size) {
-                    page ->
+                state = pagerState,
+                modifier = Modifier.align(Alignment.Center),
+                pageCount = size) { page ->
                     content(page)
                 }
         }

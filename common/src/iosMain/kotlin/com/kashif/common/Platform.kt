@@ -1,27 +1,17 @@
 package com.kashif.common
 
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Pause
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.interop.UIKitView
+import cocoapods.youtube_ios_player_helper.YTPlayerView
 import io.ktor.client.engine.darwin.Darwin
 import kotlinx.cinterop.CValue
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
-import platform.AVFoundation.AVPlayer
-import platform.AVFoundation.AVPlayerLayer
-import platform.AVFoundation.play
-import platform.AVKit.AVPlayerViewController
 import platform.CoreGraphics.CGRect
-import platform.Foundation.NSURL
 import platform.QuartzCore.CATransaction
 import platform.QuartzCore.kCATransactionDisableActions
 import platform.UIKit.UIView
@@ -31,7 +21,43 @@ actual fun platformModule() = module { single { Darwin.create() } }
 internal actual val ioDispatcher: CoroutineDispatcher
     get() = Dispatchers.Default
 
-//only layer
+@OptIn(ExperimentalForeignApi::class)
+@Composable
+actual fun VideoPlayer(modifier: Modifier, videoId: String) {
+
+    val player = remember { YTPlayerView() }
+
+    UIKitView(
+        factory = {
+            // Create a UIView to hold the AVPlayerLayer
+            val playerContainer = UIView()
+            playerContainer.addSubview(player)
+            // Return the playerContainer as the root UIView
+            playerContainer
+        },
+        onResize = { view: UIView, rect: CValue<CGRect> ->
+            CATransaction.begin()
+            CATransaction.setValue(true, kCATransactionDisableActions)
+            view.setFrame(rect)
+            player.setFrame(rect)
+            CATransaction.commit()
+        },
+        update = { view ->
+            player.loadWithVideoId(videoId, playerVars = mapOf(Pair("playsinline", 1)))
+            player.playVideo()
+        },
+        modifier = modifier)
+
+    /*UIKitView(factory = {
+        YTPlayerView()
+    }, update = {player ->
+        player.loadWithVideoId(videoId, playerVars = mapOf(Pair("playsinline", 1)))
+        player.playVideo()
+    }, modifier = modifier)*/
+}
+
+/** Experiments will be removed later */
+// only layer
 /*
 @Composable
 actual fun VideoPlayer(modifier: Modifier, url: String) {
@@ -60,9 +86,11 @@ actual fun VideoPlayer(modifier: Modifier, url: String) {
 }
 */
 
+/*
+@OptIn(ExperimentalForeignApi::class)
 @Composable
-actual fun VideoPlayer(modifier: Modifier, url: String) {
-    val player = remember { AVPlayer(uRL = NSURL.URLWithString(url)!!) }
+actual fun VideoPlayer(modifier: Modifier, videoId: String) {
+    val player = remember { AVPlayer(uRL = NSURL.URLWithString(videoId)!!) }
     val playerLayer = remember { AVPlayerLayer() }
     val avPlayerViewController = remember { AVPlayerViewController() }
     avPlayerViewController.player = player
@@ -92,6 +120,7 @@ actual fun VideoPlayer(modifier: Modifier, url: String) {
         },
         modifier = modifier)
 }
+*/
 
 // Working on z index
 /*@Composable
@@ -147,23 +176,6 @@ actual fun VideoPlayer(modifier: Modifier, url: String) {
         LoadingIndicator(isLoading = isLoading)
     }
 }*/
-
-@Composable
-fun PlayPauseButton(isPlaying: Boolean, onClick: () -> Unit) {
-    IconButton(onClick = onClick) {
-        Icon(
-            imageVector = if (isPlaying) Icons.Default.Pause else Icons.Default.PlayArrow,
-            contentDescription = null,
-            tint = Color.White)
-    }
-}
-
-@Composable
-fun LoadingIndicator(isLoading: Boolean) {
-    if (isLoading) {
-        CircularProgressIndicator(color = Color.White)
-    }
-}
 
 /*@Composable
 actual fun VideoPlayer(modifier: Modifier, url: String, width : Int, height : Float) {

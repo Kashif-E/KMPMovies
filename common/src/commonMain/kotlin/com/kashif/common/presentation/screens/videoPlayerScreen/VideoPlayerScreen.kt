@@ -29,6 +29,7 @@ import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
 import com.kashif.common.VideoPlayer
 import com.kashif.common.data.paging.Result
 import com.kashif.common.domain.model.MoviesDomainModel
+import com.kashif.common.domain.model.VideoDomainModel
 import com.kashif.common.presentation.components.CircularProgressbarAnimated
 import com.kashif.common.presentation.components.RatingRow
 import com.kashif.common.presentation.components.TransparentIconHolder
@@ -81,9 +82,9 @@ class VideoPlayerScreen(private val movie: MoviesDomainModel) : Screen, KoinComp
                         VideoPlayer(
                             modifier =
                                 Modifier.fillMaxWidth()
-                                    .wrapContentHeight()
+                                    .height(350.dp)
                                     .background(color = Color.Transparent),
-                            "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")
+                            (state as Result.Success<VideoDomainModel>).data.key)
                     }
                 }
                 Column(

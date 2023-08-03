@@ -15,7 +15,7 @@ data class MoviesDTO(
 @Serializable
 data class Result(
     val adult: Boolean,
-    @SerialName("backdrop_path") val backdropPath: String,
+    @SerialName("backdrop_path") val backdropPath: String? ="",
     val id: Int,
     @SerialName("original_title") val originalTitle: String,
     val overview: String,

@@ -20,6 +20,6 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
     androidx.compose.ui.text.platform.Font("font/$res.ttf", weight, style)
 
 @Composable
-actual fun VideoPlayer(modifier: Modifier, url: String) {
-    VideoPlayerImpl(url, modifier)
+actual fun VideoPlayer(modifier: Modifier, videoId: String) {
+    VideoPlayerImpl(videoId, modifier)
 }

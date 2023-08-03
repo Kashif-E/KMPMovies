@@ -1,16 +1,24 @@
 PODS:
-  - common (1.0)
+  - common (1.0):
+    - youtube-ios-player-helper
+  - youtube-ios-player-helper (1.0.4)
 
 DEPENDENCIES:
   - common (from `../common`)
+  - youtube-ios-player-helper
+
+SPEC REPOS:
+  trunk:
+    - youtube-ios-player-helper
 
 EXTERNAL SOURCES:
   common:
     :path: "../common"
 
 SPEC CHECKSUMS:
-  common: 1c353af69e109e4bc71dceec799ed4a0de239dc7
+  common: af21abfab5ea7e0586ad496f5f0a28b8b1b4d1b8
+  youtube-ios-player-helper: e9b97535e816db3152179d84d999bc1807ecd689
 
-PODFILE CHECKSUM: 7a3fba8fd11eab85bad12d285efed36f9fb815ca
+PODFILE CHECKSUM: 72e76d49117bb20a6054b082fdeea31de8a073e4
 
 COCOAPODS: 1.12.1

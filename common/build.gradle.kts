@@ -1,4 +1,4 @@
-@file:Suppress("OPT_IN_IS_NOT_ENABLED")
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
@@ -12,9 +12,8 @@ group = "com.kashif"
 version = "1.0-SNAPSHOT"
 
 kotlin {
-    android()
+    androidTarget()
     jvm("desktop") { compilations.all { kotlinOptions.jvmTarget = "11" } }
-
     ios()
     iosSimulatorArm64()
 
@@ -28,8 +27,11 @@ kotlin {
             baseName = "common"
             isStatic = true
         }
+        pod("youtube-ios-player-helper")
         extraSpecAttributes["resources"] =
             "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+
+
     }
 
     sourceSets {
@@ -49,7 +51,6 @@ kotlin {
                 implementation(libs.kotlin.serialization)
                 implementation(libs.material.icon.extended)
                 api(libs.image.loader)
-                implementation(libs.accompanist.pager)
                 implementation(libs.compose.util)
                 implementation(libs.voyager.navigator)
                 implementation(libs.voyager.transitions)
@@ -67,9 +68,7 @@ kotlin {
                 api(libs.androidx.coreKtx)
                 implementation(libs.ktor.android)
                 implementation(libs.koin.compose)
-                implementation("androidx.media3:media3-exoplayer:1.1.0")
-                implementation("androidx.media3:media3-exoplayer-dash:1.1.0")
-                implementation("androidx.media3:media3-ui:1.1.0")
+                implementation(libs.youtube.player.core)
             }
         }
         val androidUnitTest by getting { dependencies { implementation(libs.junit) } }
@@ -105,3 +104,4 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+

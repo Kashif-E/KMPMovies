@@ -9,7 +9,7 @@ Pod::Spec.new do |spec|
     spec.vendored_frameworks      = 'build/cocoapods/framework/common.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '14.1'
-                
+    spec.dependency 'youtube-ios-player-helper'
                 
     spec.pod_target_xcconfig = {
         'KOTLIN_PROJECT_PATH' => ':common',
