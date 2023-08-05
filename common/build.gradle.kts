@@ -56,6 +56,7 @@ kotlin {
                 implementation(libs.voyager.tabNavigator)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                implementation(libs.multiplatform.placeholder)
             }
         }
         val commonTest by getting { dependencies { implementation(kotlin("test")) } }
@@ -93,6 +94,8 @@ kotlin {
                 implementation("org.openjfx:javafx-swing:18.0.2:${fxSuffix}")
                 implementation("org.openjfx:javafx-web:18.0.2:${fxSuffix}")
                 implementation("org.openjfx:javafx-media:18.0.2:${fxSuffix}")
+
+
             }
         }
         val desktopTest by getting

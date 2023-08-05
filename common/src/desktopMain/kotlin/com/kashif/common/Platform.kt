@@ -2,6 +2,7 @@ package com.kashif.common
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.awt.SwingPanel
 import androidx.compose.ui.text.font.Font
@@ -24,8 +25,10 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
 
 @Composable
 actual fun VideoPlayer(modifier: Modifier, videoId: String) {
+
     SwingPanel(
-        factory = { YoutubeVideoPlayer(videoId) },
+        factory = {  YoutubeVideoPlayer(videoId) },
         modifier =modifier,
+
     )
 }

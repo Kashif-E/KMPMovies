@@ -62,3 +62,6 @@ val Success = Color(0xFF2ED573)
 val Warning = Color(0xFFFFBE21)
 
 val Danger = Color(0xFFEA5B5B)
+
+val LightPH = Color(0xFFE6E6E6)
+val DarkPH = Color(0xFFD5D4D4)

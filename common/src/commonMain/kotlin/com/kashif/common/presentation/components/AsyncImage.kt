@@ -13,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import com.kashif.common.presentation.theme.DarkPH
 import com.seiko.imageloader.ImageRequestState
 import com.seiko.imageloader.rememberAsyncImagePainter
 
@@ -29,7 +30,7 @@ internal fun AsyncImage(
         contentDescription = null,
         contentScale = contentScale,
         modifier =
-            modifier.background(ShimmerBrush(targetValue = 1300f, showShimmer = showShimmer)),
+            modifier.placeHolder(DarkPH, showShimmer),
     )
     when (val requestState = painter.requestState) {
         is ImageRequestState.Failure -> {

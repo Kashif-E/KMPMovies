@@ -12,8 +12,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.placeholder.PlaceholderHighlight
+import com.google.accompanist.placeholder.placeholder
+import com.google.accompanist.placeholder.shimmer
+import com.kashif.common.presentation.theme.DarkPH
+import com.kashif.common.presentation.theme.LightPH
+
+fun Modifier.placeHolder(color: Color, visibility : Boolean= true): Modifier =
+    placeholder(visible = visibility, color = color, highlight = PlaceholderHighlight.shimmer(LightPH))
 
 fun LazyListScope.placeHolderRow() {
     item {
@@ -24,14 +33,13 @@ fun LazyListScope.placeHolderRow() {
                 items(12) {
                     Card(
                         modifier =
-                            Modifier.height(200.dp)
+                            Modifier
+                                .height(200.dp)
                                 .width(150.dp)
-                                .background(ShimmerBrush(showShimmer = true))
-                                .animateContentSize(),
+                                .placeHolder(DarkPH)
+                                .animateContentSize().clip(RoundedCornerShape(8.dp)),
                         shape = RoundedCornerShape(8.dp),
-                        backgroundColor = Color.Transparent
-
-                    ) {}
+                        backgroundColor = Color.Transparent) {}
                 }
             }
     }

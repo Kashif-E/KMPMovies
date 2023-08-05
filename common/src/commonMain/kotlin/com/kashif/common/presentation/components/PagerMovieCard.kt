@@ -36,9 +36,9 @@ import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.presentation.theme.Grey
 
 @Composable
-fun PagerMovieCard(movie: MoviesDomainModel, onPlayClick: () -> Unit, onDetailsClick : () -> Unit) {
+fun PagerMovieCard(modifier: Modifier= Modifier,movie: MoviesDomainModel, onPlayClick: () -> Unit, onDetailsClick : () -> Unit) {
 
-    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
+    Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
         Box {
             AsyncImage(
                 url = movie.hdPosterPath,
