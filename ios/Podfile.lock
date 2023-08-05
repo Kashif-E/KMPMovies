@@ -5,7 +5,6 @@ PODS:
 
 DEPENDENCIES:
   - common (from `../common`)
-  - youtube-ios-player-helper
 
 SPEC REPOS:
   trunk:
@@ -19,6 +18,6 @@ SPEC CHECKSUMS:
   common: af21abfab5ea7e0586ad496f5f0a28b8b1b4d1b8
   youtube-ios-player-helper: e9b97535e816db3152179d84d999bc1807ecd689
 
-PODFILE CHECKSUM: 72e76d49117bb20a6054b082fdeea31de8a073e4
+PODFILE CHECKSUM: 7a3fba8fd11eab85bad12d285efed36f9fb815ca
 
 COCOAPODS: 1.12.1

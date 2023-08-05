@@ -1,10 +1,10 @@
-
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
+    id ("com.google.osdetector") version "1.7.3"
 }
 
 group = "com.kashif"
@@ -30,8 +30,6 @@ kotlin {
         pod("youtube-ios-player-helper")
         extraSpecAttributes["resources"] =
             "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
-
-
     }
 
     sourceSets {
@@ -78,7 +76,23 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.ktor.java)
                 implementation(libs.koin.compose)
-                implementation("uk.co.caprica:vlcj:4.7.0")
+                implementation(compose.desktop.currentOs)
+                // https://stackoverflow.com/questions/73187027/use-javafx-in-kotlin-multiplatform
+                // As JavaFX have platform-specific dependencies, we need to add them manually
+                val fxSuffix = when (osdetector.classifier) {
+                    "linux-x86_64" -> "linux"
+                    "linux-aarch_64" -> "linux-aarch64"
+                    "windows-x86_64" -> "win"
+                    "osx-x86_64" -> "mac"
+                    "osx-aarch_64" -> "mac-aarch64"
+                    else -> throw IllegalStateException("Unknown OS: ${osdetector.classifier}")
+                }
+                implementation("org.openjfx:javafx-base:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-graphics:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-controls:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-swing:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-web:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-media:18.0.2:${fxSuffix}")
             }
         }
         val desktopTest by getting
@@ -104,4 +118,3 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
-

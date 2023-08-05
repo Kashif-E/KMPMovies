@@ -1,10 +1,13 @@
 package com.kashif.common
 
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.awt.SwingPanel
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import io.ktor.client.engine.java.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -21,5 +24,8 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
 
 @Composable
 actual fun VideoPlayer(modifier: Modifier, videoId: String) {
-    VideoPlayerImpl(videoId, modifier)
+    SwingPanel(
+        factory = { YoutubeVideoPlayer(videoId) },
+        modifier =modifier,
+    )
 }

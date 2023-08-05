@@ -12,6 +12,6 @@ fun main() = application {
         title = "Compose Movies",
         onCloseRequest = { exitApplication() },
     ) {
-        Application()
+       Application()
     }
 }
