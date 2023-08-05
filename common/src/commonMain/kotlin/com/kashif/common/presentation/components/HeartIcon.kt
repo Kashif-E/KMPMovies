@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-internal fun AnimatedHeartIcon(
+ fun AnimatedHeartIcon(
     modifier: Modifier = Modifier,
     selected: Boolean = false,
     onClick: (isSelected: Boolean) -> Unit = {}

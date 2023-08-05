@@ -16,7 +16,7 @@ import com.kashif.common.presentation.theme.SunnySideUp
 
 
 @Composable
-internal fun ShimmerStar(
+ fun ShimmerStar(
     isShimmering: Boolean,
     modifier: Modifier = Modifier,
     size: Dp = 16.dp,

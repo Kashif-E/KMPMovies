@@ -27,6 +27,7 @@ accompanist-version = "0.25.2"
 
 voyager = "1.0.0-rc06"
 
+koin-compose-jb = "1.0.3"
 youtube-player-android = "12.1.0"
 
 [libraries]
@@ -63,6 +64,8 @@ voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", vers
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 
 youtube-player-core = {module = "com.pierfrancescosoffritti.androidyoutubeplayer:core", version.ref = "youtube-player-android"}
+
+koin-compose-mp = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose-jb" }
 
 multiplatform-placeholder = { module = "ca.gosyer:accompanist-placeholder", version.ref = "multiplatform-placeholder" }
 

@@ -18,7 +18,7 @@ import com.seiko.imageloader.ImageRequestState
 import com.seiko.imageloader.rememberAsyncImagePainter
 
 @Composable
-internal fun AsyncImage(
+ fun AsyncImage(
     url: String,
     contentScale: ContentScale = ContentScale.Crop,
     modifier: Modifier

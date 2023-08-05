@@ -23,16 +23,15 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.kashif.common.presentation.components.SlideTransition
-import com.kashif.common.presentation.screens.home.HomeScreenViewModel
 import com.kashif.common.presentation.tabs.HomeTab
+import com.kashif.common.presentation.theme.DarkPH
 import com.kashif.common.presentation.theme.GreenSecondary
+import com.kashif.common.presentation.theme.LightPH
 import com.kashif.common.presentation.theme.MoviesAppTheme
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 @Composable
-internal fun App() {
+ fun App() {
 
     MoviesAppTheme {
         TabNavigator(HomeTab) {
@@ -80,8 +79,8 @@ private fun RowScope.TabNavigationItem(tab: Tab) {
     val title = tab.options.title
     BottomNavigationItem(
         modifier = Modifier,
-        unselectedContentColor = MaterialTheme.colors.onSurface,
-        selectedContentColor = MaterialTheme.colors.secondary,
+        unselectedContentColor = DarkPH,
+        selectedContentColor = LightPH,
         alwaysShowLabel = true,
         label = {
             Text(
@@ -93,6 +92,4 @@ private fun RowScope.TabNavigationItem(tab: Tab) {
         icon = { Icon(painter = tab.options.icon!!, contentDescription = tab.options.title) })
 }
 
-object provide : KoinComponent {
-    val screenModel by inject<HomeScreenViewModel>()
-}
+

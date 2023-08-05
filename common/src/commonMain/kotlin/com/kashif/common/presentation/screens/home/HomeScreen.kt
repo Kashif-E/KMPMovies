@@ -27,13 +27,13 @@ import com.kashif.common.presentation.components.MovieCardSmall
 import com.kashif.common.presentation.components.PagerMovieCard
 import com.kashif.common.presentation.components.SearchAppBar
 import com.kashif.common.presentation.components.placeHolderRow
-import com.kashif.common.presentation.provide
 import com.kashif.common.presentation.screens.videoPlayerScreen.VideoPlayerScreen
 import com.kashif.common.presentation.theme.Grey
 import kotlinx.coroutines.delay
+import org.koin.compose.koinInject
 
 @Composable
-fun HomeScreen(screenModel: HomeScreenViewModel = provide.screenModel) {
+fun HomeScreen(screenModel: HomeScreenViewModel = koinInject()) {
     val pagerList by screenModel.popularMovies.collectAsState()
 
     val popularMovies by screenModel.popularMoviesPaging.first.collectAsState()

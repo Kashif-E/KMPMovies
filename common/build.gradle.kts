@@ -56,7 +56,7 @@ kotlin {
                 implementation(libs.voyager.tabNavigator)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                implementation(libs.multiplatform.placeholder)
+                implementation(libs.koin.compose.mp)
             }
         }
         val commonTest by getting { dependencies { implementation(kotlin("test")) } }

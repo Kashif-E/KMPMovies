@@ -7,13 +7,6 @@ plugins {
 
 
 }
-
-dependencies {
-    implementation(project(":common"))
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.koin.compose)
-}
-
 android {
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
@@ -33,4 +26,14 @@ android {
         }
     }
 
+    composeOptions { kotlinCompilerExtensionVersion = "1.5.0" }
+
 }
+
+dependencies {
+    implementation(project(":common"))
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.koin.compose)
+
+}
+

@@ -3,7 +3,6 @@ package com.kashif.common.presentation.components
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -21,13 +20,12 @@ fun MovieCardSmall(movie: MoviesDomainModel, onClick: () -> Unit) {
     Card(
         modifier =
             Modifier.size(width = 150.dp, height = 200.dp)
-                .clickable { onClick() }.border(0.2.dp, Color.LightGray, RoundedCornerShape(8.dp))
+                .clickable { onClick() }
+                .border(0.2.dp, Color.LightGray, RoundedCornerShape(8.dp))
                 .animateContentSize(),
         shape = RoundedCornerShape(8.dp),
         backgroundColor = Color.Transparent,
         elevation = 8.dp) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                AsyncImage(url = movie.posterPath, modifier = Modifier.fillMaxSize())
-            }
+            AsyncImage(url = movie.posterPath, modifier = Modifier.fillMaxSize())
         }
 }

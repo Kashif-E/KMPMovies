@@ -18,7 +18,7 @@ import platform.UIKit.UIView
 
 actual fun platformModule() = module { single { Darwin.create() } }
 
-internal actual val ioDispatcher: CoroutineDispatcher
+ actual val ioDispatcher: CoroutineDispatcher
     get() = Dispatchers.Default
 
 @OptIn(ExperimentalForeignApi::class)

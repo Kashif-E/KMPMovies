@@ -20,7 +20,7 @@ import org.koin.dsl.module
 
 actual fun platformModule() = module { single { Android.create() } }
 
-internal actual val ioDispatcher: CoroutineDispatcher
+ actual val ioDispatcher: CoroutineDispatcher
     get() = Dispatchers.IO
 
 @Composable
