@@ -13,6 +13,11 @@
   "platforms": {
     "ios": "14.1"
   },
+  "dependencies": {
+    "youtube-ios-player-helper": [
+
+    ]
+  },
   "pod_target_xcconfig": {
     "KOTLIN_PROJECT_PATH": ":common",
     "PRODUCT_MODULE_NAME": "common"

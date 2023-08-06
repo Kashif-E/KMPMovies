@@ -11,6 +11,7 @@ object Endpoints {
     const val UPCOMING_MOVIES = "movie/upcoming?api_key={apiKey}&page={pageNo}"
     const val NOW_PLAYING_MOVIES = "movie/now_playing?api_key={apiKey}&page={pageNo}"
     const val SEARCH_MOVIES = "search/movie?query={query}&page={pageNo}"
+    const val GET_VIDEOS = "movie/{movieId}/videos?api_key={apiKey}"
 }
 
 inline fun <reified T : Any> String.getUrl(vararg params: T): String {

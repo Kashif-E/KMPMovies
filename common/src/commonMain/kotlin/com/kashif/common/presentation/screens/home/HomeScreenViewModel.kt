@@ -1,14 +1,14 @@
-package com.kashif.common.presentation
+package com.kashif.common.presentation.screens.home
 
-
+import cafe.adriel.voyager.core.model.ScreenModel
+import com.kashif.common.data.paging.*
+import com.kashif.common.data.paging.asResult
+import com.kashif.common.data.paging.paginate
 import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.domain.usecase.*
-import com.kashif.common.domain.util.CustomMessage
-import com.kashif.common.domain.util.Result
-import com.kashif.common.domain.util.asResult
 import com.kashif.common.ioDispatcher
-import com.kashif.common.paging.paginate
 import com.kashif.paging.PagingConfig
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 class HomeScreenViewModel(
     private val popularMoviesUseCase: GetPopularMoviesUseCase,
@@ -25,14 +24,13 @@ class HomeScreenViewModel(
     private val topRatedMoviesUseCase: GetTopRatedMoviesPagingSource,
     private val popularMoviesPagingSource: GetPopularMoviesPagingSource,
     private val nowPlayingMoviesPagingSource: GetNowPlayingMoviesPagingSource,
-) {
+) : ScreenModel {
     private val job = SupervisorJob()
     private val coroutineContextX: CoroutineContext = job + ioDispatcher
     private val viewModelScope = CoroutineScope(coroutineContextX)
 
     private val _popularMovies = MutableStateFlow<MoviesState>(MoviesState.Idle)
     val popularMovies = _popularMovies.asStateFlow()
-
 
     val latestMovies =
         viewModelScope.paginate(
@@ -63,9 +61,6 @@ class HomeScreenViewModel(
         CoroutineScope(coroutineContextX).launch {
             popularMoviesUseCase().asResult().collectLatest { result ->
                 when (result) {
-                    is Result.Idle -> {
-                        _popularMovies.update { MoviesState.Idle }
-                    }
                     is Result.Error -> {
                         _popularMovies.update { MoviesState.Error(result.exception) }
                     }
@@ -80,9 +75,7 @@ class HomeScreenViewModel(
         }
     }
 
-    fun onDispose() {
-        job.cancel()
-    }
+
 }
 
 sealed interface MoviesState {
@@ -93,5 +86,5 @@ sealed interface MoviesState {
 
     data class Success(val movies: List<MoviesDomainModel>) : MoviesState
 
-    data class Error(val error: CustomMessage) : MoviesState
+    data class Error(val error: String) : MoviesState
 }

@@ -7,15 +7,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import com.kashif.common.presentation.HomeScreen
-import com.kashif.common.presentation.provide
+import com.kashif.common.presentation.screens.home.HomeScreen
 
-/*class HomeTab : Tab {
+internal object HomeTab : Tab {
 
 
     @Composable
     override fun Content() {
-        HomeScreen(provide.screenModel)
+        HomeScreen()
     }
 
     override val options: TabOptions
@@ -26,4 +25,4 @@ import com.kashif.common.presentation.provide
             return remember { TabOptions(index = 0u, title = "Home", icon = icon) }
         }
 
-}*/
+}

@@ -1,10 +1,10 @@
-@file:Suppress("OPT_IN_IS_NOT_ENABLED")
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
     id("com.android.library")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
+    id ("com.google.osdetector") version "1.7.3"
 }
 
 group = "com.kashif"
@@ -12,9 +12,8 @@ group = "com.kashif"
 version = "1.0-SNAPSHOT"
 
 kotlin {
-    android()
+    androidTarget()
     jvm("desktop") { compilations.all { kotlinOptions.jvmTarget = "11" } }
-
     ios()
     iosSimulatorArm64()
 
@@ -28,6 +27,7 @@ kotlin {
             baseName = "common"
             isStatic = true
         }
+        pod("youtube-ios-player-helper")
         extraSpecAttributes["resources"] =
             "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
@@ -49,7 +49,6 @@ kotlin {
                 implementation(libs.kotlin.serialization)
                 implementation(libs.material.icon.extended)
                 api(libs.image.loader)
-                implementation(libs.accompanist.pager)
                 implementation(libs.compose.util)
                 implementation(libs.voyager.navigator)
                 implementation(libs.voyager.transitions)
@@ -57,6 +56,7 @@ kotlin {
                 implementation(libs.voyager.tabNavigator)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                implementation(libs.koin.compose.mp)
             }
         }
         val commonTest by getting { dependencies { implementation(kotlin("test")) } }
@@ -67,9 +67,7 @@ kotlin {
                 api(libs.androidx.coreKtx)
                 implementation(libs.ktor.android)
                 implementation(libs.koin.compose)
-                implementation("androidx.media3:media3-exoplayer:1.1.0")
-                implementation("androidx.media3:media3-exoplayer-dash:1.1.0")
-                implementation("androidx.media3:media3-ui:1.1.0")
+                implementation(libs.youtube.player.core)
             }
         }
         val androidUnitTest by getting { dependencies { implementation(libs.junit) } }
@@ -79,6 +77,25 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.ktor.java)
                 implementation(libs.koin.compose)
+                implementation(compose.desktop.currentOs)
+                // https://stackoverflow.com/questions/73187027/use-javafx-in-kotlin-multiplatform
+                // As JavaFX have platform-specific dependencies, we need to add them manually
+                val fxSuffix = when (osdetector.classifier) {
+                    "linux-x86_64" -> "linux"
+                    "linux-aarch_64" -> "linux-aarch64"
+                    "windows-x86_64" -> "win"
+                    "osx-x86_64" -> "mac"
+                    "osx-aarch_64" -> "mac-aarch64"
+                    else -> throw IllegalStateException("Unknown OS: ${osdetector.classifier}")
+                }
+                implementation("org.openjfx:javafx-base:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-graphics:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-controls:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-swing:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-web:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-media:18.0.2:${fxSuffix}")
+
+
             }
         }
         val desktopTest by getting

@@ -1,4 +1,4 @@
-package com.kashif.common.paging
+package com.kashif.common.data.paging
 
 abstract class PagingSource<Key : Any, Value : Any> {
     abstract suspend fun load(params: LoadParams<Key>): LoadResult<Key, Value>

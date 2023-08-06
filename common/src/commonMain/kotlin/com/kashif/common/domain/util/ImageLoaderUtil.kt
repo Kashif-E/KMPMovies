@@ -1,3 +1,5 @@
+package com.kashif.common.domain.util
+
 import co.touchlab.kermit.Severity
 import com.seiko.imageloader.ImageLoaderConfigBuilder
 import com.seiko.imageloader.util.LogPriority

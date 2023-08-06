@@ -22,6 +22,7 @@ kotlin {
                 implementation(project(":common"))
                 implementation(compose.desktop.currentOs)
                 implementation(libs.koin.compose)
+
             }
             configurations.all {
                 // some dependencies contains it, this causes an exception to initialize the Main dispatcher in desktop for image loader
@@ -35,10 +36,10 @@ kotlin {
 
 compose.desktop {
     application {
-        mainClass = "MainKt"
+        mainClass = "com.kashif.MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "KMPTemplate"
+            packageName = "KMP Movies"
             packageVersion = "1.0.0"
         }
     }

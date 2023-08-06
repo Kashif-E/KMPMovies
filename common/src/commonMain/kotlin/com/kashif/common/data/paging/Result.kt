@@ -1,4 +1,4 @@
-package com.kashif.common.paging
+package com.kashif.common.data.paging
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
