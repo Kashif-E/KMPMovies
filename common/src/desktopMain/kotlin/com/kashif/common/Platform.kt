@@ -1,5 +1,6 @@
 package com.kashif.common
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -27,10 +28,13 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
 @Composable
 actual fun VideoPlayer(modifier: Modifier, videoId: String) {
 
-    SwingPanel(
-        factory = {  YoutubeVideoPlayer(videoId) },
-        modifier =modifier,
-    )
+    Box {
+        SwingPanel(
+            factory = {  YoutubeVideoPlayer(videoId) },
+            modifier =modifier,
+            )
+    }
+
 }
 
 @Composable
@@ -39,7 +43,10 @@ actual fun WebView(
     link: String,
 
 ) {
-    SwingPanel(factory = {
-        WebView(url = link)
-    }, modifier = modifier)
+    Box {
+        SwingPanel(factory = {
+            WebView(url = link)
+        }, modifier = modifier)
+    }
+
 }
