@@ -1,17 +1,10 @@
 package com.kashif.common
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.awt.ComposeWindow
-import androidx.compose.ui.awt.SwingPanel
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.navigator.Navigator
 import io.ktor.client.engine.java.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -29,26 +22,14 @@ actual fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
 @Composable
 actual fun VideoPlayer(modifier: Modifier, videoId: String) {
 
-    Box {
-        SwingPanel(
-            factory = {  YoutubeVideoPlayer(videoId) },
-            modifier =modifier,
-            )
-    }
-
+    DesktopWebView(modifier, "https://www.youtube.com/embed/$videoId")
 }
 
 @Composable
 actual fun WebView(
     modifier: Modifier,
     link: String,
-
 ) {
 
-    Box {
-        SwingPanel(factory = {
-            WebView(url = link)
-        }, modifier = modifier)
-    }
-
+    DesktopWebView(modifier, link)
 }

@@ -38,8 +38,9 @@ compose.desktop {
     application {
         mainClass = "com.kashif.MainKt"
         nativeDistributions {
+            modules("java.instrument", "java.net.http", "jdk.jfr", "jdk.jsobject", "jdk.unsupported", "jdk.unsupported.desktop", "jdk.xml.dom")
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "KMP Movies"
+            packageName = "KMPMovies"
             packageVersion = "1.0.0"
         }
     }

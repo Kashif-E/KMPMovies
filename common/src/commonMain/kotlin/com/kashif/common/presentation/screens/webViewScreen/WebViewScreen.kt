@@ -3,6 +3,7 @@ package com.kashif.common.presentation.screens.webViewScreen
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,21 +25,22 @@ class WebViewScreen(private val url: String) : Screen {
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
-        Box(modifier = Modifier.fillMaxSize()) {
+       Column(modifier = Modifier.fillMaxSize()) {
+           Row(
+               modifier =
+               Modifier.height(70.dp)
+                   .fillMaxWidth()
+                   .background(color = Color.Black.copy(alpha = 0.6f)),
+               horizontalArrangement = Arrangement.Start,
+               verticalAlignment = Alignment.CenterVertically) {
+               TransparentIconHolder(
+                   icon = Icons.Rounded.ArrowBack,
+               ) {
+                   navigator.pop()
+               }
+           }
             WebView(modifier = Modifier.fillMaxSize(), url)
-            Row(
-                modifier =
-                    Modifier.align(Alignment.TopStart).height(70.dp)
-                        .fillMaxWidth()
-                        .background(color = Color.Black.copy(alpha = 0.6f)),
-                horizontalArrangement = Arrangement.Start,
-                verticalAlignment = Alignment.CenterVertically) {
-                    TransparentIconHolder(
-                        icon = Icons.Rounded.ArrowBack,
-                    ) {
-                        navigator.pop()
-                    }
-                }
+
         }
     }
 }
