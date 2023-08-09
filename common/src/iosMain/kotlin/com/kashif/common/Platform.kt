@@ -1,5 +1,6 @@
 package com.kashif.common
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -12,14 +13,51 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 import platform.CoreGraphics.CGRect
+import platform.Foundation.NSURL
+import platform.Foundation.NSURLRequest
 import platform.QuartzCore.CATransaction
 import platform.QuartzCore.kCATransactionDisableActions
 import platform.UIKit.UIView
+import platform.WebKit.WKWebView
+import platform.WebKit.WKWebViewConfiguration
 
 actual fun platformModule() = module { single { Darwin.create() } }
 
- actual val ioDispatcher: CoroutineDispatcher
+actual val ioDispatcher: CoroutineDispatcher
     get() = Dispatchers.Default
+
+@OptIn(ExperimentalForeignApi::class)
+@Composable
+actual fun WebView(
+    modifier: Modifier,
+    link: String,
+) {
+    val url = remember { link }
+    val webview = remember { WKWebView() }
+
+    UIKitView(
+        modifier = Modifier.fillMaxSize(),
+        factory = {
+            val container = UIView()
+            webview.apply {
+                WKWebViewConfiguration().apply {
+                    allowsInlineMediaPlayback = true
+                    allowsAirPlayForMediaPlayback = true
+                    allowsPictureInPictureMediaPlayback = true
+                }
+                loadRequest(request = NSURLRequest(NSURL(string = url)))
+            }
+            container.addSubview(webview)
+            container
+        },
+        onResize = { view: UIView, rect: CValue<CGRect> ->
+            CATransaction.begin()
+            CATransaction.setValue(true, kCATransactionDisableActions)
+            view.layer.setFrame(rect)
+            webview.setFrame(rect)
+            CATransaction.commit()
+        })
+}
 
 @OptIn(ExperimentalForeignApi::class)
 @Composable

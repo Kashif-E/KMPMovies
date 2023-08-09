@@ -1,4 +1,4 @@
-package com.kashif.common.presentation.screens.videoPlayerScreen
+package com.kashif.common.presentation.screens.trailerScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -37,7 +37,7 @@ import com.kashif.common.presentation.theme.SunnySideUp
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 
-class VideoPlayerScreen(private val movie: MoviesDomainModel) : Screen, KoinComponent {
+class TrailerScreen(private val movie: MoviesDomainModel) : Screen, KoinComponent {
 
     @Composable
     override fun Content() {
@@ -48,7 +48,7 @@ class VideoPlayerScreen(private val movie: MoviesDomainModel) : Screen, KoinComp
     private fun MainScreen(
         bottomSheetNavigator: BottomSheetNavigator,
         movie: MoviesDomainModel,
-        screenModel: VideoPlayerScreenViewModel = get()
+        screenModel: TrailerScreenViewModel = get()
     ) {
         LaunchedEffect(this.movie) { screenModel.getTrailer(movieId = movie.id) }
 

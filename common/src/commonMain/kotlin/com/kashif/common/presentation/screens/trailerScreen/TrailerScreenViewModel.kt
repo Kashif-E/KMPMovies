@@ -1,4 +1,4 @@
-package com.kashif.common.presentation.screens.videoPlayerScreen
+package com.kashif.common.presentation.screens.trailerScreen
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.coroutineScope
@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class VideoPlayerScreenViewModel(private val getMovieTrailerUseCase: GetMovieTrailerUseCase) :
+class TrailerScreenViewModel(private val getMovieTrailerUseCase: GetMovieTrailerUseCase) :
     ScreenModel {
     private val _trailer = MutableStateFlow<Result<VideoDomainModel>>(Result.Loading)
     val trailer = _trailer.asStateFlow()

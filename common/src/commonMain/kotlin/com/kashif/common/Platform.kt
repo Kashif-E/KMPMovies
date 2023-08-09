@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import cafe.adriel.voyager.navigator.Navigator
 import kotlinx.coroutines.CoroutineDispatcher
 import org.koin.core.module.Module
 
@@ -17,3 +18,9 @@ expect fun font(name: String, res: String, weight: FontWeight, style: FontStyle)
 
 @Composable
 expect fun VideoPlayer(modifier: Modifier, videoId: String)
+
+@Composable
+expect fun WebView(
+ modifier: Modifier,
+ link: String,
+ )

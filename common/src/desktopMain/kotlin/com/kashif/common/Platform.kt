@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.Navigator
 import io.ktor.client.engine.java.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -29,6 +30,16 @@ actual fun VideoPlayer(modifier: Modifier, videoId: String) {
     SwingPanel(
         factory = {  YoutubeVideoPlayer(videoId) },
         modifier =modifier,
-
     )
+}
+
+@Composable
+actual fun WebView(
+    modifier: Modifier,
+    link: String,
+
+) {
+    SwingPanel(factory = {
+        WebView(url = link)
+    }, modifier = modifier)
 }
