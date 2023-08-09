@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.awt.ComposeWindow
 import androidx.compose.ui.awt.SwingPanel
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontStyle
@@ -43,6 +44,7 @@ actual fun WebView(
     link: String,
 
 ) {
+
     Box {
         SwingPanel(factory = {
             WebView(url = link)

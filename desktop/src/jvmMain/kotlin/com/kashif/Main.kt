@@ -1,17 +1,11 @@
 package com.kashif
 
-import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.application
+import androidx.compose.ui.window.singleWindowApplication
 import com.kashif.common.Application
 import com.kashif.common.domain.di.initKoin
 
-fun main() = application {
+fun main() = singleWindowApplication(title = "Compose Movies") {
     initKoin("https://api.themoviedb.org/3/")
 
-    Window(
-        title = "Compose Movies",
-        onCloseRequest = { exitApplication() },
-    ) {
-       Application()
-    }
+    Application()
 }
