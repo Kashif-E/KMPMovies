@@ -6,8 +6,9 @@ import com.kashif.common.data.repository.AbstractRepository
 import com.kashif.common.data.repository.Repository
 import com.kashif.common.domain.usecase.*
 import com.kashif.common.platformModule
+import com.kashif.common.presentation.screens.detailsScreen.DetailsScreenViewModel
 import com.kashif.common.presentation.screens.home.HomeScreenViewModel
-import com.kashif.common.presentation.screens.videoPlayerScreen.VideoPlayerScreenViewModel
+import com.kashif.common.presentation.screens.trailerScreen.TrailerScreenViewModel
 import io.ktor.client.*
 import io.ktor.client.engine.*
 import io.ktor.client.plugins.*
@@ -44,6 +45,8 @@ fun commonModule(
 
 fun getScreenModelModule() = module {
     single { HomeScreenViewModel(get(), get(), get(), get(), get(), get()) }
+    single { DetailsScreenViewModel(get()) }
+    single {  TrailerScreenViewModel(get())}
 }
 
 fun getDataModule(
@@ -67,7 +70,8 @@ fun getUseCaseModule() = module {
     single { GetTopRatedMoviesPagingSource(get()) }
     single { GetUpcomingMoviesPagingSource(get()) }
     single { GetMovieTrailerUseCase(get()) }
-    single {  VideoPlayerScreenViewModel(get())}
+    single { GetMovieDetailsUseCase(get()) }
+
 }
 
 fun createHttpClient(httpClientEngine: HttpClientEngine, json: Json, enableNetworkLogs: Boolean) =

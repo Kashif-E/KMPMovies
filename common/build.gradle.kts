@@ -88,12 +88,12 @@ kotlin {
                     "osx-aarch_64" -> "mac-aarch64"
                     else -> throw IllegalStateException("Unknown OS: ${osdetector.classifier}")
                 }
-                implementation("org.openjfx:javafx-base:18.0.2:${fxSuffix}")
-                implementation("org.openjfx:javafx-graphics:18.0.2:${fxSuffix}")
-                implementation("org.openjfx:javafx-controls:18.0.2:${fxSuffix}")
-                implementation("org.openjfx:javafx-swing:18.0.2:${fxSuffix}")
-                implementation("org.openjfx:javafx-web:18.0.2:${fxSuffix}")
-                implementation("org.openjfx:javafx-media:18.0.2:${fxSuffix}")
+                implementation("org.openjfx:javafx-base:19:${fxSuffix}")
+                implementation("org.openjfx:javafx-graphics:19:${fxSuffix}")
+                implementation("org.openjfx:javafx-controls:19:${fxSuffix}")
+                implementation("org.openjfx:javafx-swing:19:${fxSuffix}")
+                implementation("org.openjfx:javafx-web:19:${fxSuffix}")
+                implementation("org.openjfx:javafx-media:19:${fxSuffix}")
 
 
             }
@@ -121,3 +121,4 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
+

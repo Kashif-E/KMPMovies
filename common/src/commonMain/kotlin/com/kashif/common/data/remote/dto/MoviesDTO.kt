@@ -1,4 +1,4 @@
-package com.kashif.common.data.dto
+package com.kashif.common.data.remote.dto
 
 import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.domain.util.Constants

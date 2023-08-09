@@ -1,6 +1,6 @@
 package com.kashif.common.data.remote
 
-import com.kashif.common.data.dto.asDomainModel
+import com.kashif.common.data.remote.dto.asDomainModel
 import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.data.paging.PagingSource
 

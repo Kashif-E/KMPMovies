@@ -1,6 +1,6 @@
 package com.kashif.common.domain.usecase
 
-import com.kashif.common.data.dto.asDomainModel
+import com.kashif.common.data.remote.dto.asDomainModel
 import com.kashif.common.data.repository.AbstractRepository
 import com.kashif.common.data.repository.Repository
 import com.kashif.common.domain.model.MoviesDomainModel

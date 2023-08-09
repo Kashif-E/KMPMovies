@@ -18,8 +18,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.kashif.common.data.paging.Result
 import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.presentation.components.MovieCard
@@ -27,7 +30,8 @@ import com.kashif.common.presentation.components.MovieCardSmall
 import com.kashif.common.presentation.components.PagerMovieCard
 import com.kashif.common.presentation.components.SearchAppBar
 import com.kashif.common.presentation.components.placeHolderRow
-import com.kashif.common.presentation.screens.videoPlayerScreen.VideoPlayerScreen
+import com.kashif.common.presentation.screens.trailerScreen.TrailerScreen
+import com.kashif.common.presentation.screens.webViewScreen.WebViewScreen
 import com.kashif.common.presentation.theme.Grey
 import kotlinx.coroutines.delay
 import org.koin.compose.koinInject
@@ -69,7 +73,8 @@ fun Movies(
     upcomingMovies: Result<List<MoviesDomainModel>>,
     nowPlayingMovies: Result<List<MoviesDomainModel>>,
     screenModel: HomeScreenViewModel,
-    bottomSheetNavigator: BottomSheetNavigator = LocalBottomSheetNavigator.current
+    bottomSheetNavigator: BottomSheetNavigator = LocalBottomSheetNavigator.current,
+    navigator: Navigator = LocalNavigator.currentOrThrow
 ) {
 
     LazyColumn(
@@ -77,19 +82,34 @@ fun Movies(
         state = rememberLazyListState(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        pager(pagerList, bottomSheetNavigator)
+        pager(
+            pagerList,
+            onPlayClick = { movie -> bottomSheetNavigator.show(TrailerScreen(movie)) },
+            onDetailsClick = { id -> navigateToWebViewScreen(id, navigator) })
         moviesList(
-            movies = popularMovies, title = "Popular Movies", onMovieClick = {}, seeAllClick = {})
+            movies = popularMovies,
+            title = "Popular Movies",
+            onMovieClick = { movie -> navigateToWebViewScreen(movie.id, navigator) },
+            seeAllClick = {})
         moviesList(
-            movies = topRatedMovies, title = "Top Rated", onMovieClick = {}, seeAllClick = {})
+            movies = topRatedMovies,
+            title = "Top Rated",
+            onMovieClick = { movie -> navigateToWebViewScreen(movie.id, navigator) },
+            seeAllClick = {})
         moviesList(
             movies = upcomingMovies,
             title = "Up Coming Movies",
-            onMovieClick = {},
+            onMovieClick = { movie -> navigateToWebViewScreen(movie.id, navigator) },
             seeAllClick = {})
         nowPlayingMovies(nowPlayingMovies, screenModel.nowPlayingMoviesPaging.second)
     }
 }
+
+fun navigateToWebViewScreen(movieId: Int, navigator: Navigator) {
+    navigator.push(WebViewScreen(constructUrlFrom(movieId)))
+}
+
+fun constructUrlFrom(id: Int) = "https://www.themoviedb.org/movie/$id"
 
 @Composable
 fun HorizontalScroll(
@@ -133,7 +153,11 @@ fun HorizontalScroll(
     }
 }
 
-fun LazyListScope.pager(pagerList: MoviesState, bottomSheetNavigator: BottomSheetNavigator) {
+fun LazyListScope.pager(
+    pagerList: MoviesState,
+    onPlayClick: (movie: MoviesDomainModel) -> Unit,
+    onDetailsClick: (id: Int) -> Unit
+) {
     item {
         when (pagerList) {
             is MoviesState.Error -> {}
@@ -148,8 +172,8 @@ fun LazyListScope.pager(pagerList: MoviesState, bottomSheetNavigator: BottomShee
                     val movie = pagerList.movies[page]
                     PagerMovieCard(
                         movie = movie,
-                        onPlayClick = { bottomSheetNavigator.show(VideoPlayerScreen(movie)) },
-                        onDetailsClick = {})
+                        onPlayClick = { onPlayClick(movie) },
+                        onDetailsClick = { onDetailsClick(movie.id) })
                 }
             }
         }
