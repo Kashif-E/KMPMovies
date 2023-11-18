@@ -24,6 +24,7 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.kashif.common.presentation.components.SlideTransition
 import com.kashif.common.presentation.tabs.HomeTab
+import com.kashif.common.presentation.tabs.SearchTab
 import com.kashif.common.presentation.theme.DarkPH
 import com.kashif.common.presentation.theme.GreenSecondary
 import com.kashif.common.presentation.theme.LightPH
@@ -31,16 +32,17 @@ import com.kashif.common.presentation.theme.MoviesAppTheme
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class)
 @Composable
- fun App() {
+fun App() {
 
     MoviesAppTheme {
         TabNavigator(HomeTab) {
             BottomSheetNavigator(
                 modifier = Modifier.animateContentSize(),
                 sheetShape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
-                skipHalfExpanded = true) {
-                    Navigator(Application()) { navigator -> SlideTransition(navigator) }
-                }
+                skipHalfExpanded = true
+            ) {
+                Navigator(Application()) { navigator -> SlideTransition(navigator) }
+            }
         }
     }
 }
@@ -61,10 +63,8 @@ class Application : Screen {
                     elevation = 4.dp,
                 ) {
                     TabNavigationItem(tab = HomeTab)
-                    /* TabNavigationItem(tab = CategoryTab)
                     TabNavigationItem(tab = SearchTab)
-                    TabNavigationItem(tab = OrdersTab)
-                    TabNavigationItem(tab = ProfileTab)*/
+
                 }
             },
         ) {

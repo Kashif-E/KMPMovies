@@ -2,8 +2,6 @@ package com.kashif.android
 
 import android.app.Application
 import com.kashif.common.domain.di.initKoin
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
 
 class App : Application() {
 

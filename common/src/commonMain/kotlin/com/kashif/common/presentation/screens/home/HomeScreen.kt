@@ -49,7 +49,8 @@ fun HomeScreen(screenModel: HomeScreenViewModel = koinInject()) {
     LaunchedEffect(Unit) { screenModel.onLaunch() }
 
     Column(
-        modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
+        modifier = Modifier.fillMaxSize().consumeWindowInsets(WindowInsets.safeDrawing)
+            .background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
     ) {
