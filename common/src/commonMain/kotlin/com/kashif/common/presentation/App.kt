@@ -3,12 +3,13 @@ package com.kashif.common.presentation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
@@ -24,6 +25,7 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import com.kashif.common.presentation.components.SlideTransition
 import com.kashif.common.presentation.tabs.HomeTab
+import com.kashif.common.presentation.tabs.SavedMovies
 import com.kashif.common.presentation.tabs.SearchTab
 import com.kashif.common.presentation.theme.DarkPH
 import com.kashif.common.presentation.theme.GreenSecondary
@@ -56,16 +58,23 @@ class Application : Screen {
             modifier = Modifier,
             scaffoldState = rememberScaffoldState(),
             bottomBar = {
-                BottomNavigation(
-                    modifier = Modifier,
-                    backgroundColor = MaterialTheme.colors.surface,
-                    contentColor = GreenSecondary,
+                Card(
+                    shape = RoundedCornerShape(50.dp),
                     elevation = 4.dp,
+                    modifier = Modifier.padding(12.dp)
                 ) {
-                    TabNavigationItem(tab = HomeTab)
-                    TabNavigationItem(tab = SearchTab)
+                    BottomNavigation(
+                        modifier = Modifier,
+                        contentColor = GreenSecondary,
+                        elevation = 4.dp,
+                    ) {
+                        TabNavigationItem(tab = HomeTab)
+                        TabNavigationItem(tab = SearchTab)
+                        TabNavigationItem(tab = SavedMovies)
 
+                    }
                 }
+
             },
         ) {
             CurrentTab()

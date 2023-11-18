@@ -10,6 +10,8 @@ import com.kashif.common.ioDispatcher
 import com.kashif.paging.PagingConfig
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,7 +28,7 @@ class HomeScreenViewModel(
     private val nowPlayingMoviesPagingSource: GetNowPlayingMoviesPagingSource,
 ) : ScreenModel {
     private val job = SupervisorJob()
-    private val coroutineContextX: CoroutineContext = job + ioDispatcher
+    private val coroutineContextX: CoroutineContext = job + Dispatchers.IO
     private val viewModelScope = CoroutineScope(coroutineContextX)
 
     private val _popularMovies = MutableStateFlow<MoviesState>(MoviesState.Idle)
@@ -34,45 +36,55 @@ class HomeScreenViewModel(
 
     val latestMovies =
         viewModelScope.paginate(
-            useCase = latestMoviesUseCase::invoke, pagingConfig = PagingConfig(20, 5))
+            useCase = latestMoviesUseCase::invoke, pagingConfig = PagingConfig(20, 5)
+        )
 
     val upcomingMovies =
         viewModelScope.paginate(
-            useCase = upcomingMoviesUseCase::invoke, pagingConfig = PagingConfig(20, 5))
+            useCase = upcomingMoviesUseCase::invoke, pagingConfig = PagingConfig(20, 5)
+        )
 
     val topRatedMovies =
         viewModelScope.paginate(
-            useCase = topRatedMoviesUseCase::invoke, pagingConfig = PagingConfig(20, 5))
+            useCase = topRatedMoviesUseCase::invoke, pagingConfig = PagingConfig(20, 5)
+        )
 
     val popularMoviesPaging =
         viewModelScope.paginate(
-            useCase = popularMoviesPagingSource::invoke, pagingConfig = PagingConfig(20, 5))
+            useCase = popularMoviesPagingSource::invoke, pagingConfig = PagingConfig(20, 5)
+        )
 
     val nowPlayingMoviesPaging =
         viewModelScope.paginate(
             useCase = nowPlayingMoviesPagingSource::invoke,
-            pagingConfig = PagingConfig(20, Int.MAX_VALUE))
+            pagingConfig = PagingConfig(20, Int.MAX_VALUE)
+        )
 
     fun onLaunch() {
         getPopularMovies()
     }
 
     private fun getPopularMovies() {
-        CoroutineScope(coroutineContextX).launch {
-            popularMoviesUseCase().asResult().collectLatest { result ->
-                when (result) {
-                    is Result.Error -> {
-                        _popularMovies.update { MoviesState.Error(result.exception) }
-                    }
-                    is Result.Loading -> {
-                        _popularMovies.update { MoviesState.Loading }
-                    }
-                    is Result.Success -> {
-                        _popularMovies.update { MoviesState.Success(result.data) }
+        if (_popularMovies.value !is MoviesState.Success) {
+            viewModelScope.launch(Dispatchers.IO) {
+                popularMoviesUseCase().asResult().collectLatest { result ->
+                    when (result) {
+                        is Result.Error -> {
+                            _popularMovies.update { MoviesState.Error(result.exception) }
+                        }
+
+                        is Result.Loading -> {
+                            _popularMovies.update { MoviesState.Loading }
+                        }
+
+                        is Result.Success -> {
+                            _popularMovies.update { MoviesState.Success(result.data) }
+                        }
                     }
                 }
             }
         }
+
     }
 
 
@@ -80,9 +92,9 @@ class HomeScreenViewModel(
 
 sealed interface MoviesState {
 
-    object Loading : MoviesState
+    data object Loading : MoviesState
 
-    object Idle : MoviesState
+    data object Idle : MoviesState
 
     data class Success(val movies: List<MoviesDomainModel>) : MoviesState
 
