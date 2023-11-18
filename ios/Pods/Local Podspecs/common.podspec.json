@@ -31,7 +31,6 @@
     }
   ],
   "resources": [
-    "src/commonMain/resources/**",
-    "src/iosMain/resources/**"
+    "build/compose/ios/common/compose-resources"
   ]
 }

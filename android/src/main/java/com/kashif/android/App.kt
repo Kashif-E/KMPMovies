@@ -11,8 +11,8 @@ class App : Application() {
         super.onCreate()
 
         initKoin(baseUrl = "https://api.themoviedb.org/3/", enableNetworkLogs = BuildConfig.DEBUG) {
-            androidLogger()
-            androidContext(this@App)
+          //  androidLogger()
+            // androidContext(this@App)
         }
     }
 }

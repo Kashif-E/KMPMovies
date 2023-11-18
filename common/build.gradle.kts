@@ -28,8 +28,6 @@ kotlin {
             isStatic = true
         }
         pod("youtube-ios-player-helper")
-        extraSpecAttributes["resources"] =
-            "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
     }
 
     sourceSets {

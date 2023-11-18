@@ -8,6 +8,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerScope
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -50,19 +51,21 @@ fun HomeScreen(screenModel: HomeScreenViewModel = koinInject()) {
     Column(
         modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
         horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.Top) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopStart) {
-                Movies(
-                    pagerList,
-                    popularMovies,
-                    topRatedMovies,
-                    upcomingMovies,
-                    nowPlayingMovies,
-                    screenModel)
-                SearchAppBar(
-                    placeHolder = "Search for movies, TV shows, people...", onTextChange = {})
-            }
+        verticalArrangement = Arrangement.Top
+    ) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopStart) {
+            Movies(
+                pagerList,
+                popularMovies,
+                topRatedMovies,
+                upcomingMovies,
+                nowPlayingMovies,
+                screenModel
+            )
+            SearchAppBar(
+                placeHolder = "Search for movies, TV shows, people...", onTextChange = {})
         }
+    }
 }
 
 @Composable
@@ -123,33 +126,39 @@ fun HorizontalScroll(
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    modifier = Modifier.padding(12.dp),
-                    text = heading,
-                    style =
-                        MaterialTheme.typography.h3.copy(
-                            fontWeight = FontWeight.W400, color = Color.White))
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                modifier = Modifier.padding(12.dp),
+                text = heading,
+                style =
+                MaterialTheme.typography.h3.copy(
+                    fontWeight = FontWeight.W400, color = Color.White
+                )
+            )
 
-                Text(
-                    modifier =
-                        Modifier.padding(12.dp).clip(MaterialTheme.shapes.large).clickable {
-                            seeAllClick()
-                        },
-                    text = "See all",
-                    style =
-                        MaterialTheme.typography.h4.copy(
-                            fontWeight = FontWeight.W600, color = Grey))
-            }
+            Text(
+                modifier =
+                Modifier.padding(12.dp).clip(MaterialTheme.shapes.large).clickable {
+                    seeAllClick()
+                },
+                text = "See all",
+                style =
+                MaterialTheme.typography.h4.copy(
+                    fontWeight = FontWeight.W600, color = Grey
+                )
+            )
+        }
 
         LazyRow(
             contentPadding = PaddingValues(horizontal = 8.dp, vertical = 12.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically) {
-                items(movies) { movie ->
-                    MovieCardSmall(movie = movie, onClick = { onMovieClick(movie) })
-                }
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            items(movies) { movie ->
+                MovieCardSmall(movie = movie, onClick = { onMovieClick(movie) })
             }
+        }
     }
 }
 
@@ -164,9 +173,11 @@ fun LazyListScope.pager(
             MoviesState.Idle -> {
                 // Text(text = "idle")
             }
+
             MoviesState.Loading -> {
                 Text(text = "loading")
             }
+
             is MoviesState.Success -> {
                 AutoScrollingHorizontalSlider(pagerList.movies.size) { page ->
                     val movie = pagerList.movies[page]
@@ -190,16 +201,19 @@ fun LazyListScope.moviesList(
         is Result.Loading -> {
             placeHolderRow()
         }
+
         is Result.Error -> {
             item { Text(movies.exception) }
         }
+
         is Result.Success -> {
             item {
                 HorizontalScroll(
                     movies = movies.data,
                     heading = title,
                     onMovieClick = onMovieClick,
-                    seeAllClick = seeAllClick)
+                    seeAllClick = seeAllClick
+                )
             }
         }
     }
@@ -213,9 +227,11 @@ fun LazyListScope.nowPlayingMovies(
         is Result.Loading -> {
             placeHolderRow()
         }
+
         is Result.Error -> {
             item { Text(popularMovies.exception) }
         }
+
         is Result.Success -> {
             verticalMovieList(popularMovies.data, "Upcoming Movies", loadMovies::invoke)
         }
@@ -231,10 +247,12 @@ fun LazyListScope.verticalMovieList(
         Text(
             text = title,
             style =
-                MaterialTheme.typography.h3.copy(
-                    fontWeight = FontWeight.W700, color = Color.LightGray),
+            MaterialTheme.typography.h3.copy(
+                fontWeight = FontWeight.W700, color = Color.LightGray
+            ),
             modifier = Modifier.fillMaxWidth().padding(12.dp),
-            textAlign = TextAlign.Start)
+            textAlign = TextAlign.Start
+        )
     }
     items(data) { movie ->
         if (data.last() == movie) {
@@ -252,7 +270,13 @@ fun AutoScrollingHorizontalSlider(
     animationDuration: Int = 2000,
     content: @Composable (page: Int) -> Unit
 ) {
-    val pagerState = rememberPagerState(1)
+    val pagerState = rememberPagerState(
+        initialPage = 1,
+        initialPageOffsetFraction = 0f,
+        pageCount = {
+            size
+        }
+    )
 
     LaunchedEffect(key1 = pagerState) {
         while (true) {
@@ -265,12 +289,19 @@ fun AutoScrollingHorizontalSlider(
 
     Box(
         modifier =
-            Modifier.background(MaterialTheme.colors.background).fillMaxWidth().height(516.dp)) {
-            HorizontalPager(
-                state = pagerState,
-                modifier = Modifier.align(Alignment.Center),
-                pageCount = size) { page ->
-                    content(page)
-                }
-        }
+        Modifier.background(MaterialTheme.colors.background).fillMaxWidth().height(516.dp)
+    ) {
+        HorizontalPager(
+            modifier = Modifier.align(Alignment.Center),
+            state = pagerState,
+            pageSpacing = 0.dp,
+            userScrollEnabled = true,
+            reverseLayout = false,
+            contentPadding = PaddingValues(0.dp),
+            beyondBoundsPageCount = 0,
+            pageContent = { page ->
+                content(page)
+            }
+        )
+    }
 }

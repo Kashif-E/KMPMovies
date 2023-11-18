@@ -66,13 +66,12 @@
 
 /* Begin PBXFileReference section */
 		015E0D7EA7331961AB63E5AFECA86BB5 /* Pods-iosApp-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-iosApp-umbrella.h"; sourceTree = "<group>"; };
-		0D94A28C3B44EAD114F6F5835D37EA39 /* common.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = common.debug.xcconfig; sourceTree = "<group>"; };
 		11C9B998CE0869936AE6BE69270DAAC9 /* Pods-iosApp.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-iosApp.modulemap"; sourceTree = "<group>"; };
-		1B7D12BA2AD5D088AAD951679A384F01 /* common.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = common.framework; path = build/cocoapods/framework/common.framework; sourceTree = "<group>"; };
+		200BBD98ED2CAAE7A8578526D8733F6C /* common.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = common.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		221B06E63B8D07B2586C67D6AB275F92 /* youtube-ios-player-helper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "youtube-ios-player-helper.debug.xcconfig"; sourceTree = "<group>"; };
+		23BDEE114D9D434F8DE6C18962A6A821 /* compose-resources */ = {isa = PBXFileReference; includeInIndex = 1; name = "compose-resources"; path = "build/compose/ios/common/compose-resources"; sourceTree = "<group>"; };
 		244FC2DAA936A0B07ACEFDC74E2D54B8 /* Pods-iosApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.release.xcconfig"; sourceTree = "<group>"; };
 		248A7DEADB8B6474E6A92C731CC67BC9 /* youtube-ios-player-helper-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "youtube-ios-player-helper-dummy.m"; sourceTree = "<group>"; };
-		3438F8A9E6139F2AE106C16C8F0A2FF3 /* common.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = common.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3D773F205A1EB7E2EBBF861888919C42 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; includeInIndex = 1; name = "YTPlayerView-iframe-player.html"; path = "Sources/Assets/YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
 		4AEA34178540C08DD8DD6FD544C6792F /* youtube-ios-player-helper.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "youtube-ios-player-helper.release.xcconfig"; sourceTree = "<group>"; };
 		55ABB06C8A1800962A74E007E7733796 /* Pods-iosApp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-iosApp-frameworks.sh"; sourceTree = "<group>"; };
@@ -80,19 +79,20 @@
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		76A263267985B0185D85E24D40FCEE9A /* Pods-iosApp-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-Info.plist"; sourceTree = "<group>"; };
 		76D28488EA8CF5C697DFF07967A9960E /* Pods-iosApp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-iosApp-acknowledgements.plist"; sourceTree = "<group>"; };
+		7B4A28D2D200844AE9E5639C523EACE7 /* common.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = common.framework; path = build/cocoapods/framework/common.framework; sourceTree = "<group>"; };
+		7C31514E98734E6D2972691896BB3E2B /* common.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = common.release.xcconfig; sourceTree = "<group>"; };
 		8498A1B2C60117E181CA67921DDAE0B6 /* youtube-ios-player-helper */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "youtube-ios-player-helper"; path = youtube_ios_player_helper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		928F30323E38E806398DBEFA207526E9 /* common.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = common.release.xcconfig; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		A1FF5E2742007D012B650E911622DFDF /* youtube-ios-player-helper-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "youtube-ios-player-helper-umbrella.h"; sourceTree = "<group>"; };
 		B097DD7534E741D5C41838011D755842 /* Pods-iosApp */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-iosApp"; path = Pods_iosApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BDB8290E299516843AFF3B8C541CC9DB /* YTPlayerView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = YTPlayerView.h; path = Sources/YTPlayerView.h; sourceTree = "<group>"; };
+		C1C090EBAF84CD392D76ABEA0CAE77E8 /* common.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = common.debug.xcconfig; sourceTree = "<group>"; };
 		D157CDBA89E586288E59FCE4CD21C39C /* youtube-ios-player-helper-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "youtube-ios-player-helper-Info.plist"; sourceTree = "<group>"; };
 		D674200BB0575198145B5455CF13275F /* youtube-ios-player-helper-Assets */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "youtube-ios-player-helper-Assets"; path = Assets.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		E462E23B3674BF94EAB1504D506F2803 /* Pods-iosApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-iosApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E4C923318724794E3CC670804C2D6A6B /* Pods-iosApp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-iosApp-acknowledgements.markdown"; sourceTree = "<group>"; };
 		E5C923EFC82AEAF602C802BCDF4A6FED /* youtube-ios-player-helper-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "youtube-ios-player-helper-prefix.pch"; sourceTree = "<group>"; };
 		E6DB2A5F5DADA1DDE45F36B1A2D6AC16 /* Pods-iosApp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-iosApp-dummy.m"; sourceTree = "<group>"; };
-		E7FDD9DB223FE13E13F591365E1F97E7 /* font */ = {isa = PBXFileReference; includeInIndex = 1; name = font; path = src/commonMain/resources/font; sourceTree = "<group>"; };
 		EC40ED08CE2F80B6BE2A51A92E46AEE2 /* youtube-ios-player-helper.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "youtube-ios-player-helper.modulemap"; sourceTree = "<group>"; };
 		EFC510FFA2019788C234C46692616CB1 /* YTPlayerView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YTPlayerView.m; path = Sources/YTPlayerView.m; sourceTree = "<group>"; };
 		FD3B1CBAA23C0D9656711AF0AC40A224 /* ResourceBundle-Assets-youtube-ios-player-helper-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-Assets-youtube-ios-player-helper-Info.plist"; sourceTree = "<group>"; };
@@ -125,6 +125,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2016CD6563A9C7780E3024C3B2D3B138 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				23BDEE114D9D434F8DE6C18962A6A821 /* compose-resources */,
+				A7AAC150A302B93B82DEEFAE73A1EB37 /* Frameworks */,
+				29D366DABB64F7DD28AB034E2F5B88DF /* Pod */,
+				B458B93BA19EC5BFC2CDB33656A8A8A9 /* Support Files */,
+			);
+			name = common;
+			path = ../../common;
+			sourceTree = "<group>";
+		};
+		29D366DABB64F7DD28AB034E2F5B88DF /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				200BBD98ED2CAAE7A8578526D8733F6C /* common.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
 		2E74FAFAE297ADB55FF071A22A0C3E23 /* youtube-ios-player-helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -171,22 +191,30 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		80B8E1B4606B55C52EB10B17B2DECE64 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				0D94A28C3B44EAD114F6F5835D37EA39 /* common.debug.xcconfig */,
-				928F30323E38E806398DBEFA207526E9 /* common.release.xcconfig */,
-			);
-			name = "Support Files";
-			path = "../ios/Pods/Target Support Files/common";
-			sourceTree = "<group>";
-		};
 		A5411B3B0BA859D263AEC8568CE9DC19 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F1B21C39E07ECD7AD1169EB2469E15C0 /* common */,
+				2016CD6563A9C7780E3024C3B2D3B138 /* common */,
 			);
 			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		A7AAC150A302B93B82DEEFAE73A1EB37 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B4A28D2D200844AE9E5639C523EACE7 /* common.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B458B93BA19EC5BFC2CDB33656A8A8A9 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				C1C090EBAF84CD392D76ABEA0CAE77E8 /* common.debug.xcconfig */,
+				7C31514E98734E6D2972691896BB3E2B /* common.release.xcconfig */,
+			);
+			name = "Support Files";
+			path = "../ios/Pods/Target Support Files/common";
 			sourceTree = "<group>";
 		};
 		BA6B7BC2729F657E9D3682E55CA6E980 /* Pods-iosApp */ = {
@@ -233,34 +261,6 @@
 				BA6B7BC2729F657E9D3682E55CA6E980 /* Pods-iosApp */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		DCA13DAFA9E16BE25D9BAE3C63F471B0 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				3438F8A9E6139F2AE106C16C8F0A2FF3 /* common.podspec */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		EEA86F98A6CB47D0104ED748109DBD4A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1B7D12BA2AD5D088AAD951679A384F01 /* common.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F1B21C39E07ECD7AD1169EB2469E15C0 /* common */ = {
-			isa = PBXGroup;
-			children = (
-				E7FDD9DB223FE13E13F591365E1F97E7 /* font */,
-				EEA86F98A6CB47D0104ED748109DBD4A /* Frameworks */,
-				DCA13DAFA9E16BE25D9BAE3C63F471B0 /* Pod */,
-				80B8E1B4606B55C52EB10B17B2DECE64 /* Support Files */,
-			);
-			name = common;
-			path = ../../common;
 			sourceTree = "<group>";
 		};
 		F803CD644AC9EBBAE2A447B0CBB973A1 /* Support Files */ = {
@@ -364,8 +364,8 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 9.3";
@@ -537,7 +537,7 @@
 		};
 		5354DBA8D8AF41DF8DDE2BF77F015369 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 928F30323E38E806398DBEFA207526E9 /* common.release.xcconfig */;
+			baseConfigurationReference = 7C31514E98734E6D2972691896BB3E2B /* common.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -669,7 +669,7 @@
 		};
 		9C90FD3098BA69669A1CDB2551ED80E9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D94A28C3B44EAD114F6F5835D37EA39 /* common.debug.xcconfig */;
+			baseConfigurationReference = C1C090EBAF84CD392D76ABEA0CAE77E8 /* common.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
