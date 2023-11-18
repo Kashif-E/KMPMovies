@@ -23,7 +23,7 @@ material-icon-version = "1.4.1"
 
 image-loader-version = "1.5.3"
 
-accompanist-version = "0.33.2"
+accompanist-version = "0.33.2-alpha"
 
 voyager = "1.0.0-rc08"
 

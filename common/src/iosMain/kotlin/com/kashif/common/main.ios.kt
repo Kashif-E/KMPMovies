@@ -31,6 +31,9 @@ fun MainViewController(): UIViewController = ComposeUIViewController {
     }
 }
 
+/**
+ * Cache for image loader
+ */
 private fun generateImageLoader(): ImageLoader {
     return ImageLoader {
         commonConfig()
@@ -62,6 +65,11 @@ private fun getCacheDir(): String {
         .orEmpty()
 }
 
+
+/**
+ *
+ * Apply custom fonts
+ */
 private val cache: MutableMap<String, Font> = mutableMapOf()
 
 @OptIn(ExperimentalResourceApi::class)

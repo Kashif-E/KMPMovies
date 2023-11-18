@@ -2,7 +2,6 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.bodyAsText
-import io.ktor.client.statement.readText
 import io.ktor.http.isSuccess
 import io.ktor.utils.io.charsets.Charset
 import io.ktor.utils.io.charsets.Charsets
@@ -12,7 +11,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 
 
-suspend fun getDictionaryFrom(string: String): Map<String, String> {
+fun getDictionaryFrom(string: String): Map<String, String> {
     val dic = mutableMapOf<String, String>()
     val parts = string.split("&")
     for (part in parts) {

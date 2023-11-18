@@ -34,6 +34,7 @@ dependencies {
     implementation(project(":common"))
     implementation(libs.androidx.activity.compose)
     implementation(libs.koin.compose)
+    implementation(libs.system.ui.controller)
 
 }
 
