@@ -66,6 +66,7 @@ kotlin {
                 implementation(libs.ktor.android)
                 implementation(libs.koin.compose)
                 implementation(libs.youtube.player.core)
+                implementation(libs.system.ui.controller)
             }
         }
         val androidUnitTest by getting { dependencies { implementation(libs.junit) } }
@@ -98,7 +99,7 @@ kotlin {
         }
         val desktopTest by getting
 
-        val iosMain by getting {
+        val iosMain by getting  {
             dependsOn(commonMain)
             dependencies { implementation(libs.ktor.ios) }
         }

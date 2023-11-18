@@ -2,8 +2,14 @@ package com.kashif.common.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -15,6 +21,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.Navigator
@@ -23,6 +30,7 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import com.kashif.common.domain.util.ChangeStatusBarColors
 import com.kashif.common.presentation.components.SlideTransition
 import com.kashif.common.presentation.tabs.HomeTab
 import com.kashif.common.presentation.tabs.SavedMovies
@@ -37,15 +45,22 @@ import com.kashif.common.presentation.theme.MoviesAppTheme
 fun App() {
 
     MoviesAppTheme {
-        TabNavigator(HomeTab) {
-            BottomSheetNavigator(
-                modifier = Modifier.animateContentSize(),
-                sheetShape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
-                skipHalfExpanded = true
-            ) {
-                Navigator(Application()) { navigator -> SlideTransition(navigator) }
+       ChangeStatusBarColors(Color.Black)
+        Box(
+            modifier = Modifier.background(Color.Black).fillMaxSize()
+                .windowInsetsPadding(WindowInsets.safeDrawing)
+        ) {
+            TabNavigator(HomeTab) {
+                BottomSheetNavigator(
+                    modifier = Modifier.animateContentSize(),
+                    sheetShape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
+                    skipHalfExpanded = true
+                ) {
+                    Navigator(Application()) { navigator -> SlideTransition(navigator) }
+                }
             }
         }
+
     }
 }
 
