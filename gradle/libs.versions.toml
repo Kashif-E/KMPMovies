@@ -23,7 +23,7 @@ material-icon-version = "1.4.1"
 
 image-loader-version = "1.5.3"
 
-accompanist-version = "0.25.2"
+accompanist-version = "0.33.2"
 
 voyager = "1.0.0-rc08"
 
@@ -68,5 +68,7 @@ youtube-player-core = {module = "com.pierfrancescosoffritti.androidyoutubeplayer
 koin-compose-mp = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose-jb" }
 
 multiplatform-placeholder = { module = "ca.gosyer:accompanist-placeholder", version.ref = "multiplatform-placeholder" }
+
+system-ui-controller = {module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-version"}
 
 junit = "junit:junit:4.13.2"
