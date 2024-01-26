@@ -4,7 +4,7 @@ plugins {
     id("com.android.library")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
-    id ("com.google.osdetector") version "1.7.3"
+    id("com.google.osdetector") version "1.7.3"
 }
 
 group = "com.kashif"
@@ -13,10 +13,11 @@ version = "1.0-SNAPSHOT"
 
 kotlin {
     androidTarget()
-    jvm("desktop") { compilations.all { kotlinOptions.jvmTarget = "11" } }
-    ios()
+    iosArm64()
     iosSimulatorArm64()
+    jvm("desktop") { compilations.all { kotlinOptions.jvmTarget = "11" } }
 
+    applyDefaultHierarchyTemplate()
     cocoapods {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
@@ -31,45 +32,56 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(kotlin("stdlib-common"))
-                implementation("co.touchlab:kermit:2.0.0-RC4")
-                api(compose.runtime)
-                api(compose.foundation)
-                api(compose.material)
-                implementation(libs.koin.core)
-                implementation(libs.ktor.json)
-                implementation(libs.ktor.client.logging)
-                implementation(libs.ktor.serialization)
-                implementation(libs.ktor.contentnegotiation)
-                implementation(libs.ktor.serialization.json)
-                implementation(libs.kotlin.serialization)
-                implementation(libs.material.icon.extended)
-                api(libs.image.loader)
-                implementation(libs.compose.util)
-                implementation(libs.voyager.navigator)
-                implementation(libs.voyager.transitions)
-                implementation(libs.voyager.bottomSheetNavigator)
-                implementation(libs.voyager.tabNavigator)
-                @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
-                implementation(libs.koin.compose.mp)
-            }
-        }
-        val commonTest by getting { dependencies { implementation(kotlin("test")) } }
 
-        val androidMain by getting {
-            dependencies {
-                api(libs.androidx.appcompat)
-                api(libs.androidx.coreKtx)
-                implementation(libs.ktor.android)
-                implementation(libs.koin.compose)
-                implementation(libs.youtube.player.core)
-                implementation(libs.system.ui.controller)
-            }
+        commonMain.dependencies {
+            implementation(kotlin("stdlib-common"))
+            implementation("co.touchlab:kermit:2.0.0-RC4")
+            api(compose.runtime)
+            api(compose.foundation)
+            api(compose.material)
+            implementation(libs.koin.core)
+            implementation(libs.ktor.json)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.serialization)
+            implementation(libs.ktor.contentnegotiation)
+            implementation(libs.ktor.serialization.json)
+            implementation(libs.kotlin.serialization)
+            implementation(libs.material.icon.extended)
+
+            implementation(libs.compose.util)
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.screenmodel)
+            implementation(libs.voyager.transitions)
+            implementation(libs.voyager.bottomSheetNavigator)
+            implementation(libs.voyager.tabNavigator)
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.components.resources)
+            implementation(libs.koin.compose.mp)
+            implementation(libs.coil)
+            implementation(libs.coil.network.ktor)
+            implementation(libs.coil.compose.core)
+            implementation(libs.coil.compose)
+            implementation(libs.stately.common)
         }
-        val androidUnitTest by getting { dependencies { implementation(libs.junit) } }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
+
+        androidMain.dependencies {
+            api(libs.androidx.appcompat)
+            api(libs.androidx.coreKtx)
+            implementation(libs.ktor.android)
+            implementation(libs.koin.compose)
+            implementation(libs.youtube.player.core)
+            implementation(libs.system.ui.controller)
+        }
+
+        androidNativeTest.dependencies {
+            implementation(libs.junit)
+        }
+
+
         val desktopMain by getting {
             dependencies {
                 api(compose.preview)
@@ -99,11 +111,12 @@ kotlin {
         }
         val desktopTest by getting
 
-        val iosMain by getting  {
-            dependsOn(commonMain)
-            dependencies { implementation(libs.ktor.ios) }
+        iosMain.dependencies {
+            implementation(libs.ktor.ios)
         }
-        val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
+        iosMain.get().dependsOn(commonMain.get())
+
+
     }
 }
 

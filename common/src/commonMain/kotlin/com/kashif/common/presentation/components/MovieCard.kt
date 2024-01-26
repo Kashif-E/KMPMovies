@@ -50,7 +50,7 @@ fun MovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
         border = BorderStroke(width = 0.2.dp, color = Color.White)) {
             Row(modifier = Modifier.fillMaxSize()) {
                 Box(modifier = Modifier.width(130.dp).fillMaxHeight()) {
-                    AsyncImage(
+                    CachedAsyncImage(
                         url = movie.posterPath,
                         modifier = Modifier.fillMaxSize(),
                     )

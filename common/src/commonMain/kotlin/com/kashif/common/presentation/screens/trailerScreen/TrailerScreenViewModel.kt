@@ -1,11 +1,13 @@
 package com.kashif.common.presentation.screens.trailerScreen
 
 import cafe.adriel.voyager.core.model.ScreenModel
-import cafe.adriel.voyager.core.model.coroutineScope
 import com.kashif.common.data.paging.Result
 import com.kashif.common.data.paging.asResult
 import com.kashif.common.domain.model.VideoDomainModel
 import com.kashif.common.domain.usecase.GetMovieTrailerUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -18,7 +20,7 @@ class TrailerScreenViewModel(private val getMovieTrailerUseCase: GetMovieTrailer
     val trailer = _trailer.asStateFlow()
 
      fun getTrailer(movieId: Int) {
-         coroutineScope.launch {
+         CoroutineScope(Dispatchers.IO).launch {
              getMovieTrailerUseCase(movieId).asResult().collectLatest { result ->
                  _trailer.update { result }
              }
