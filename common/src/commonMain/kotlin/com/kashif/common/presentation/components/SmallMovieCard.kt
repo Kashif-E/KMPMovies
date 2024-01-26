@@ -4,9 +4,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
@@ -26,6 +24,6 @@ fun MovieCardSmall(movie: MoviesDomainModel, onClick: () -> Unit) {
         shape = RoundedCornerShape(8.dp),
         backgroundColor = Color.Transparent,
         elevation = 8.dp) {
-            AsyncImage(url = movie.posterPath, modifier = Modifier.fillMaxSize())
+            CachedAsyncImage(url = movie.posterPath, modifier = Modifier.fillMaxSize())
         }
 }

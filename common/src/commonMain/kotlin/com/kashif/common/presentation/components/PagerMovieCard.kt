@@ -40,7 +40,7 @@ fun PagerMovieCard(modifier: Modifier= Modifier,movie: MoviesDomainModel, onPlay
 
     Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Top) {
         Box {
-            AsyncImage(
+            CachedAsyncImage(
                 url = movie.hdPosterPath,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.FillBounds)

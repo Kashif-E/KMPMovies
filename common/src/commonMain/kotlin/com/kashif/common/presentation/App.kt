@@ -30,8 +30,10 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import coil3.compose.setSingletonImageLoaderFactory
 import com.kashif.common.domain.util.ChangeStatusBarColors
 import com.kashif.common.presentation.components.SlideTransition
+import com.kashif.common.presentation.components.getAsyncImageLoader
 import com.kashif.common.presentation.tabs.HomeTab
 import com.kashif.common.presentation.tabs.SavedMovies
 import com.kashif.common.presentation.tabs.SearchTab
@@ -44,8 +46,11 @@ import com.kashif.common.presentation.theme.MoviesAppTheme
 @Composable
 fun App() {
 
+    setSingletonImageLoaderFactory {context->
+        getAsyncImageLoader(context)
+    }
     MoviesAppTheme {
-       ChangeStatusBarColors(Color.Black)
+        ChangeStatusBarColors(Color.Black)
         Box(
             modifier = Modifier.background(Color.Black).fillMaxSize()
                 .windowInsetsPadding(WindowInsets.safeDrawing)
