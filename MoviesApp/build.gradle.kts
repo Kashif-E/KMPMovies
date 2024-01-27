@@ -85,6 +85,7 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.system.ui.controller)
         }
+        androidMain.get().dependsOn(commonMain.get())
 
         androidNativeTest.dependencies {
             implementation(libs.junit)
