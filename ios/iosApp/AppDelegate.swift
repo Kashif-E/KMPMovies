@@ -1,5 +1,5 @@
 import SwiftUI
-import common
+import MoviesApp
 import SwiftUI
 import AVKit
 

@@ -1,14 +1,16 @@
 [versions]
 # https://github.com/JetBrains/compose-jb/blob/master/VERSIONING.md#kotlin-compatibility
 coil = "3.0.0-alpha03"
+kermit = "2.0.0-RC4"
 kotlin = "1.9.21" # https://kotlinlang.org/docs/releases.html#release-details
 agp = "7.4.2" # https://developer.android.com/studio/releases/gradle-plugin
-compose = "1.5.11" # https://github.com/JetBrains/compose-jb
+compose = "1.6.0-beta01" # https://github.com/JetBrains/compose-jb
 
 coreKtx = "1.12.0" # https://developer.android.com/jetpack/androidx/releases/core
 appcompat = "1.6.1" # https://developer.android.com/jetpack/androidx/releases/appcompat
 activity = "1.8.2" # https://developer.android.com/jetpack/androidx/releases/activity
 compileSdk = "34"
+kotlinxCoroutinesSwing = "1.7.3"
 minSdk = "24"
 statelyCommon = "2.0.5"
 targetSdk = "33"
@@ -30,6 +32,7 @@ coil-network-ktor = { module = "io.coil-kt.coil3:coil-network-ktor", version.ref
 coil = { module = "io.coil-kt.coil3:coil", version.ref = "coil" }
 
 composeGradle = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "compose" }
+kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kotlinGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 androidx-coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
@@ -40,6 +43,7 @@ compose-util = {module = "org.jetbrains.compose.ui:ui-util", version.ref = "comp
 koin-core = {module = "io.insert-koin:koin-core", version.ref = "koin-version"}
 koin-compose = {module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-compose-version"}
 
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxCoroutinesSwing" }
 ktor-core = {module = "io.ktor:ktor-client-core", version.ref = "ktor_version"}
 ktor-serialization = {module = "io.ktor:ktor-client-serialization", version.ref = "ktor_version"}
 ktor-android = {module = "io.ktor:ktor-client-android", version.ref = "ktor_version"}

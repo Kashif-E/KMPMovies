@@ -5,7 +5,7 @@
 
 import Foundation
 import SwiftUI
-import common
+import MovieApp
 import AVKit
 
 
