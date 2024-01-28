@@ -2,10 +2,10 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     kotlin("multiplatform")
-    id("org.jetbrains.compose")
     kotlin("native.cocoapods")
     kotlin("plugin.serialization")
     id("com.android.application")
+    id("org.jetbrains.compose")
     id("com.google.osdetector") version "1.7.3"
 }
 
@@ -85,8 +85,6 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.system.ui.controller)
         }
-        androidMain.get().dependsOn(commonMain.get())
-
         androidNativeTest.dependencies {
             implementation(libs.junit)
         }

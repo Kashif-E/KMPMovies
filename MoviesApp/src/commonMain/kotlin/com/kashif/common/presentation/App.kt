@@ -2,6 +2,7 @@ package com.kashif.common.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
@@ -42,8 +43,13 @@ import com.kashif.common.presentation.theme.DarkPH
 import com.kashif.common.presentation.theme.GreenSecondary
 import com.kashif.common.presentation.theme.LightPH
 import com.kashif.common.presentation.theme.MoviesAppTheme
+import com.kashif.moviesapp.generated.resources.Res
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class)
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class,
+    ExperimentalResourceApi::class
+)
 @Composable
 fun ComposeApp() {
 
@@ -66,6 +72,7 @@ fun ComposeApp() {
                     Navigator(Application()) { navigator -> SlideTransition(navigator) }
                 }
             }
+
         }
 
     }

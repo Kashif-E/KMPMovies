@@ -11,12 +11,10 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalResourceApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-           // Application()
-            Image(painterResource(Res.drawable.ic_play),null)
+            Application()
         }
     }
 }
