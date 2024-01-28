@@ -16,7 +16,6 @@ import org.jetbrains.compose.resources.Font
 @Composable
 fun getTypography(): Typography {
 
-
     val nunitoRegular = FontFamily(
        Font( Res.font.nunito_regular,  FontWeight.Normal, FontStyle.Normal)
 
