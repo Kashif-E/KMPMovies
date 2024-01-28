@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 import AVKit
-import common
+import MovieApp
 //
 //class VideoPlayerView: UIView {
 //    let playerLayer = AVPlayerLayer()
