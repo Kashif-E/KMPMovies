@@ -1,5 +1,6 @@
 package com.kashif.common.presentation.theme
 
+import androidx.compose.foundation.Image
 import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -9,8 +10,10 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.kashif.moviesapp.generated.resources.Res
+import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.Font
+import org.jetbrains.compose.resources.painterResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -79,4 +82,5 @@ fun getTypography(): Typography {
             fontFamily = nunitoRegular, fontWeight = FontWeight.Normal, fontSize = 12.sp
         )
     )
-}
+    
+  }

@@ -47,8 +47,7 @@ import com.kashif.moviesapp.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class,
-    ExperimentalResourceApi::class
+@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class
 )
 @Composable
 fun ComposeApp() {
@@ -56,7 +55,6 @@ fun ComposeApp() {
     setSingletonImageLoaderFactory {context->
         getAsyncImageLoader(context)
     }
-
     MoviesAppTheme {
         ChangeStatusBarColors(Color.Black)
         Box(
