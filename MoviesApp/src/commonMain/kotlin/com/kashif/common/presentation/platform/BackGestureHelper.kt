@@ -59,7 +59,9 @@ import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
 
-
+/**
+ * Original code from here: https://github.com/adrielcafe/voyager/issues/144
+ */
 expect var shouldAllowSwiperSwiping: Boolean
 
 @OptIn(ExperimentalMaterialApi::class)
