@@ -17,28 +17,36 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.kashif.common.WebView
 import com.kashif.common.presentation.components.TransparentIconHolder
+import com.kashif.common.presentation.platform.MoviesAppScreen
 
-class WebViewScreen(private val url: String) : Screen {
+class WebViewScreen(private val url: String) : MoviesAppScreen() {
     @Composable
     override fun Content() {
-        val navigator = LocalNavigator.currentOrThrow
-       Column(modifier = Modifier.fillMaxSize()) {
-           Row(
-               modifier =
-               Modifier.height(70.dp)
-                   .fillMaxWidth()
-                   .background(color = Color.Black.copy(alpha = 0.6f)),
-               horizontalArrangement = Arrangement.Start,
-               verticalAlignment = Alignment.CenterVertically) {
-               TransparentIconHolder(
-                   icon = Icons.Rounded.ArrowBack,
-               ) {
-                   navigator.pop()
-               }
-           }
+        Body()
+    }
+
+    @Composable
+    private fun Body(navigator: Navigator = LocalNavigator.currentOrThrow) {
+        Column(modifier = Modifier.fillMaxSize()) {
+            Row(
+                modifier =
+                Modifier.height(70.dp)
+                    .fillMaxWidth()
+                    .background(color = Color.Black.copy(alpha = 0.6f)),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TransparentIconHolder(
+                    icon = Icons.Rounded.ArrowBack,
+                ) {
+                    navigator.pop()
+                }
+            }
+
             WebView(modifier = Modifier.fillMaxSize(), url)
 
         }
