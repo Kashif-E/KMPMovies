@@ -1,5 +1,6 @@
 package com.kashif.common.data.remote
 
+import com.kashif.common.data.remote.dto.MovieDetailsDTO
 import com.kashif.common.data.remote.dto.MoviesDTO
 import com.kashif.common.data.remote.dto.VideoDTO
 import io.ktor.client.*
@@ -33,6 +34,6 @@ class KtorService(private val httpClient: HttpClient, private val baseUrl: Strin
     override suspend fun searchMovies(query: String, pageNo: Int): MoviesDTO =
         httpClient.get(baseUrl + Endpoints.SEARCH_MOVIES.getUrl(apiKey, query, pageNo)).body()
 
-    override suspend fun getMovieDetails(movieId: Int): MoviesDTO =
+    override suspend fun getMovieDetails(movieId: Int): MovieDetailsDTO =
         httpClient.get(baseUrl+Endpoints.GET_MOVIE_DETAILS.getUrl(movieId, apiKey)).body()
 }

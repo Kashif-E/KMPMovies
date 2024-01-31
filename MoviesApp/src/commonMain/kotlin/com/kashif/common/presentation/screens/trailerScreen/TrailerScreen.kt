@@ -33,22 +33,24 @@ import com.kashif.common.domain.model.VideoDomainModel
 import com.kashif.common.presentation.components.CircularProgressbarAnimated
 import com.kashif.common.presentation.components.RatingRow
 import com.kashif.common.presentation.components.TransparentIconHolder
+import com.kashif.common.presentation.platform.MoviesAppScreen
 import com.kashif.common.presentation.theme.SunnySideUp
+import org.koin.compose.koinInject
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 
-class TrailerScreen(private val movie: MoviesDomainModel) : Screen, KoinComponent {
+class TrailerScreen(private val movie: MoviesDomainModel) : MoviesAppScreen() {
 
     @Composable
     override fun Content() {
-        MainScreen(bottomSheetNavigator = LocalBottomSheetNavigator.current, movie = movie)
+        MainScreen(movie = movie)
     }
 
     @Composable
     private fun MainScreen(
-        bottomSheetNavigator: BottomSheetNavigator,
+        bottomSheetNavigator: BottomSheetNavigator = LocalBottomSheetNavigator.current,
         movie: MoviesDomainModel,
-        screenModel: TrailerScreenViewModel = get()
+        screenModel: TrailerScreenViewModel = koinInject()
     ) {
         LaunchedEffect(this.movie) { screenModel.getTrailer(movieId = movie.id) }
 
@@ -57,54 +59,65 @@ class TrailerScreen(private val movie: MoviesDomainModel) : Screen, KoinComponen
         Column(
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Row(
-                    modifier = Modifier.padding(12.dp).wrapContentHeight().fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
-                    verticalAlignment = Alignment.CenterVertically) {
-                        TransparentIconHolder(
-                            icon = Icons.Rounded.Close, onClick = { bottomSheetNavigator.hide() })
-                        Text(
-                            text = movie.title,
-                            style = MaterialTheme.typography.h5.copy(color = Color.White))
-                    }
-
-                when (state) {
-                    is Result.Error -> {
-                        Text((state as Result.Error).exception, modifier = Modifier.height(400.dp))
-                    }
-                    Result.Loading -> {
-                        CircularProgressbarAnimated(
-                            modifier =
-                                Modifier.wrapContentHeight().align(Alignment.CenterHorizontally))
-                    }
-                    is Result.Success -> {
-                        VideoPlayer(
-                            modifier =
-                                Modifier.fillMaxWidth()
-                                    .height(350.dp)
-                                    .background(color = Color.Transparent),
-                            (state as Result.Success<VideoDomainModel>).data.key)
-                    }
-                }
-                Column(
-                    horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.padding(horizontal = 12.dp)) {
-                        Text(
-                            text = "Release Date  ${movie.releaseDate}",
-                            textAlign = TextAlign.Start,
-                            style = MaterialTheme.typography.h6.copy(color = SunnySideUp))
-                        RatingRow(movie = movie, modifier = Modifier.fillMaxWidth())
-                        Text(
-                            text = "Prolog",
-                            textAlign = TextAlign.Start,
-                            style = MaterialTheme.typography.h3.copy(color = Color.White))
-                        Text(
-                            text = movie.overview,
-                            textAlign = TextAlign.Start,
-                            style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.W400))
-                    }
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Row(
+                modifier = Modifier.padding(12.dp).wrapContentHeight().fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp, Alignment.Start),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TransparentIconHolder(
+                    icon = Icons.Rounded.Close, onClick = { bottomSheetNavigator.hide() })
+                Text(
+                    text = movie.title,
+                    style = MaterialTheme.typography.h5.copy(color = Color.White)
+                )
             }
+
+            when (state) {
+                is Result.Error -> {
+                    Text((state as Result.Error).exception, modifier = Modifier.height(400.dp))
+                }
+
+                Result.Loading -> {
+                    CircularProgressbarAnimated(
+                        modifier =
+                        Modifier.wrapContentHeight().align(Alignment.CenterHorizontally)
+                    )
+                }
+
+                is Result.Success -> {
+                    VideoPlayer(
+                        modifier =
+                        Modifier.fillMaxWidth()
+                            .height(350.dp)
+                            .background(color = Color.Transparent),
+                        (state as Result.Success<VideoDomainModel>).data.key
+                    )
+                }
+            }
+            Column(
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(horizontal = 12.dp)
+            ) {
+                Text(
+                    text = "Release Date  ${movie.releaseDate}",
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.h6.copy(color = SunnySideUp)
+                )
+                RatingRow(movie = movie, modifier = Modifier.fillMaxWidth())
+                Text(
+                    text = "Prolog",
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.h3.copy(color = Color.White)
+                )
+                Text(
+                    text = movie.overview,
+                    textAlign = TextAlign.Start,
+                    style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.W400)
+                )
+            }
+        }
     }
 }

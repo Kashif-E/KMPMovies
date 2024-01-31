@@ -37,49 +37,55 @@ fun getTypography(): Typography {
             fontFamily = nunitoBold,
             fontWeight = FontWeight.Bold,
             fontSize = 52.sp,
+            color = Color.White
         ),
-        h2 = TextStyle(fontFamily = nunitoBold, fontWeight = FontWeight.Bold, fontSize = 24.sp),
+        h2 = TextStyle(fontFamily = nunitoBold, fontWeight = FontWeight.Bold, fontSize = 24.sp,  color = Color.White),
         h3 = TextStyle(
             fontFamily = nunitoBold,
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp,
+            color = Color.White
         ),
         h4 = TextStyle(
             fontFamily = nunitoBold,
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
+            color = Color.White
         ),
-        h5 = TextStyle(fontFamily = nunitoBold, fontWeight = FontWeight.Bold, fontSize = 14.sp),
+        h5 = TextStyle(fontFamily = nunitoBold, fontWeight = FontWeight.Bold, fontSize = 14.sp,  color = Color.White),
         h6 = TextStyle(
             fontFamily = nunitoSemiBold,
             fontWeight = FontWeight.SemiBold,
             fontSize = 12.sp,
+            color = Color.White
         ),
         subtitle1 = TextStyle(
             fontFamily = nunitoSemiBold,
             fontWeight = FontWeight.SemiBold,
             fontSize = 16.sp,
+            color = Color.White
         ),
         subtitle2 = TextStyle(
             fontFamily = nunitoRegular,
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
+            color = Color.White
         ),
         body1 = TextStyle(
-            fontFamily = nunitoRegular, fontWeight = FontWeight.Normal, fontSize = 14.sp
+            fontFamily = nunitoRegular, fontWeight = FontWeight.Normal, fontSize = 14.sp, color = Color.White
         ),
-        body2 = TextStyle(fontFamily = nunitoRegular, fontSize = 10.sp),
+        body2 = TextStyle(fontFamily = nunitoRegular, fontSize = 10.sp,  color = Color.White),
         button = TextStyle(
             fontFamily = nunitoRegular,
             fontWeight = FontWeight.Normal,
             fontSize = 15.sp,
-            color = OnPrimary
+            color = Color.White
         ),
         caption = TextStyle(
-            fontFamily = nunitoRegular, fontWeight = FontWeight.Normal, fontSize = 8.sp
+            fontFamily = nunitoRegular, fontWeight = FontWeight.Normal, fontSize = 8.sp,  color = Color.White
         ),
         overline = TextStyle(
-            fontFamily = nunitoRegular, fontWeight = FontWeight.Normal, fontSize = 12.sp
+            fontFamily = nunitoRegular, fontWeight = FontWeight.Normal, fontSize = 12.sp,  color = Color.White
         )
     )
     

@@ -11,6 +11,7 @@ import androidx.compose.ui.layout.ContentScale
 import coil3.ImageLoader
 import coil3.PlatformContext
 import coil3.compose.LocalPlatformContext
+import coil3.compose.SubcomposeAsyncImage
 import coil3.compose.rememberAsyncImagePainter
 import coil3.disk.DiskCache
 import coil3.memory.MemoryCache
@@ -28,29 +29,23 @@ import okio.FileSystem
 fun CachedAsyncImage(
     url: String, contentScale: ContentScale = ContentScale.Crop, modifier: Modifier
 ) {
-    var showShimmer by remember { mutableStateOf(true) }
-    val painter = rememberAsyncImagePainter(
-        model = ImageRequest.Builder(LocalPlatformContext.current).data(url).dispatcher(Dispatchers.IO) .build(),
-        onError = { error ->
-            co.touchlab.kermit.Logger.e(
-                error.result.throwable.message ?: "Something went wrong", tag = "coil"
+    SubcomposeAsyncImage(
+        modifier = modifier,
+        model = ImageRequest.Builder(LocalPlatformContext.current).data(url).crossfade(true)
+            .build(),
+        loading = {
+            Image(
+                painter = painter,
+                contentDescription = null,
+                contentScale = contentScale,
+                modifier = modifier.placeHolder(DarkPH, true),
             )
         },
-        onLoading = { loading ->
-            showShimmer = true
-        },
-        onSuccess = { success ->
-            showShimmer = false
-        },
         contentScale = contentScale,
-
-        )
-    Image(
-        painter = painter,
-        contentDescription = null,
-        contentScale = contentScale,
-        modifier = modifier.placeHolder(DarkPH, showShimmer),
+        contentDescription = null
     )
+
+
 }
 
 fun getAsyncImageLoader(context: PlatformContext) =

@@ -36,6 +36,9 @@ import coil3.compose.setSingletonImageLoaderFactory
 import com.kashif.common.domain.util.ChangeStatusBarColors
 import com.kashif.common.presentation.components.SlideTransition
 import com.kashif.common.presentation.components.getAsyncImageLoader
+import com.kashif.common.presentation.platform.MoviesAppScreen
+import com.kashif.common.presentation.platform.SwiperDoSwiping
+import com.kashif.common.presentation.platform.shouldAllowSwiperSwiping
 import com.kashif.common.presentation.tabs.HomeTab
 import com.kashif.common.presentation.tabs.SavedMovies
 import com.kashif.common.presentation.tabs.SearchTab
@@ -47,12 +50,13 @@ import com.kashif.moviesapp.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class
+@OptIn(
+    ExperimentalAnimationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class
 )
 @Composable
 fun ComposeApp() {
 
-    setSingletonImageLoaderFactory {context->
+    setSingletonImageLoaderFactory { context ->
         getAsyncImageLoader(context)
     }
     MoviesAppTheme {
@@ -67,7 +71,14 @@ fun ComposeApp() {
                     sheetShape = RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp),
                     skipHalfExpanded = true
                 ) {
-                    Navigator(Application()) { navigator -> SlideTransition(navigator) }
+
+                    Navigator(Application()) { navigator ->
+                        if (shouldAllowSwiperSwiping) {
+                            SwiperDoSwiping(navigator)
+                        } else {
+                            SlideTransition(navigator)
+                        }
+                    }
                 }
             }
 
@@ -76,14 +87,14 @@ fun ComposeApp() {
     }
 }
 
-class Application : Screen {
+class Application : MoviesAppScreen(){
 
     @Composable
     override fun Content() {
-
+        val scaffoldState = rememberScaffoldState()
         Scaffold(
             modifier = Modifier,
-            scaffoldState = rememberScaffoldState(),
+            scaffoldState = scaffoldState,
             bottomBar = {
                 Card(
                     shape = RoundedCornerShape(50.dp),
