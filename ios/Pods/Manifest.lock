@@ -1,22 +1,15 @@
 PODS:
-  - MoviesApp (1.0):
-    - youtube-ios-player-helper
-  - youtube-ios-player-helper (1.0.4)
+  - MoviesApp (1.0)
 
 DEPENDENCIES:
   - MoviesApp (from `../MoviesApp`)
-
-SPEC REPOS:
-  trunk:
-    - youtube-ios-player-helper
 
 EXTERNAL SOURCES:
   MoviesApp:
     :path: "../MoviesApp"
 
 SPEC CHECKSUMS:
-  MoviesApp: c033e018acec9708237d01f5faf14682f08d39c1
-  youtube-ios-player-helper: e9b97535e816db3152179d84d999bc1807ecd689
+  MoviesApp: 9b421dfe03d26c0cd273b5eff44ef5fac5469dfa
 
 PODFILE CHECKSUM: 340f15482b56d2cb8fede3b72411239d0f5d88d2
 

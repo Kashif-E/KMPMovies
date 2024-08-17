@@ -6,6 +6,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,10 +20,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.Colors
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.ProgressIndicatorDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -37,90 +44,109 @@ import com.kashif.common.domain.model.MoviesDomainModel
 
 @Composable
 fun MovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
+    val rememberedClick = remember { Modifier.clickable { onClick() } }
 
-    Card(
-        modifier =
-            Modifier.fillMaxWidth()
-                .clickable { onClick() }
-                .animateContentSize()
-                .padding(12.dp),
-        shape = RoundedCornerShape(16.dp),
-        elevation = 8.dp,
-        backgroundColor = MaterialTheme.colors.background,
-        border = BorderStroke(width = 0.2.dp, color = Color.White)) {
-            Row(modifier = Modifier.fillMaxSize()) {
-                Box(modifier = Modifier.width(130.dp).fillMaxHeight()) {
-                    CachedAsyncImage(
-                        url = movie.posterPath,
-                        modifier = Modifier.fillMaxSize(),
+    OutlinedCard(
+        modifier = Modifier.fillMaxWidth().animateContentSize()
+            .clip(CardDefaults.shape).then(rememberedClick),
+        border = BorderStroke(1.dp, Color.LightGray.copy(alpha = 0.65f)),
+    ) {
+        Row(modifier = Modifier.fillMaxSize()) {
+
+            CachedAsyncImage(
+                url = movie.posterPath,
+                modifier = Modifier.width(130.dp),
+            )
+
+            Box {
+                Column(
+                    modifier = Modifier.fillMaxSize().padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    Text(
+                        text = movie.title,
+                        style = MaterialTheme.typography.titleLarge,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
                     )
-                }
-                Box {
-                    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-                        Text(
-                            text = movie.title,
-                            style = MaterialTheme.typography.h6,
-                            fontSize = 18.sp,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis)
-                        Spacer(modifier = Modifier.height(8.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(
+                            12.dp,
+                            Alignment.CenterHorizontally
+                        ),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Text(
                             text = movie.releaseDate,
-                            style = MaterialTheme.typography.caption,
-                            fontSize = 14.sp,
+                            style = MaterialTheme.typography.labelSmall,
                             maxLines = 1,
-                            overflow = TextOverflow.Ellipsis)
-                        Spacer(modifier = Modifier.height(16.dp))
+                            overflow = TextOverflow.Ellipsis
+                        )
                         RatingRow(movie = movie)
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Text(
-                            text = movie.overview,
-                            style = MaterialTheme.typography.body2,
-                            fontSize = 14.sp,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis)
                     }
+
+
+
+                    Text(
+                        text = movie.overview,
+                        style = MaterialTheme.typography.labelSmall,
+                        maxLines = 3,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
             }
         }
+    }
 }
 
 @Composable
-fun RatingRow(modifier: Modifier = Modifier,movie: MoviesDomainModel) {
+fun RatingRow(modifier: Modifier = Modifier, movie: MoviesDomainModel) {
 
     val ratingColor = getRatingColor(movie.voteAverage)
+    val animatedProgress = remember { Animatable(0f) }
+    LaunchedEffect(animatedProgress) {
+        animatedProgress.animateTo(
+            movie.voteAverage / 10f, animationSpec = tween(durationMillis = 1000)
+        )
+    }
 
-    Row(verticalAlignment = Alignment.CenterVertically, modifier =modifier.fillMaxWidth()) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
         Box(
-            modifier =
-                Modifier.size(28.dp).clip(CircleShape).background(ratingColor).padding(2.dp)) {
-                Text(
-                    text = movie.voteAverage.toString(),
-                    style = MaterialTheme.typography.caption.copy(color = MaterialTheme.colors.background),
-                    modifier = Modifier.align(Alignment.Center))
-            }
-        Spacer(modifier = Modifier.width(8.dp))
-        val animatedProgress = remember { Animatable(0f) }
-        LaunchedEffect(animatedProgress) {
-            animatedProgress.animateTo(
-                movie.voteAverage / 10f, animationSpec = tween(durationMillis = 1000))
+            modifier = Modifier.size(28.dp).clip(CircleShape).background(ratingColor).padding(2.dp)
+        ) {
+            Text(
+                text = movie.voteAverage.toString(),
+                style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.surface),
+                modifier = Modifier.align(Alignment.Center)
+            )
         }
+
+
         CircularProgressIndicator(
-            progress = animatedProgress.value,
+            progress = { animatedProgress.value },
+            modifier = Modifier.size(24.dp),
             color = ratingColor,
             strokeWidth = 4.dp,
-            modifier = Modifier.size(24.dp))
+            trackColor = Color.DarkGray
+        )
 
-        Spacer(modifier = Modifier.width(8.dp))
+
         ShimmerStar(
             isShimmering = true,
             modifier = Modifier.size(24.dp),
+            color = ratingColor
         )
-        Spacer(modifier = Modifier.width(4.dp))
+
         Text(
             text = movie.voteCount,
-            style = MaterialTheme.typography.caption,
-            color = Color.LightGray)
+            style = MaterialTheme.typography.bodySmall,
+        )
     }
 }
 

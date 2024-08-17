@@ -2,7 +2,6 @@ package com.kashif.common.presentation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
@@ -12,19 +11,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.navigator.tab.CurrentTab
@@ -37,24 +34,16 @@ import com.kashif.common.domain.util.ChangeStatusBarColors
 import com.kashif.common.presentation.components.SlideTransition
 import com.kashif.common.presentation.components.getAsyncImageLoader
 import com.kashif.common.presentation.platform.MoviesAppScreen
-import com.kashif.common.presentation.platform.SwiperDoSwiping
-import com.kashif.common.presentation.platform.shouldAllowSwiperSwiping
 import com.kashif.common.presentation.tabs.HomeTab
 import com.kashif.common.presentation.tabs.SavedMovies
 import com.kashif.common.presentation.tabs.SearchTab
-import com.kashif.common.presentation.theme.DarkPH
-import com.kashif.common.presentation.theme.GreenSecondary
-import com.kashif.common.presentation.theme.LightPH
 import com.kashif.common.presentation.theme.MoviesAppTheme
-import com.kashif.moviesapp.generated.resources.Res
-import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.resources.painterResource
 
 @OptIn(
-    ExperimentalAnimationApi::class, ExperimentalMaterialApi::class, ExperimentalCoilApi::class
+    ExperimentalAnimationApi::class, ExperimentalCoilApi::class, ExperimentalMaterialApi::class
 )
 @Composable
-fun ComposeApp() {
+fun  ComposeApp() {
 
     setSingletonImageLoaderFactory { context ->
         getAsyncImageLoader(context)
@@ -73,11 +62,12 @@ fun ComposeApp() {
                 ) {
 
                     Navigator(Application()) { navigator ->
-                        if (shouldAllowSwiperSwiping) {
-                            SwiperDoSwiping(navigator)
-                        } else {
-                            SlideTransition(navigator)
-                        }
+                        SlideTransition(navigator)
+//                        if (shouldAllowSwiperSwiping) {
+//                            SwiperDoSwiping(navigator)
+//                        } else {
+//
+//                        }
                     }
                 }
             }
@@ -91,20 +81,15 @@ class Application : MoviesAppScreen{
 
     @Composable
     override fun Content() {
-        val scaffoldState = rememberScaffoldState()
         Scaffold(
             modifier = Modifier,
-            scaffoldState = scaffoldState,
             bottomBar = {
                 Card(
                     shape = RoundedCornerShape(50.dp),
-                    elevation = 4.dp,
                     modifier = Modifier.padding(12.dp)
                 ) {
-                    BottomNavigation(
+                    NavigationBar(
                         modifier = Modifier,
-                        contentColor = GreenSecondary,
-                        elevation = 4.dp,
                     ) {
                         TabNavigationItem(tab = HomeTab)
                         TabNavigationItem(tab = SearchTab)
@@ -124,11 +109,9 @@ class Application : MoviesAppScreen{
 private fun RowScope.TabNavigationItem(tab: Tab) {
     val tabNavigator = LocalTabNavigator.current
     val title = tab.options.title
-    BottomNavigationItem(
+    NavigationBarItem(
         modifier = Modifier,
-        unselectedContentColor = DarkPH,
-        selectedContentColor = LightPH,
-        alwaysShowLabel = true,
+        alwaysShowLabel = false,
         label = {
             Text(
                 text = title,

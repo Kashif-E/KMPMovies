@@ -1,6 +1,5 @@
 package com.kashif.common.presentation.screens.detailsScreen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,10 +10,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -54,7 +53,7 @@ class DetailsScreen(private val movieId: Int) : MoviesAppScreen {
         }
         val detailsState by viewModel.movieDetails.collectAsState()
 
-        Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background)) {
+        Box(modifier = Modifier.fillMaxSize()) {
             when (detailsState) {
                 is Result.Error -> {
                     Text("Error")
@@ -100,11 +99,11 @@ class DetailsScreen(private val movieId: Int) : MoviesAppScreen {
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.padding(horizontal = 16.dp)
             ) {
-                Text(detailsState.title, style = MaterialTheme.typography.h4)
-                Text("Overview", style = MaterialTheme.typography.h5)
-                Text(detailsState.overview, style = MaterialTheme.typography.body2)
-                Text("Release Date", style = MaterialTheme.typography.h5)
-                Text(detailsState.releaseDate, style = MaterialTheme.typography.body2)
+                Text(detailsState.title, style = MaterialTheme.typography.bodyLarge)
+                Text("Overview", style =  MaterialTheme.typography.bodySmall)
+                Text(detailsState.overview, style = MaterialTheme.typography.labelLarge)
+                Text("Release Date", style =  MaterialTheme.typography.bodySmall)
+                Text(detailsState.releaseDate, style = MaterialTheme.typography.labelLarge)
 
             }
 
@@ -119,7 +118,7 @@ class DetailsScreen(private val movieId: Int) : MoviesAppScreen {
                 )
                 Text(
                     "Watch Trailer",
-                    style = MaterialTheme.typography.h6,
+                    style = MaterialTheme.typography.bodySmall,
                     modifier = Modifier.clip(CircleShape).clickable {
                         bottomSheetNavigator.show(TrailerScreen(movie = detailsState))
                     })

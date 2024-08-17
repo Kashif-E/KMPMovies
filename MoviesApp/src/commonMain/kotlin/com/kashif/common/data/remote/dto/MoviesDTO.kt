@@ -6,6 +6,7 @@ import com.kashif.common.domain.util.Constants.TMDB_HD_IMAGE_URL
 import com.kashif.common.domain.util.Constants.TMDB_IMAGE_URL
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlin.math.round
 
 @Serializable
 data class MoviesDTO(
@@ -37,10 +38,26 @@ fun Result.asDomainModel() =
         popularity = this.popularity.toString(),
         posterPath =TMDB_IMAGE_URL +  this.posterPath,
         hdPosterPath = TMDB_HD_IMAGE_URL + this.posterPath,
-        releaseDate = this.releaseDate,
+        releaseDate = formatDate(this.releaseDate),
         title = this.title,
         video = this.video,
-        voteAverage = this.voteAverage.toFloat(),
+        voteAverage = formatVoteAverage(this.voteAverage).toFloat(),
         voteCount = this.voteCount.toString())
 
 fun List<Result>.asDomainModel() = map { it.asDomainModel() }
+
+fun formatDate(inputDate: String): String {
+    val parts = inputDate.split("-")
+    val year = parts[0]
+    val month = parts[1].toInt()
+
+    val months = arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+    val monthName = months[month - 1]
+
+    return "$monthName, $year"
+}
+fun formatVoteAverage(voteAverage: Double): Double {
+    return (round(voteAverage * 10) / 10)
+}
+

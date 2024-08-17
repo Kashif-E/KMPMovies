@@ -14,7 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
+import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +23,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.kashif.common.presentation.theme.DarkPH
 
 @Composable
 fun Modifier.placeHolder(color: Color, visibility: Boolean = true): Modifier =
@@ -40,11 +39,11 @@ fun LazyListScope.placeHolderRow() {
                         modifier =
                             Modifier.height(200.dp)
                                 .width(150.dp)
-                                .placeHolder(DarkPH)
+                                .placeHolder(Color.Gray)
                                 .animateContentSize()
                                 .clip(RoundedCornerShape(8.dp)),
                         shape = RoundedCornerShape(8.dp),
-                        backgroundColor = Color.Transparent) {}
+                       ) {}
                 }
             }
     }

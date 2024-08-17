@@ -17,13 +17,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedButton
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.PlayArrow
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +34,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.kashif.common.domain.model.MoviesDomainModel
-import com.kashif.common.presentation.theme.Grey
 
 @Composable
 fun PagerMovieCard(modifier: Modifier= Modifier,movie: MoviesDomainModel, onPlayClick: () -> Unit, onDetailsClick : () -> Unit) {
@@ -51,7 +51,7 @@ fun PagerMovieCard(modifier: Modifier= Modifier,movie: MoviesDomainModel, onPlay
                         .background(
                             brush =
                                 Brush.verticalGradient(
-                                    colors = listOf(Color.Transparent, MaterialTheme.colors.background),
+                                    colors = listOf(Color.Transparent, MaterialTheme.colorScheme.background),
                                     startY = 0.4f * 280.dp.value),
                         ),
                 contentAlignment = Alignment.BottomStart) {
@@ -61,9 +61,8 @@ fun PagerMovieCard(modifier: Modifier= Modifier,movie: MoviesDomainModel, onPlay
                         horizontalArrangement = Arrangement.Center,
                         verticalAlignment = Alignment.CenterVertically) {
                             CapsuleButton(
-                                modifier = Modifier.height(30.dp).width(80.dp),
-                                backgroundColor = Grey,
-                                contentColor = Color.LightGray,
+                                modifier = Modifier.wrapContentHeight().width(80.dp),
+                                backgroundColor = Color.Gray,
                                 onClick = onPlayClick,
                                 content = {
                                     Icon(
@@ -75,8 +74,7 @@ fun PagerMovieCard(modifier: Modifier= Modifier,movie: MoviesDomainModel, onPlay
                                     Text(
                                         text = "Play",
                                         style =
-                                            MaterialTheme.typography.h6.copy(
-                                                color = Color.LightGray),
+                                            MaterialTheme.typography.bodySmall,
                                         textAlign = TextAlign.Center,
                                         modifier = Modifier.align(Alignment.CenterVertically))
                                 },
@@ -84,9 +82,7 @@ fun PagerMovieCard(modifier: Modifier= Modifier,movie: MoviesDomainModel, onPlay
                             Spacer(modifier = Modifier.width(8.dp))
                             CapsuleButton(
                                 modifier = Modifier.height(30.dp).width(80.dp),
-                                backgroundColor = MaterialTheme.colors.background,
-                                contentColor = Color.LightGray,
-                                borderStroke = BorderStroke(1.dp, Color.LightGray),
+                                backgroundColor = MaterialTheme.colorScheme.background,
                                 onClick = onDetailsClick,
                                 content = {
                                     Text(
@@ -96,8 +92,7 @@ fun PagerMovieCard(modifier: Modifier= Modifier,movie: MoviesDomainModel, onPlay
                                                 .wrapContentSize(Alignment.Center),
                                         text = "Details",
                                         style =
-                                            MaterialTheme.typography.h6.copy(
-                                                color = Color.LightGray),
+                                            MaterialTheme.typography.bodySmall,
                                         textAlign = TextAlign.Center)
                                 },
                             )
@@ -113,20 +108,14 @@ fun PagerMovieCard(modifier: Modifier= Modifier,movie: MoviesDomainModel, onPlay
 private fun CapsuleButton(
     modifier: Modifier = Modifier,
     backgroundColor: Color,
-    contentColor: Color,
-    borderStroke: BorderStroke? = null,
     content: @Composable RowScope.() -> Unit,
     onClick: () -> Unit
 ) {
-
-    OutlinedButton(
-        modifier = modifier,
-        shape = RoundedCornerShape(50.dp),
-        content = content,
-        onClick = onClick,
-        border = borderStroke,
-        contentPadding = PaddingValues(0.dp),
-        colors =
-            ButtonDefaults.buttonColors(
-                backgroundColor = backgroundColor, contentColor = contentColor))
+    ElevatedButton(onClick = onClick, contentPadding = PaddingValues(4.dp)){
+        Row(
+            modifier = modifier,
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            content = content)
+    }
 }

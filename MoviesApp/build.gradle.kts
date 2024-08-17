@@ -37,7 +37,7 @@ kotlin {
             baseName = "MovieApp"
             isStatic = true
         }
-        pod("youtube-ios-player-helper")
+      //  pod("youtube-ios-player-helper")
     }
 
     sourceSets {
@@ -69,6 +69,10 @@ kotlin {
             implementation(libs.coil.compose.core)
             implementation(libs.coil.compose)
             implementation(libs.stately.common)
+            implementation(compose.components.uiToolingPreview)
+            implementation(compose.material3)
+            implementation(compose.runtime)
+
         }
 
         commonTest.dependencies {
@@ -79,11 +83,9 @@ kotlin {
             api(libs.androidx.appcompat)
             api(libs.androidx.coreKtx)
             implementation(libs.ktor.android)
-            implementation(libs.koin.compose)
             implementation(libs.youtube.player.core)
             implementation(libs.system.ui.controller)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.koin.compose)
             implementation(libs.system.ui.controller)
         }
         androidNativeTest.dependencies {
@@ -94,7 +96,7 @@ kotlin {
             api(compose.preview)
             implementation(libs.koin.core)
             implementation(libs.ktor.java)
-            implementation(libs.koin.compose)
+
             implementation(compose.desktop.currentOs)
             // https://stackoverflow.com/questions/73187027/use-javafx-in-kotlin-multiplatform
             // As JavaFX have platform-specific dependencies, we need to add them manually
@@ -106,12 +108,12 @@ kotlin {
                 "osx-aarch_64" -> "mac-aarch64"
                 else -> throw IllegalStateException("Unknown OS: ${osdetector.classifier}")
             }
-            implementation("org.openjfx:javafx-base:19:${fxSuffix}")
-            implementation("org.openjfx:javafx-graphics:19:${fxSuffix}")
-            implementation("org.openjfx:javafx-controls:19:${fxSuffix}")
-            implementation("org.openjfx:javafx-swing:19:${fxSuffix}")
-            implementation("org.openjfx:javafx-web:19:${fxSuffix}")
-            implementation("org.openjfx:javafx-media:19:${fxSuffix}")
+            implementation("org.openjfx:javafx-base:21.0.1:${fxSuffix}")
+            implementation("org.openjfx:javafx-graphics:21.0.1:${fxSuffix}")
+            implementation("org.openjfx:javafx-controls:21.0.1:${fxSuffix}")
+            implementation("org.openjfx:javafx-swing:21.0.1:${fxSuffix}")
+            implementation("org.openjfx:javafx-web:21.0.1:${fxSuffix}")
+            implementation("org.openjfx:javafx-media:21.0.1:${fxSuffix}")
             implementation(libs.kotlinx.coroutines.swing)
         }
         jvmMain.get().dependsOn(commonMain.get())

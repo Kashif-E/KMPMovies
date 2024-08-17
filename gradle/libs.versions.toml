@@ -14,14 +14,14 @@ kotlinxCoroutinesSwing = "1.8.0"
 minSdk = "24"
 statelyCommon = "2.0.5"
 targetSdk = "33"
-koin-version = "3.5.6"
+koin-version = "3.6.0-wasm-alpha2"
 koin-compose-version = "3.4.3"
 ktor_version = "2.3.12"
 kotlin-serialization = "1.7.1"
 material-icon-version = "1.4.1"
 accompanist-version = "0.33.2-alpha"
 voyager = "1.0.0"
-koin-compose-jb = "1.1.2"
+koin-compose-jb = "3.6.0-wasm-alpha2"
 youtube-player-android = "12.1.0"
 
 [libraries]
@@ -39,10 +39,7 @@ androidx-coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" 
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity" }
 compose-util = {module = "org.jetbrains.compose.ui:ui-util", version.ref = "compose"}
-
 koin-core = {module = "io.insert-koin:koin-core", version.ref = "koin-version"}
-koin-compose = {module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-compose-version"}
-
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinxCoroutinesSwing" }
 ktor-core = {module = "io.ktor:ktor-client-core", version.ref = "ktor_version"}
 ktor-serialization = {module = "io.ktor:ktor-client-serialization", version.ref = "ktor_version"}
@@ -65,7 +62,6 @@ voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", vers
 youtube-player-core = {module = "com.pierfrancescosoffritti.androidyoutubeplayer:core", version.ref = "youtube-player-android"}
 
 koin-compose-mp = { module = "io.insert-koin:koin-compose", version.ref = "koin-compose-jb" }
-
 system-ui-controller = {module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-version"}
 
 junit = "junit:junit:4.13.2"
