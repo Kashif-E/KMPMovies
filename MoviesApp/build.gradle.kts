@@ -7,6 +7,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.compose")
     id("com.google.osdetector") version "1.7.3"
+    alias(libs.plugins.compose.compiler)
 }
 
 group = "com.kashif"
@@ -36,7 +37,6 @@ kotlin {
             baseName = "MovieApp"
             isStatic = true
         }
-        pod("youtube-ios-player-helper")
     }
 
     sourceSets {
@@ -124,6 +124,7 @@ kotlin {
 
 
 android {
+    namespace = "com.kashif.android"
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     compileSdk = libs.versions.compileSdk.get().toInt()
     defaultConfig {
@@ -134,17 +135,15 @@ android {
         versionName = "1.0-SNAPSHOT"
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
+
     }
-
-    composeOptions { kotlinCompilerExtensionVersion = "1.5.7" }
-
 }
 
 compose.desktop {
@@ -165,4 +164,7 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+compose.resources {
+    publicResClass = true
 }

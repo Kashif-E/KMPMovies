@@ -317,7 +317,7 @@ fun AutoScrollingHorizontalSlider(
             userScrollEnabled = true,
             reverseLayout = false,
             contentPadding = PaddingValues(0.dp),
-            beyondBoundsPageCount = 0,
+            //= 0,
             pageContent = { page ->
                 content(page)
             }

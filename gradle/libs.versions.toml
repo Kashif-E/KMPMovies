@@ -1,27 +1,27 @@
 [versions]
 # https://github.com/JetBrains/compose-jb/blob/master/VERSIONING.md#kotlin-compatibility
-coil = "3.0.0-alpha03"
-kermit = "2.0.0-RC4"
-kotlin = "1.9.21" # https://kotlinlang.org/docs/releases.html#release-details
-agp = "7.4.2" # https://developer.android.com/studio/releases/gradle-plugin
-compose = "1.6.0-beta01" # https://github.com/JetBrains/compose-jb
+coil = "3.0.0-alpha06"
+kermit = "2.0.3"
+kotlin = "2.0.0" # https://kotlinlang.org/docs/releases.html#release-details
+agp = "8.3.2" # https://developer.android.com/studio/releases/gradle-plugin
+compose = "1.7.0-alpha02" # https://github.com/JetBrains/compose-jb
 
-coreKtx = "1.12.0" # https://developer.android.com/jetpack/androidx/releases/core
-appcompat = "1.6.1" # https://developer.android.com/jetpack/androidx/releases/appcompat
-activity = "1.8.2" # https://developer.android.com/jetpack/androidx/releases/activity
+coreKtx = "1.13.1" # https://developer.android.com/jetpack/androidx/releases/core
+appcompat = "1.7.0" # https://developer.android.com/jetpack/androidx/releases/appcompat
+activity = "1.9.1" # https://developer.android.com/jetpack/androidx/releases/activity
 compileSdk = "34"
-kotlinxCoroutinesSwing = "1.7.3"
+kotlinxCoroutinesSwing = "1.8.0"
 minSdk = "24"
 statelyCommon = "2.0.5"
 targetSdk = "33"
-koin-version = "3.5.3"
+koin-version = "3.5.6"
 koin-compose-version = "3.4.3"
-ktor_version = "2.3.7"
-kotlin-serialization = "1.6.2"
+ktor_version = "2.3.12"
+kotlin-serialization = "1.7.1"
 material-icon-version = "1.4.1"
 accompanist-version = "0.33.2-alpha"
 voyager = "1.0.0"
-koin-compose-jb = "1.0.4"
+koin-compose-jb = "1.1.2"
 youtube-player-android = "12.1.0"
 
 [libraries]
@@ -69,3 +69,10 @@ koin-compose-mp = { module = "io.insert-koin:koin-compose", version.ref = "koin-
 system-ui-controller = {module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanist-version"}
 
 junit = "junit:junit:4.13.2"
+
+
+[plugins]
+# ...
+
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
