@@ -39,7 +39,7 @@ import org.koin.compose.koinInject
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 
-class TrailerScreen(private val movie: MoviesDomainModel) : MoviesAppScreen() {
+class TrailerScreen(private val movie: MoviesDomainModel) : MoviesAppScreen {
 
     @Composable
     override fun Content() {

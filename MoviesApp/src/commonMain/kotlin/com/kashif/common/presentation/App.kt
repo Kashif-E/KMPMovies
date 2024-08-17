@@ -87,7 +87,7 @@ fun ComposeApp() {
     }
 }
 
-class Application : MoviesAppScreen(){
+class Application : MoviesAppScreen{
 
     @Composable
     override fun Content() {

@@ -23,7 +23,7 @@ import com.kashif.common.WebView
 import com.kashif.common.presentation.components.TransparentIconHolder
 import com.kashif.common.presentation.platform.MoviesAppScreen
 
-class WebViewScreen(private val url: String) : MoviesAppScreen() {
+class WebViewScreen(private val url: String) : MoviesAppScreen {
     @Composable
     override fun Content() {
         Body()

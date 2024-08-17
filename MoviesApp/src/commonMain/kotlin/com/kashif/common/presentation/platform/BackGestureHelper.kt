@@ -53,11 +53,14 @@ import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.core.screen.ScreenKey
 import cafe.adriel.voyager.core.stack.StackEvent
 import cafe.adriel.voyager.navigator.Navigator
 import kotlinx.coroutines.launch
+import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.math.absoluteValue
 import kotlin.math.roundToInt
+import kotlin.native.HidesFromObjC
 
 /**
  * Original code from here: https://github.com/adrielcafe/voyager/issues/144
@@ -329,8 +332,20 @@ fun slideOutTransition(): ExitTransition {
         animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing)
     )
 }
+interface MoviesAppScreen : Screen {
 
-abstract class MoviesAppScreen : Screen {
-    var backHandler: (() -> Unit)? = null
-    open var swipeEnabled: Boolean = true
+
+    var backHandler: (() -> Unit)?
+        get() = null
+        set(newBackHandler: (() -> Unit)?) {
+            backHandler = newBackHandler
+        }
+    var swipeEnabled: Boolean
+        get() = true
+        set(value) {
+            swipeEnabled = value
+        }
+
+    @Composable
+    override fun Content()
 }
