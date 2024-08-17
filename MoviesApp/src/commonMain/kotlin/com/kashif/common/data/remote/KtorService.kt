@@ -9,7 +9,7 @@ import io.ktor.client.request.*
 
 class KtorService(private val httpClient: HttpClient, private val baseUrl: String) :
     AbstractKtorService() {
-    private val apiKey = "9da3e04402ffad9e5a100c5569dc26b1"
+    private val apiKey = "5a0bb0634f61c6f2491de3e7b6100ade"
 
     override suspend fun getTrailerVideos(movieId: Int): VideoDTO =
         httpClient.get(baseUrl + Endpoints.GET_VIDEOS.getUrl(movieId, apiKey)).body()
