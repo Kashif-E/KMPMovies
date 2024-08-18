@@ -1,51 +1,99 @@
-## KMP Movies
+# MoviesApp
 
-<a href="https://www.buymeacoffee.com/kashifmehmood"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=kashifmehmood&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+MoviesApp is a Kotlin-based Android application that allows users to search for movies, view details, and watch trailers. The app uses  Compose Multiplatform for the UI and Koin for dependency injection and supports IOS,Android and JVM.
 
-The KMP Movies is designed to help developers build applications for three platforms:
-<ul>
-<li> Android </li>
-<li> iOS </li>
-<li> Desktop </li>
-</ul>
+## Features
 
+- **Search Movies**: Search for movies, TV shows, and people.
+- **View Details**: View detailed information about movies.
+- **Watch Trailers**: Watch trailers of movies.
+- **Popular Movies**: Browse popular movies.
+- **Top Rated Movies**: Browse top-rated movies.
+- **Upcoming Movies**: Browse upcoming movies.
+- **Now Playing Movies**: Browse movies that are currently playing.
+- **Search**: Search Movies
 
-<img width="877" alt="Screenshot 2023-02-27 at 9 50 39 PM" src="https://user-images.githubusercontent.com/61690178/221807488-5a201e7b-271f-4e68-b3e4-30c7802f1b10.png">
+## Technologies Used
 
-This repository aims to use platform-specific components such as 
-- video players
-- YouTube player
-- photo downloaders
-- sharing logic
-- ios navigation behavior (Hold and swipe)
-- and more
+- **Kotlin**: Programming language used for development.
+- **Multiplatform Compose**: Modern toolkit for building native Android UI.
+- **Koin**: Dependency injection framework.
+- **Voyager**: Navigation library for Jetpack Compose.
+- **Gradle**: Build automation tool.
+- **Ktor**: HTTP client for networking.
+- **Coroutines**: Asynchronous programming.
+- **Serialization**: JSON serialization library.
+- **Coil**: Image Loading and Caching
+- **JavaFX**: JVM WebView
 
-Libraries uses
-<ul>
-<li> Version Catalogs </li>
-<li> Compose Multiplatform </li>
-<li> Koin for dependency injection </li>
-<li> Ktor for networking </li>
-<li> Kotlin serialization </li>
-<li> Coil 3 </li>
-<li> Voyager </li>
-</ul>
+## Project Structure
 
+- `src/commonMain/kotlin/com/kashif/common/presentation/`: Common presentation logic.
+- `src/commonMain/kotlin/com/kashif/common/data/`: Common data logic.
+- `src/commonMain/kotlin/com/kashif/common/domain/`: Common domain logic.
+- `src/commonMain/kotlin/com/kashif/common/di/`: Common dependency injection logic.
+- `src/androidMain/kotlin/com/kashif/android/`: Android-specific logic.
+- `src/ioMain/kotlin/com/kashif/ios/`: iOS-specific logic.
+- `src/jvmMain/kotlin/com/kashif/jvm/`: JVM-specific logic.
+- `iosApp`: iOS-specific configuration and entry point.
+- `androidApp`: Android-specific configuration and entry point.
+- `jvmMain`: JVM-specific configuration and entry point.
 
+## Getting Started
 
+### Prerequisites
 
-# Troubleshooting
-## MacOS on Apple Chip (M1/M2)
-If you encounter the error 'pod install' command failed with code 1. run the following commands in the terminal:
+- Android Studio Koala | 2024.1.1 Patch 2
+- Kotlin 2.0.0+
+- Gradle 8.0+
 
-```bash
-sudo softwareupdate --install-rosetta --agree-to-license
-```
-```bash
-sudo gem uninstall ffi && sudo gem install ffi -- --enable-libffi-alloc
-```
+### Installation
 
-<p align="left">
-<a href="https://twitter.com/kashif_mehmood_" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="kashif_mehmood_" height="30" width="40" /></a>
-<a href="https://linkedin.com/in/kashif-mehmood" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="kashif-mehmood" height="30" width="40" /></a>
-<a href="https://stackoverflow.com/users/kashif-mehmood" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/stack-overflow.svg" alt="kashif-mehmood" height="30" width="40" /></a>
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/yourusername/MoviesApp.git
+    cd MoviesApp
+    ```
+
+2. **Run in Android Studio**:
+    - Open the project in Android Studio.
+    - Build and run the project.
+
+## Usage
+
+- **Search for Movies**: Use the search bar to find movies, TV shows, or people.
+- **View Movie Details**: Click on a movie to view its details.
+- **Watch Trailers**: Click on the play button to watch the trailer of a movie on ios, android and jvm.
+- **Browse Movies**: Scroll through the lists of popular, top-rated, upcoming, and now-playing movies.
+
+## Contributing
+
+1. **Fork the repository**.
+2. **Create a new branch**:
+    ```sh
+    git checkout -b feature/your-feature-name
+    ```
+3. **Make your changes**.
+4. **Commit your changes**:
+    ```sh
+    git commit -m 'Add some feature'
+    ```
+5. **Push to the branch**:
+    ```sh
+    git push origin feature/your-feature-name
+    ```
+6. **Open a pull request**.
+
+## License
+
+This project is licensed under the MIT License - see the `LICENSE` file for details.
+
+## Acknowledgements
+
+- [Jetpack Compose](https://developer.android.com/jetpack/compose)
+- [Koin](https://insert-koin.io/)
+- [Voyager](https://github.com/adrielcafe/voyager)
+
+## Contact
+
+For any inquiries, please contact [kashismails@gmail.com].
