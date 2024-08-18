@@ -199,7 +199,11 @@ fun HorizontalScroll(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            items(movies) { movie ->
+            items(movies, key = {
+                it.uuid
+            }, contentType = {
+                it::class.simpleName
+            }) { movie ->
                 MovieCardSmall(movie = movie, onClick = { onMovieClick(movie) })
             }
         }
@@ -293,7 +297,11 @@ fun LazyListScope.moviesList(
         }
 
         is Result.Success -> {
-            item {
+            item(key = {
+                movies.data.last().uuid + movies.data.first().uuid
+            }, contentType = {
+                "MoviesDomainModel"
+            }) {
                 HorizontalScroll(
                     movies = movies.data,
                     heading = title,
@@ -339,7 +347,11 @@ fun LazyListScope.verticalMovieList(
             textAlign = TextAlign.Start
         )
     }
-    items(data) { movie ->
+    items(data, key = {item->
+        item.uuid
+    }, contentType = {
+        it::class.simpleName
+    }) { movie ->
         if (data.last() == movie) {
             loadMovies()
         }

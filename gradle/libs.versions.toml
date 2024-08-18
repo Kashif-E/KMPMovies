@@ -20,6 +20,7 @@ ktor_version = "2.3.12"
 kotlin-serialization = "1.7.1"
 material-icon-version = "1.4.1"
 accompanist-version = "0.33.2-alpha"
+uuidVersion = "0.8.4"
 voyager = "1.0.0"
 koin-compose-jb = "4.0.0-RC1"
 youtube-player-android = "12.1.0"
@@ -53,6 +54,7 @@ ktor-contentnegotiation = {module = "io.ktor:ktor-client-content-negotiation", v
 kotlin-serialization = {module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlin-serialization"}
 material-icon-extended = {module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "material-icon-version"}
 stately-common = { module = "co.touchlab:stately-common", version.ref = "statelyCommon" }
+uuid = { module = "com.benasher44:uuid", version.ref = "uuidVersion" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 voyager-bottomSheetNavigator = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
 voyager-screenmodel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }

@@ -42,7 +42,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-
+            implementation (libs.uuid)
             implementation(libs.kermit)
             api(compose.runtime)
             api(compose.foundation)

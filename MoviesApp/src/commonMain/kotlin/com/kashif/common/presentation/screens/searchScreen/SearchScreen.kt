@@ -64,7 +64,11 @@ fun SearchScreen(
             horizontalItemSpacing = 8.dp
         ) {
 
-            items(data) { item ->
+            items(data, key = {item->
+                item.uuid
+            }, contentType = {item->
+                item::class.simpleName
+            }) { item ->
                 if (item == data.last()) {
                     nextFunction()
                 }

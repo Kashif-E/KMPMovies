@@ -17,4 +17,4 @@ data class MoviesDomainModel(
     val voteCount: String,
     val hdPosterPath: String,
     val genre: List<String>,
-)
+): UUID()

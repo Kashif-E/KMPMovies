@@ -14,7 +14,7 @@ struct MainSwiftUIView: View {
 
     var body: some View {
        
-            MainViewControllerWrapper()
+        MainViewControllerWrapper().ignoresSafeArea(.all)
     }
 }
 
