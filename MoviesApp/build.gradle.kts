@@ -37,7 +37,7 @@ kotlin {
             baseName = "MovieApp"
             isStatic = true
         }
-      //  pod("youtube-ios-player-helper")
+        pod("youtube-ios-player-helper")
     }
 
     sourceSets {
