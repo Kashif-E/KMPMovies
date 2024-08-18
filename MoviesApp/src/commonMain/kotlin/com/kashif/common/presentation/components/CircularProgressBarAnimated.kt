@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -23,18 +23,18 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.kashif.common.presentation.theme.SunnySideUp
+
 import kotlinx.coroutines.delay
 
 @Composable
 fun CircularProgressbarAnimated(
     modifier: Modifier = Modifier,
-    numberStyle: TextStyle = MaterialTheme.typography.h2,
+    numberStyle: TextStyle = MaterialTheme.typography.headlineLarge,
     size: Dp = 120.dp,
     thickness: Dp = 16.dp,
     animationDuration: Int = 3000,
     animationDelay: Int = 0,
-    foregroundIndicatorColor: Color = SunnySideUp,
+    foregroundIndicatorColor: Color =Color.Yellow,
     backgroundIndicatorColor: Color = foregroundIndicatorColor.copy(alpha = 0.5f),
     extraSizeForegroundIndicator: Dp = 12.dp
 ) {

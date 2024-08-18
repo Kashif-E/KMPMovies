@@ -1,90 +1,45 @@
 package com.kashif.common.presentation.theme
 
-import androidx.compose.material.Typography
+import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import com.kashif.moviesapp.generated.resources.Res
 import com.kashif.moviesapp.generated.resources.nunito_bold
-import com.kashif.moviesapp.generated.resources.nunito_regular
-import com.kashif.moviesapp.generated.resources.nunito_semibold
 import org.jetbrains.compose.resources.Font
 
 @Composable
 fun getTypography(): Typography {
 
-    val nunitoRegular = FontFamily(
-       Font( Res.font.nunito_regular,  FontWeight.Normal, FontStyle.Normal)
+
+    val bodyFontFamily = FontFamily(
+        Font(Res.font.nunito_bold, FontWeight.Normal, FontStyle.Normal)
 
     )
 
-    val nunitoSemiBold = FontFamily(
-        Font( Res.font.nunito_semibold,  FontWeight.Normal, FontStyle.Normal)
+    val displayFontFamily = FontFamily(
+        Font(Res.font.nunito_bold, FontWeight.Normal, FontStyle.Normal)
 
     )
-    val nunitoBold = FontFamily(
-        Font( Res.font.nunito_bold,  FontWeight.Normal, FontStyle.Normal)
+    val baseline = Typography()
 
+    return Typography(
+        displayLarge = baseline.displayLarge.copy(fontFamily = displayFontFamily),
+        displayMedium = baseline.displayMedium.copy(fontFamily = displayFontFamily),
+        displaySmall = baseline.displaySmall.copy(fontFamily = displayFontFamily),
+        headlineLarge = baseline.headlineLarge.copy(fontFamily = displayFontFamily),
+        headlineMedium = baseline.headlineMedium.copy(fontFamily = displayFontFamily),
+        headlineSmall = baseline.headlineSmall.copy(fontFamily = displayFontFamily),
+        titleLarge = baseline.titleLarge.copy(fontFamily = displayFontFamily),
+        titleMedium = baseline.titleMedium.copy(fontFamily = displayFontFamily),
+        titleSmall = baseline.titleSmall.copy(fontFamily = displayFontFamily),
+        bodyLarge = baseline.bodyLarge.copy(fontFamily = bodyFontFamily),
+        bodyMedium = baseline.bodyMedium.copy(fontFamily = bodyFontFamily),
+        bodySmall = baseline.bodySmall.copy(fontFamily = bodyFontFamily),
+        labelLarge = baseline.labelLarge.copy(fontFamily = bodyFontFamily),
+        labelMedium = baseline.labelMedium.copy(fontFamily = bodyFontFamily),
+        labelSmall = baseline.labelSmall.copy(fontFamily = bodyFontFamily),
     )
-   return Typography(
-        h1 = TextStyle(
-            fontFamily = nunitoBold,
-            fontWeight = FontWeight.Bold,
-            fontSize = 52.sp,
-            color = Color.White
-        ),
-        h2 = TextStyle(fontFamily = nunitoBold, fontWeight = FontWeight.Bold, fontSize = 24.sp,  color = Color.White),
-        h3 = TextStyle(
-            fontFamily = nunitoBold,
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp,
-            color = Color.White
-        ),
-        h4 = TextStyle(
-            fontFamily = nunitoBold,
-            fontWeight = FontWeight.Bold,
-            fontSize = 16.sp,
-            color = Color.White
-        ),
-        h5 = TextStyle(fontFamily = nunitoBold, fontWeight = FontWeight.Bold, fontSize = 14.sp,  color = Color.White),
-        h6 = TextStyle(
-            fontFamily = nunitoSemiBold,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 12.sp,
-            color = Color.White
-        ),
-        subtitle1 = TextStyle(
-            fontFamily = nunitoSemiBold,
-            fontWeight = FontWeight.SemiBold,
-            fontSize = 16.sp,
-            color = Color.White
-        ),
-        subtitle2 = TextStyle(
-            fontFamily = nunitoRegular,
-            fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
-            color = Color.White
-        ),
-        body1 = TextStyle(
-            fontFamily = nunitoRegular, fontWeight = FontWeight.Normal, fontSize = 14.sp, color = Color.White
-        ),
-        body2 = TextStyle(fontFamily = nunitoRegular, fontSize = 10.sp,  color = Color.White),
-        button = TextStyle(
-            fontFamily = nunitoRegular,
-            fontWeight = FontWeight.Normal,
-            fontSize = 15.sp,
-            color = Color.White
-        ),
-        caption = TextStyle(
-            fontFamily = nunitoRegular, fontWeight = FontWeight.Normal, fontSize = 8.sp,  color = Color.White
-        ),
-        overline = TextStyle(
-            fontFamily = nunitoRegular, fontWeight = FontWeight.Normal, fontSize = 12.sp,  color = Color.White
-        )
-    )
-    
-  }
+
+}

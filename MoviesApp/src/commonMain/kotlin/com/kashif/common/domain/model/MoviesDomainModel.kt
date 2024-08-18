@@ -1,5 +1,8 @@
 package com.kashif.common.domain.model
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class MoviesDomainModel(
     val backdropPath: String,
     val id: Int,
@@ -13,4 +16,5 @@ data class MoviesDomainModel(
     val voteAverage: Float,
     val voteCount: String,
     val hdPosterPath: String,
-)
+    val genre: List<String>,
+): UUID()

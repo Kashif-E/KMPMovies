@@ -24,6 +24,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.kashif.common.presentation.components.CircularProgressbarAnimated
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerCallback
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import io.ktor.client.engine.android.*
 import kotlinx.coroutines.CoroutineDispatcher
@@ -40,7 +41,7 @@ actual fun WebView(modifier: Modifier, link: String) {
         AndroidView(
             factory = {
                 WebView(it).apply {
-                    settings.javaScriptEnabled = true
+                    //settings.javaScriptEnabled = true
                     layoutParams =
                         ViewGroup.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -68,17 +69,21 @@ actual fun WebView(modifier: Modifier, link: String) {
             update = {})
     }
 }
-
 @Composable
-actual fun VideoPlayer(modifier: Modifier, videoId: String) {
-
+actual fun VideoPlayer(
+    modifier: Modifier,
+    videoId: String,
+) {
     var playerRef: YouTubePlayerView? = null
-    val youtubeListener =
+    val youtubeListener = remember {
         object : AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 youTubePlayer.loadVideo(videoId, 0f)
+
             }
         }
+    }
+
     DisposableEffect(videoId) {
         playerRef?.addYouTubePlayerListener(youtubeListener)
         onDispose {
@@ -88,11 +93,25 @@ actual fun VideoPlayer(modifier: Modifier, videoId: String) {
     }
 
     AndroidView(
+        modifier = modifier,
         factory = { context ->
-            playerRef = YouTubePlayerView(context)
-            playerRef!!.addYouTubePlayerListener(youtubeListener)
+            playerRef = YouTubePlayerView(context).apply {
+                addYouTubePlayerListener(youtubeListener)
+            }
             playerRef!!
-        })
+        },
+        update = { view ->
+            view.getYouTubePlayerWhenReady(object : YouTubePlayerCallback{
+                override fun onYouTubePlayer(youTubePlayer: YouTubePlayer) {
+
+                    youTubePlayer.unMute()
+                    youTubePlayer.setVolume(100)
+                }
+
+            })
+
+        }
+    )
 }
 
 class YouTubePlayerManager(private val context: Context) {

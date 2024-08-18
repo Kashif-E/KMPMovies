@@ -1,6 +1,5 @@
 package com.kashif.common.presentation.tabs
 
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.Composable
@@ -13,8 +12,14 @@ object SearchTab : Tab {
 
     @Composable
     override fun Content() {
-        Text("Search")
+        SearchScreen()
     }
+
+    @Composable
+    private fun SearchScreen() {
+        com.kashif.common.presentation.screens.searchScreen.SearchScreen()
+    }
+
 
     override val options: TabOptions
         @Composable
@@ -24,3 +29,4 @@ object SearchTab : Tab {
             return remember { TabOptions(index = 0u, title = "Search", icon = icon) }
         }
 }
+

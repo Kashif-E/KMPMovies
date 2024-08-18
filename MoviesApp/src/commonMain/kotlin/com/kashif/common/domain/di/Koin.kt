@@ -8,6 +8,7 @@ import com.kashif.common.domain.usecase.*
 import com.kashif.common.platformModule
 import com.kashif.common.presentation.screens.detailsScreen.DetailsScreenViewModel
 import com.kashif.common.presentation.screens.home.HomeScreenViewModel
+import com.kashif.common.presentation.screens.searchScreen.SearchScreenViewModel
 import com.kashif.common.presentation.screens.trailerScreen.TrailerScreenViewModel
 import io.ktor.client.*
 import io.ktor.client.engine.*
@@ -45,8 +46,10 @@ fun commonModule(
 
 fun getScreenModelModule() = module {
     single { HomeScreenViewModel(get(), get(), get(), get(), get(), get()) }
-    single { DetailsScreenViewModel(get()) }
+    single { DetailsScreenViewModel(get(), get(), get()) }
     single {  TrailerScreenViewModel(get())}
+    single { SearchScreenViewModel(get()) }
+    single { GetMovieCastUseCase(get()) }
 }
 
 fun getDataModule(
@@ -71,6 +74,7 @@ fun getUseCaseModule() = module {
     single { GetUpcomingMoviesPagingSource(get()) }
     single { GetMovieTrailerUseCase(get()) }
     single { GetMovieDetailsUseCase(get()) }
+    single { GetMovieCastUseCase(get()) }
 
 }
 

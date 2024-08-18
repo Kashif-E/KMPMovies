@@ -1,6 +1,7 @@
 package com.kashif.common.presentation.screens.home
 
 import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.screenModelScope
 import com.kashif.common.data.paging.*
 import com.kashif.common.data.paging.asResult
 import com.kashif.common.data.paging.paginate
@@ -28,7 +29,7 @@ class HomeScreenViewModel(
 ) : ScreenModel {
     private val job = SupervisorJob()
     private val coroutineContextX: CoroutineContext = job + Dispatchers.IO
-    private val viewModelScope = CoroutineScope(coroutineContextX)
+    private val viewModelScope = screenModelScope
 
     private val _popularMovies = MutableStateFlow<MoviesState>(MoviesState.Idle)
     val popularMovies = _popularMovies.asStateFlow()

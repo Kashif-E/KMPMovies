@@ -42,7 +42,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-
+            implementation (libs.uuid)
             implementation(libs.kermit)
             api(compose.runtime)
             api(compose.foundation)
@@ -69,6 +69,10 @@ kotlin {
             implementation(libs.coil.compose.core)
             implementation(libs.coil.compose)
             implementation(libs.stately.common)
+            implementation(compose.components.uiToolingPreview)
+            implementation(compose.material3)
+            implementation(compose.runtime)
+
         }
 
         commonTest.dependencies {
@@ -79,12 +83,11 @@ kotlin {
             api(libs.androidx.appcompat)
             api(libs.androidx.coreKtx)
             implementation(libs.ktor.android)
-            implementation(libs.koin.compose)
             implementation(libs.youtube.player.core)
             implementation(libs.system.ui.controller)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.koin.compose)
             implementation(libs.system.ui.controller)
+
         }
         androidNativeTest.dependencies {
             implementation(libs.junit)
@@ -94,7 +97,7 @@ kotlin {
             api(compose.preview)
             implementation(libs.koin.core)
             implementation(libs.ktor.java)
-            implementation(libs.koin.compose)
+
             implementation(compose.desktop.currentOs)
             // https://stackoverflow.com/questions/73187027/use-javafx-in-kotlin-multiplatform
             // As JavaFX have platform-specific dependencies, we need to add them manually
@@ -144,6 +147,11 @@ android {
             isMinifyEnabled = false
         }
 
+    }
+
+    dependencies {
+        debugImplementation("androidx.compose.ui:ui-tooling:1.6.8")
+        implementation("androidx.compose.ui:ui-tooling-preview:1.6.8")
     }
 }
 
