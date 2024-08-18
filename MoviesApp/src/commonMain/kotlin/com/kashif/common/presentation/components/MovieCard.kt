@@ -37,17 +37,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kashif.common.domain.model.MoviesDomainModel
 
 @Composable
-fun MovieCard(movie: MoviesDomainModel, onClick: () -> Unit) {
+fun MovieCard(modifier: Modifier = Modifier, movie: MoviesDomainModel, onClick: () -> Unit) {
     val rememberedClick = remember { Modifier.clickable { onClick() } }
 
     OutlinedCard(
-        modifier = Modifier.fillMaxWidth().animateContentSize()
+        modifier = modifier.fillMaxWidth().animateContentSize()
             .clip(CardDefaults.shape).then(rememberedClick),
         border = BorderStroke(1.dp, Color.LightGray.copy(alpha = 0.65f)),
     ) {
@@ -117,31 +118,35 @@ fun RatingRow(modifier: Modifier = Modifier, movie: MoviesDomainModel) {
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Box(
-            modifier = Modifier.size(28.dp).clip(CircleShape).background(ratingColor).padding(2.dp)
-        ) {
-            Text(
-                text = movie.voteAverage.toString(),
-                style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.surface),
-                modifier = Modifier.align(Alignment.Center)
+
+        Box(modifier = Modifier.size(44.dp), contentAlignment = Alignment.Center) {
+            Box(
+                modifier = Modifier.size(24.dp).clip(CircleShape).background(ratingColor)
+
+            ) {
+                Text(
+                    text = movie.voteAverage.toString(),
+                    style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.surface, fontSize = 12.sp),
+                    modifier = Modifier.align(Alignment.Center),
+                    textAlign = TextAlign.Center
+                )
+            }
+            CircularProgressIndicator(
+                progress = { animatedProgress.value },
+                modifier = Modifier.size(36.dp),
+                color = ratingColor,
+                strokeWidth = 4.dp,
+                trackColor = Color.DarkGray
             )
         }
 
-
-        CircularProgressIndicator(
-            progress = { animatedProgress.value },
-            modifier = Modifier.size(24.dp),
-            color = ratingColor,
-            strokeWidth = 4.dp,
-            trackColor = Color.DarkGray
-        )
-
-
         ShimmerStar(
             isShimmering = true,
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.size(36.dp),
             color = ratingColor
         )
+
+
 
         Text(
             text = movie.voteCount,
@@ -150,7 +155,7 @@ fun RatingRow(modifier: Modifier = Modifier, movie: MoviesDomainModel) {
     }
 }
 
-@Composable
+
 fun getRatingColor(rating: Float): Color {
     val green = Color(0xFF00C853)
     val yellow = Color(0xFFFFD600)

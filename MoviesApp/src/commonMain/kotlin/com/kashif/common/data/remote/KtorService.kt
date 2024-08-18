@@ -1,5 +1,6 @@
 package com.kashif.common.data.remote
 
+import com.kashif.common.data.remote.dto.MovieCreditsResponse
 import com.kashif.common.data.remote.dto.MovieDetailsDTO
 import com.kashif.common.data.remote.dto.MoviesDTO
 import com.kashif.common.data.remote.dto.VideoDTO
@@ -36,4 +37,7 @@ class KtorService(private val httpClient: HttpClient, private val baseUrl: Strin
 
     override suspend fun getMovieDetails(movieId: Int): MovieDetailsDTO =
         httpClient.get(baseUrl+Endpoints.GET_MOVIE_DETAILS.getUrl(movieId, apiKey)).body()
+
+    override suspend fun getMovieCast(movieId: Int): MovieCreditsResponse =
+        httpClient.get(baseUrl + Endpoints.GET_MOVIE_CAST.getUrl(movieId, apiKey)).body()
 }

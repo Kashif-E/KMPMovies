@@ -12,12 +12,12 @@ import kotlinx.coroutines.withContext
 
 
 fun getDictionaryFrom(string: String): Map<String, String> {
-    val dic = mutableMapOf<String, String>()
+    val dictionary = mutableMapOf<String, String>()
     val parts = string.split("&")
     for (part in parts) {
-        val keyval = part.split("=")
-        if (keyval.size > 1 && keyval.first() == "url_encoded_fmt_stream_map") {
-            for (video in keyval[1].decode()?.split(",") ?: emptyList()) {
+        val keypair = part.split("=")
+        if (keypair.size > 1 && keypair.first() == "url_encoded_fmt_stream_map") {
+            for (video in keypair[1].decode()?.split(",") ?: emptyList()) {
                 val videoDetail = video.split("&")
                 var quality = ""
                 var url = ""
@@ -29,11 +29,11 @@ fun getDictionaryFrom(string: String): Map<String, String> {
                         url = v.split("=")[1].decode()
                     }
                 }
-                dic[quality] = url
+                dictionary[quality] = url
             }
         }
     }
-    return dic
+    return dictionary
 }
 
 

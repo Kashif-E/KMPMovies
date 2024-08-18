@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
@@ -42,7 +41,6 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
@@ -54,7 +52,6 @@ import com.kashif.common.domain.model.MoviesDomainModel
 import com.kashif.common.presentation.components.MovieCard
 import com.kashif.common.presentation.components.MovieCardSmall
 import com.kashif.common.presentation.components.PagerMovieCard
-import com.kashif.common.presentation.components.SearchAppBar
 import com.kashif.common.presentation.components.placeHolderRow
 import com.kashif.common.presentation.screens.detailsScreen.DetailsScreen
 import com.kashif.common.presentation.screens.trailerScreen.TrailerScreen
@@ -80,8 +77,7 @@ fun HomeScreen(
                 val previousImgSize = currentPagerSize
                 currentPagerSize = newImgSize.coerceIn(0, 516)
                 alphaValue = (currentPagerSize / 516f).coerceIn(
-                    0f,
-                    1f
+                    0f, 1f
                 )
                 val consumed = currentPagerSize - previousImgSize
                 return Offset(0f, consumed.toFloat())
@@ -97,23 +93,23 @@ fun HomeScreen(
     LaunchedEffect(Unit) { screenModel.onLaunch() }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .nestedScroll(nestedScrollConnection)
-            .consumeWindowInsets(WindowInsets.safeDrawing),
-        contentAlignment = Alignment.TopStart
+        modifier = Modifier.fillMaxSize().nestedScroll(nestedScrollConnection)
+            .consumeWindowInsets(WindowInsets.safeDrawing), contentAlignment = Alignment.TopStart
     ) {
         pager(
             pagerList = pagerList,
             onPlayClick = { movie -> bottomSheetNavigator.show(TrailerScreen(movie)) },
-            onDetailsClick = { id -> navigateToWebViewScreen(id, navigator) },
+            onDetailsClick = { id, title ->
+                navigateToWebViewScreen(
+                    movieId = id, title = title, navigator = navigator
+                )
+            },
             height = currentPagerSize,
             alpha = alphaValue
         )
 
         Movies(
-            modifier = Modifier
-                .padding(top = currentPagerSize.dp),
+            modifier = Modifier.padding(top = currentPagerSize.dp),
             popularMovies = popularMovies,
             topRatedMovies = topRatedMovies,
             upcomingMovies = upcomingMovies,
@@ -121,7 +117,7 @@ fun HomeScreen(
             screenModel = screenModel
         )
 
-        SearchAppBar(placeHolder = "Search for movies, TV shows, people...", onTextChange = {})
+
     }
 }
 
@@ -133,7 +129,6 @@ fun Movies(
     upcomingMovies: Result<List<MoviesDomainModel>>,
     nowPlayingMovies: Result<List<MoviesDomainModel>>,
     screenModel: HomeScreenViewModel,
-    bottomSheetNavigator: BottomSheetNavigator = LocalBottomSheetNavigator.current,
     navigator: Navigator = LocalNavigator.currentOrThrow,
     modifier: Modifier
 ) {
@@ -143,27 +138,34 @@ fun Movies(
         state = rememberLazyListState(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(12.dp),
-        contentPadding = PaddingValues(12.dp)
+        contentPadding = PaddingValues(0.dp)
     ) {
 
-        moviesList(movies = popularMovies,
-            title = "Popular Movies",
-            onMovieClick = { movie -> navigateToWebViewScreen(movie.id, navigator) },
-            seeAllClick = {})
-        moviesList(movies = topRatedMovies,
-            title = "Top Rated",
-            onMovieClick = { movie -> navigateToWebViewScreen(movie.id, navigator) },
-            seeAllClick = {})
-        moviesList(movies = upcomingMovies,
-            title = "Up Coming Movies",
-            onMovieClick = { movie -> navigateToWebViewScreen(movie.id, navigator) },
-            seeAllClick = {})
-        nowPlayingMovies(nowPlayingMovies, screenModel.nowPlayingMoviesPaging.second)
+        moviesList(movies = popularMovies, title = "Popular Movies", onMovieClick = { movie ->
+            navigateToWebViewScreen(
+                movieId = movie.id, navigator = navigator, title = movie.title
+            )
+        }, seeAllClick = {})
+        moviesList(movies = topRatedMovies, title = "Top Rated", onMovieClick = { movie ->
+            navigateToWebViewScreen(
+                movieId = movie.id, navigator = navigator, title = movie.title
+            )
+        }, seeAllClick = {})
+        moviesList(movies = upcomingMovies, title = "Up Coming Movies", onMovieClick = { movie ->
+            navigateToWebViewScreen(
+                movieId = movie.id, navigator = navigator, title = movie.title
+            )
+        }, seeAllClick = {})
+        nowPlayingMovies(
+            popularMovies = nowPlayingMovies,
+            loadMovies = screenModel.nowPlayingMoviesPaging.second,
+            navigator = navigator
+        )
     }
 }
 
-fun navigateToWebViewScreen(movieId: Int, navigator: Navigator) {
-    navigator.push(DetailsScreen(movieId))
+fun navigateToWebViewScreen(movieId: Int, navigator: Navigator, title: String) {
+    navigator.push(DetailsScreen(movieId = movieId, title = title))
 }
 
 
@@ -177,7 +179,7 @@ fun HorizontalScroll(
     val rememberedSeeAllClick = remember { Modifier.clickable { seeAllClick() } }
     Column(verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.Start) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -193,7 +195,7 @@ fun HorizontalScroll(
         }
 
         LazyRow(
-            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 12.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 12.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -210,13 +212,10 @@ fun pager(
     height: Int,
     alpha: Float,
     onPlayClick: (movie: MoviesDomainModel) -> Unit,
-    onDetailsClick: (id: Int) -> Unit,
+    onDetailsClick: (id: Int, title: String) -> Unit,
 ) {
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(height.dp)
-            .alpha(alpha)
+        modifier = Modifier.fillMaxWidth().height(height.dp).alpha(alpha)
     ) {
         when (pagerList) {
             is MoviesState.Error -> {}
@@ -233,7 +232,7 @@ fun pager(
                     val movie = pagerList.movies[page]
                     PagerMovieCard(movie = movie,
                         onPlayClick = { onPlayClick(movie) },
-                        onDetailsClick = { onDetailsClick(movie.id) })
+                        onDetailsClick = { onDetailsClick(movie.id, movie.title) })
                 }
             }
         }
@@ -307,7 +306,7 @@ fun LazyListScope.moviesList(
 }
 
 fun LazyListScope.nowPlayingMovies(
-    popularMovies: Result<List<MoviesDomainModel>>, loadMovies: () -> Unit
+    popularMovies: Result<List<MoviesDomainModel>>, loadMovies: () -> Unit, navigator: Navigator
 ) {
     when (popularMovies) {
         is Result.Loading -> {
@@ -319,19 +318,24 @@ fun LazyListScope.nowPlayingMovies(
         }
 
         is Result.Success -> {
-            verticalMovieList(popularMovies.data, "Upcoming Movies", loadMovies::invoke)
+            verticalMovieList(
+                data = popularMovies.data,
+                title = "Upcoming Movies",
+                loadMovies = loadMovies::invoke,
+                navigator = navigator
+            )
         }
     }
 }
 
 fun LazyListScope.verticalMovieList(
-    data: List<MoviesDomainModel>, title: String, loadMovies: () -> Unit
+    data: List<MoviesDomainModel>, title: String, loadMovies: () -> Unit, navigator: Navigator
 ) {
     item {
         Text(
             text = title,
             style = MaterialTheme.typography.headlineSmall,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
             textAlign = TextAlign.Start
         )
     }
@@ -339,7 +343,9 @@ fun LazyListScope.verticalMovieList(
         if (data.last() == movie) {
             loadMovies()
         }
-        MovieCard(movie = movie, onClick = {})
+        MovieCard(modifier = Modifier.padding(horizontal = 16.dp), movie = movie, onClick = {
+            navigator.push(DetailsScreen(movieId = movie.id, title = movie.title))
+        })
     }
 }
 

@@ -26,7 +26,8 @@ data class Result(
     val title: String,
     val video: Boolean,
     @SerialName("vote_average") val voteAverage: Double,
-    @SerialName("vote_count") val voteCount: Int
+    @SerialName("vote_count") val voteCount: Int,
+    val genre: Genre?=Genre(0,"")
 )
 
 fun Result.asDomainModel() =
@@ -42,7 +43,9 @@ fun Result.asDomainModel() =
         title = this.title,
         video = this.video,
         voteAverage = formatVoteAverage(this.voteAverage).toFloat(),
-        voteCount = this.voteCount.toString())
+        voteCount = this.voteCount.toString(),
+        genre = emptyList()
+    )
 
 fun List<Result>.asDomainModel() = map { it.asDomainModel() }
 

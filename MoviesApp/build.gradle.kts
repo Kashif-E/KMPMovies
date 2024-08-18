@@ -87,6 +87,7 @@ kotlin {
             implementation(libs.system.ui.controller)
             implementation(libs.androidx.activity.compose)
             implementation(libs.system.ui.controller)
+
         }
         androidNativeTest.dependencies {
             implementation(libs.junit)
@@ -146,6 +147,11 @@ android {
             isMinifyEnabled = false
         }
 
+    }
+
+    dependencies {
+        debugImplementation("androidx.compose.ui:ui-tooling:1.6.8")
+        implementation("androidx.compose.ui:ui-tooling-preview:1.6.8")
     }
 }
 

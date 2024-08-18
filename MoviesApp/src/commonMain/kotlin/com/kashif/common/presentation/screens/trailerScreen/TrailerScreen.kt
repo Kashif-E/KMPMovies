@@ -67,7 +67,7 @@ class TrailerScreen(private val movie: MoviesDomainModel) : MoviesAppScreen {
                     icon = Icons.Rounded.Close, onClick = { bottomSheetNavigator.hide() })
                 Text(
                     text = movie.title,
-                    style = MaterialTheme.typography.headlineSmall
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
 
@@ -87,7 +87,7 @@ class TrailerScreen(private val movie: MoviesDomainModel) : MoviesAppScreen {
                     VideoPlayer(
                         modifier =
                         Modifier.fillMaxWidth()
-                            .height(350.dp),
+                            .height(220.dp),
                           //  .background(color = Color.Transparent),
                         (state as Result.Success<VideoDomainModel>).data.key
                     )
@@ -106,7 +106,7 @@ class TrailerScreen(private val movie: MoviesDomainModel) : MoviesAppScreen {
                     Text(
                         text = "Release: ${movie.releaseDate}",
                         textAlign = TextAlign.Start,
-                        style = MaterialTheme.typography.bodySmall,
+                        style = MaterialTheme.typography.bodySmall.copy(color = Color.Gray),
                         modifier = Modifier.weight(1f)
                     )
                     Spacer(Modifier.weight(0.5f))
@@ -116,12 +116,12 @@ class TrailerScreen(private val movie: MoviesDomainModel) : MoviesAppScreen {
                 Text(
                     text = "Prolog",
                     textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.bodyLarge
+                    style = MaterialTheme.typography.headlineMedium
                 )
                 Text(
                     text = movie.overview,
                     textAlign = TextAlign.Start,
-                    style = MaterialTheme.typography.bodySmall
+                    style = MaterialTheme.typography.bodySmall.copy(color = Color.Gray)
                 )
             }
         }

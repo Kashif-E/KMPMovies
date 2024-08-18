@@ -54,10 +54,12 @@ fun MovieDetailsDTO.asDomainModel() = MoviesDomainModel(
     overview = this.overview,
     popularity = this.popularity.toString(),
     posterPath = Constants.TMDB_IMAGE_URL + this.posterPath,
-    hdPosterPath = Constants.TMDB_HD_IMAGE_URL + this.posterPath,
-    releaseDate = this.releaseDate,
+    releaseDate ="Release Date: " + formatDate(this.releaseDate),
     title = this.title,
     video = this.video,
     voteAverage = this.voteAverage.toFloat(),
-    voteCount = this.voteCount.toString()
+    voteCount = this.voteCount.toString(),
+    hdPosterPath = Constants.TMDB_HD_IMAGE_URL + this.posterPath,
+    genre = this.genres.map { it.name }
+
 )

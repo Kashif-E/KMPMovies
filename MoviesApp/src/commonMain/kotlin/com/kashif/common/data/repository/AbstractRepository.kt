@@ -3,6 +3,7 @@ package com.kashif.common.data.repository
 import com.kashif.common.data.remote.dto.MoviesDTO
 import com.kashif.common.data.remote.dto.VideoDTO
 import com.kashif.common.data.remote.*
+import com.kashif.common.data.remote.dto.MovieCreditsResponse
 import com.kashif.common.data.remote.dto.MovieDetailsDTO
 
 abstract class AbstractRepository {
@@ -14,4 +15,5 @@ abstract class AbstractRepository {
     abstract fun getTopRatedMoviesPagingSource(): UpcomingMoviesPagingSource
     abstract suspend fun getTrailerVideo(movieId: Int): VideoDTO
     abstract suspend fun getMovieDetails(id: Int) : MovieDetailsDTO
+    abstract suspend fun getMovieCast(movieId: Int): MovieCreditsResponse
 }

@@ -2,6 +2,7 @@ package com.kashif.common.data.repository
 
 import com.kashif.common.data.remote.dto.VideoDTO
 import com.kashif.common.data.remote.*
+import com.kashif.common.data.remote.dto.MovieCreditsResponse
 import com.kashif.common.data.remote.dto.MovieDetailsDTO
 import com.kashif.common.data.remote.dto.MoviesDTO
 
@@ -30,6 +31,8 @@ class Repository(private val ktorService: AbstractKtorService) : AbstractReposit
 
     override suspend fun getMovieDetails(id: Int): MovieDetailsDTO =
         ktorService.getMovieDetails(id)
+
+    override suspend fun getMovieCast(movieId: Int): MovieCreditsResponse = ktorService.getMovieCast(movieId = movieId)
 
 
 }

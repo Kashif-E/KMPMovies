@@ -21,7 +21,7 @@ kotlin-serialization = "1.7.1"
 material-icon-version = "1.4.1"
 accompanist-version = "0.33.2-alpha"
 voyager = "1.0.0"
-koin-compose-jb = "3.6.0-wasm-alpha2"
+koin-compose-jb = "4.0.0-RC1"
 youtube-player-android = "12.1.0"
 
 [libraries]

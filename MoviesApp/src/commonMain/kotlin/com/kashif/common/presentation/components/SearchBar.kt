@@ -40,7 +40,11 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SearchAppBar(placeHolder: String, onTextChange: (query: String) -> Unit) {
+fun SearchAppBar(
+    placeHolder: String,
+    onTextChange: (query: String) -> Unit,
+    queryFired: () -> Unit
+) {
     var isExpanded by remember { mutableStateOf(false) }
     var query by remember { mutableStateOf(("")) }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -64,7 +68,7 @@ fun SearchAppBar(placeHolder: String, onTextChange: (query: String) -> Unit) {
                     .padding(12.dp)
                     .background(
                         shape = RoundedCornerShape(50.dp),
-                        color = MaterialTheme.colorScheme.surface
+                        color = MaterialTheme.colorScheme.primaryContainer
 
                     ),
                 horizontalArrangement = Arrangement.Start,
@@ -87,13 +91,15 @@ fun SearchAppBar(placeHolder: String, onTextChange: (query: String) -> Unit) {
                     KeyboardOptions.Default.copy(imeAction = ImeAction.Search),
                     keyboardActions = keyboardActions,
                     singleLine = true,
+                    textStyle = MaterialTheme.typography.bodySmall,
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = Color.Transparent,
                         unfocusedContainerColor = Color.Transparent,
                         focusedIndicatorColor = Color.Transparent,
                         unfocusedIndicatorColor = Color.Transparent,
                     ),
-                )
+
+                    )
 
                 IconButton(
                     onClick = {
@@ -102,7 +108,7 @@ fun SearchAppBar(placeHolder: String, onTextChange: (query: String) -> Unit) {
                     },
                     modifier = Modifier.weight(1f)
                 ) {
-                    Icon(Icons.Rounded.Close, "", tint = Color.White)
+                    Icon(Icons.Rounded.Close, "", tint = MaterialTheme.colorScheme.primaryContainer)
                 }
             }
         })

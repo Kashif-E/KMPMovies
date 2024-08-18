@@ -27,8 +27,8 @@ fun TransparentIconHolder(
 ) {
 
     Box(
-        modifier = modifier.background(MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.5f),CircleShape), contentAlignment = Alignment.Center
+        modifier = modifier.background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.5f),CircleShape), contentAlignment = Alignment.Center
     ) {
-        IconButton(onClick = onClick) { Icon(imageVector = icon, "", tint = Color.White) }
+        IconButton(onClick = onClick) { Icon(imageVector = icon, "", tint = MaterialTheme.colorScheme.onPrimaryContainer) }
     }
 }
