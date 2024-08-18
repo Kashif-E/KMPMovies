@@ -39,6 +39,15 @@ MoviesApp is a Kotlin-based Android application that allows users to search for 
 - `androidApp`: Android-specific configuration and entry point.
 - `jvmMain`: JVM-specific configuration and entry point.
 
+### Screen Shots
+
+<img src="art/deatilstop.png" alt="details screen"/>
+<img src="art/detailsbottom.png" alt="details bottom"/>
+<img src="art/home.png" alt="home"/>
+<img src="art/search.png" alt="search"/>
+<img src="art/trailer.png" alt="trailer"/>
+<img src="art/verticallist.png" alt="vertical list"/>
+
 ## Getting Started
 
 ### Prerequisites
