@@ -297,9 +297,7 @@ fun LazyListScope.moviesList(
         }
 
         is Result.Success -> {
-            item(key = {
-                movies.data.last().uuid + movies.data.first().uuid
-            }, contentType = {
+            item(contentType = {
                 "MoviesDomainModel"
             }) {
                 HorizontalScroll(
@@ -347,7 +345,7 @@ fun LazyListScope.verticalMovieList(
             textAlign = TextAlign.Start
         )
     }
-    items(data, key = {item->
+    items(data, key = { item ->
         item.uuid
     }, contentType = {
         it::class.simpleName
