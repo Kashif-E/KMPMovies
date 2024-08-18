@@ -156,8 +156,8 @@ fun Movies(
                 movieId = movie.id, navigator = navigator, title = movie.title
             )
         }, seeAllClick = {})
-        nowPlayingMovies(
-            popularMovies = nowPlayingMovies,
+        popularMovies(
+            popularMovies = popularMovies,
             loadMovies = screenModel.nowPlayingMoviesPaging.second,
             navigator = navigator
         )
@@ -305,7 +305,7 @@ fun LazyListScope.moviesList(
     }
 }
 
-fun LazyListScope.nowPlayingMovies(
+fun LazyListScope.popularMovies(
     popularMovies: Result<List<MoviesDomainModel>>, loadMovies: () -> Unit, navigator: Navigator
 ) {
     when (popularMovies) {
@@ -320,7 +320,7 @@ fun LazyListScope.nowPlayingMovies(
         is Result.Success -> {
             verticalMovieList(
                 data = popularMovies.data,
-                title = "Upcoming Movies",
+                title = "Popular Movies",
                 loadMovies = loadMovies::invoke,
                 navigator = navigator
             )
