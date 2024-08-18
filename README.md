@@ -42,12 +42,12 @@ MoviesApp is a Kotlin-based Android application that allows users to search for 
 ### Screen Shots
 
 <div style="display: flex; gap: 10px;">
-    <img src="art/deatilstop.png" alt="details screen" style="width: 50px; height: auto;"/>
-    <img src="art/detailsbottom.png" alt="details bottom" style="width: 50px; height: auto;"/>
-    <img src="art/home.png" alt="home" style="width: 50px; height: auto;"/>
-    <img src="art/search.png" alt="search" style="width: 50px; height: auto;"/>
-    <img src="art/trailer.png" alt="trailer" style="width: 50px; height: auto;"/>
-    <img src="art/verticallist.png" alt="vertical list" style="width: 50px; height: auto;"/>
+    <img src="art/deatilstop.png" alt="details screen" style="width: 100px; height: auto;"/>
+    <img src="art/detailsbottom.png" alt="details bottom" style="width: 100px; height: auto;"/>
+    <img src="art/home.png" alt="home" style="width: 100px; height: auto;"/>
+    <img src="art/search.png" alt="search" style="width: 100px; height: auto;"/>
+    <img src="art/trailer.png" alt="trailer" style="width: 100px; height: auto;"/>
+    <img src="art/verticallist.png" alt="vertical list" style="width: 100px; height: auto;"/>
 </div>
 
 
