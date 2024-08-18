@@ -1,7 +1,6 @@
 package com.kashif.common.presentation.screens.trailerScreen
 
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,8 +23,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import cafe.adriel.voyager.navigator.bottomSheet.LocalBottomSheetNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
 import com.kashif.common.VideoPlayer
 import com.kashif.common.data.paging.Result
 import com.kashif.common.domain.model.MoviesDomainModel
@@ -45,7 +47,7 @@ class TrailerScreen(private val movie: MoviesDomainModel) : MoviesAppScreen {
 
     @Composable
     private fun MainScreen(
-        bottomSheetNavigator: BottomSheetNavigator = LocalBottomSheetNavigator.current,
+        bottomSheetNavigator: Navigator = LocalNavigator.currentOrThrow,
         movie: MoviesDomainModel,
         screenModel: TrailerScreenViewModel = koinInject()
     ) {
@@ -64,7 +66,7 @@ class TrailerScreen(private val movie: MoviesDomainModel) : MoviesAppScreen {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 TransparentIconHolder(
-                    icon = Icons.Rounded.Close, onClick = { bottomSheetNavigator.hide() })
+                    icon = Icons.Rounded.Close, onClick = { bottomSheetNavigator.pop() })
                 Text(
                     text = movie.title,
                     style = MaterialTheme.typography.titleMedium

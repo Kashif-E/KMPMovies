@@ -98,7 +98,7 @@ fun HomeScreen(
     ) {
         pager(
             pagerList = pagerList,
-            onPlayClick = { movie -> bottomSheetNavigator.show(TrailerScreen(movie)) },
+            onPlayClick = { movie -> navigator.push(TrailerScreen(movie)) },
             onDetailsClick = { id, title ->
                 navigateToWebViewScreen(
                     movieId = id, title = title, navigator = navigator
