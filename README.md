@@ -1,6 +1,6 @@
 # MoviesApp
 
-MoviesApp is a Kotlin-based Android application that allows users to search for movies, view details, and watch trailers. The app uses  Compose Multiplatform for the UI and Koin for dependency injection and supports IOS,Android and JVM.
+MoviesApp is a Kotlin-based Android application that allows users to search for movies, view details, and watch trailers. The app uses  Compose Multiplatform for the UI and Koin for dependency injection and supports IOS, Android and JVM.
 
 ## Features
 
@@ -75,7 +75,7 @@ MoviesApp is a Kotlin-based Android application that allows users to search for 
 
 - **Search for Movies**: Use the search bar to find movies, TV shows, or people.
 - **View Movie Details**: Click on a movie to view its details.
-- **Watch Trailers**: Click on the play button to watch the trailer of a movie on ios, android and jvm.
+- **Watch Trailers**: Click on the play button to watch a movie trailer on ios, android and JVM.
 - **Browse Movies**: Scroll through the lists of popular, top-rated, upcoming, and now-playing movies.
 
 ## Contributing
@@ -105,7 +105,8 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 - [Jetpack Compose](https://developer.android.com/jetpack/compose)
 - [Koin](https://insert-koin.io/)
 - [Voyager](https://github.com/adrielcafe/voyager)
+- [Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform)
 
 ## Contact
 
-For any inquiries, please contact [kashismails@gmail.com].
+If you have any questions, please contact [kashismails@gmail.com].
