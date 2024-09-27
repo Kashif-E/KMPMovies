@@ -2,6 +2,8 @@
 
 MoviesApp is a Kotlin-based Android application that allows users to search for movies, view details, and watch trailers. The app uses  Compose Multiplatform for the UI and Koin for dependency injection and supports IOS, Android and JVM.
 
+<a href="https://www.buymeacoffee.com/kashifmehmood"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=kashifmehmood&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+
 ## Features
 
 - **Search Movies**: Search for movies, TV shows, and people.
